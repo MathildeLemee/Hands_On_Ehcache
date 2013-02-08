@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Wine {
 
-    private int id;
+    private long id;
 
     private String name;
 
@@ -24,11 +24,11 @@ public class Wine {
 
     private String description;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

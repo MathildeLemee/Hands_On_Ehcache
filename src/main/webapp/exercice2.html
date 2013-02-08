@@ -15,21 +15,25 @@
     // Data
     var line1 = new TimeSeries();
     var line2 = new TimeSeries();
+
     $("#button").click(function(){
+        console.log("2");
         $.ajax({
             type:"DELETE",
-            url:"api/exercice1/clear",
+            url:"api/exercice2/clear",
             dataType:"html"
 
         });
     });
 
-
     // Add a random value to each line every second
+
     setInterval(function() {
+      var id =  Math.floor((Math.random()*10)+1);
+
         $.ajax({
             type:"GET",
-            url:"api/exercice1/search/mysql/toto",
+            url:"api/exercice2/mysql/"+id,
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
@@ -39,7 +43,7 @@
 
         $.ajax({
             type:"GET",
-            url:"api/exercice1/search/ehcache/toto",
+            url:"api/exercice2/ehcache/"+id,
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
@@ -59,8 +63,8 @@
 
 <h2 style="color: blue">Database latency:<span id="db-latency">...</span>ms</h2>
 <h2 style="color: red">Ehcache latency:<span id="ehcache-latency">...</span>ms</h2>
-
 <a href="#" id="button">Clear Cache</a>
+
 </body>
 
 

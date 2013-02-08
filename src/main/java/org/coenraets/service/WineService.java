@@ -12,7 +12,7 @@ public interface WineService {
 
   List<Wine> findByName(String name);
 
-  Wine findById(int id);
+  Wine findById(long id);
 
   Wine save(Wine wine);
 
@@ -20,5 +20,7 @@ public interface WineService {
 
   Wine update(Wine wine);
 
-  boolean remove(int id);
+  boolean remove(long id);
+
+  void clear();
 }

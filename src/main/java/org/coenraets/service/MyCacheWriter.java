@@ -15,7 +15,7 @@ import java.util.Collection;
  * @author : Mathilde Lemee
  */
 public class MyCacheWriter implements CacheWriter {
-  public WineMysql wineMysql;
+  public WineMysql wineMysql = new WineMysql();
 
   @Override
   public CacheWriter clone(final Ehcache ehcache) throws CloneNotSupportedException {
@@ -33,7 +33,7 @@ public class MyCacheWriter implements CacheWriter {
 
   @Override
   public void write(final Element element) throws CacheException {
-    wineMysql.save((Wine)element.getObjectValue());
+    wineMysql.create((Wine)element.getObjectValue());
   }
 
   @Override

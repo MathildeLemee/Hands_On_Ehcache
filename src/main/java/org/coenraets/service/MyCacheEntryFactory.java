@@ -1,7 +1,6 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
-import org.coenraets.service.WineMysql;
 
 /**
  * @author : Mathilde Lemee
@@ -12,6 +11,7 @@ public class MyCacheEntryFactory implements CacheEntryFactory {
 
   @Override
   public Object createEntry(final Object key) throws Exception {
-    return wineMysql.findById((Integer)key);
+    System.out.println("ENTRY FACTORY"+key.toString());
+    return wineMysql.findById((Long)key);
   }
 }

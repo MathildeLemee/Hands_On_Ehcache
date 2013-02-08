@@ -15,35 +15,39 @@
     // Data
     var line1 = new TimeSeries();
     var line2 = new TimeSeries();
+
     $("#button").click(function(){
+        console.log("2");
         $.ajax({
             type:"DELETE",
-            url:"api/exercice1/clear",
+            url:"api/exercice4/clear",
             dataType:"html"
 
         });
     });
 
-
     // Add a random value to each line every second
+
     setInterval(function() {
+        var id =  Math.floor((Math.random()*10)+1);
+
         $.ajax({
-            type:"GET",
-            url:"api/exercice1/search/mysql/toto",
+            type:"POST",
+            url:"api/exercice4/writeThrough/create",
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
-                $("#db-latency").html(data);
+                $("#through-latency").html(data);
             }
         });
 
         $.ajax({
-            type:"GET",
-            url:"api/exercice1/search/ehcache/toto",
+            type:"POST",
+            url:"api/exercice4/writeBehind/create",
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
-                $("#ehcache-latency").html(data);
+                $("#behind-latency").html(data);
             }
         });
     }, 1000);
@@ -57,10 +61,10 @@
 
 </script>
 
-<h2 style="color: blue">Database latency:<span id="db-latency">...</span>ms</h2>
-<h2 style="color: red">Ehcache latency:<span id="ehcache-latency">...</span>ms</h2>
-
+<h2 style="color: blue">Through latency:<span id="through-latency">...</span>ms</h2>
+<h2 style="color: red">Behind latency:<span id="behind-latency">...</span>ms</h2>
 <a href="#" id="button">Clear Cache</a>
+
 </body>
 
 
