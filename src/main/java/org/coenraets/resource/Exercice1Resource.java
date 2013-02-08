@@ -14,6 +14,19 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+
+/**
+ Exercice 1 :  Cache Aside
+ Implémenter un cache aside dans le service exercice1 pour la méthode findBy.
+ Un cache aside a l'algo suivant :
+ Si j'ai la valeur dans mon cache alors je la retourne
+ Sinon je vais la chercher en base de données et je la place dans mon cache
+
+ Une fois que vous etes confiant, rendez-vous sur la page Exercice1.html
+
+
+ * @author : Mathilde Lemee
+ */
 @Path("/exercice1")
 public class Exercice1Resource {
 
@@ -28,21 +41,18 @@ public class Exercice1Resource {
   }
 
   @GET
-  @Path("search/mysql/{query}")
-  /**
-   * TODO :
-   */
-  public String findByNameMysql(@PathParam("query") String query) {
+  @Path("wines/mysql/{id}")
+  public String findByIdMysql(@PathParam("id") Long id) {
     long start = System.currentTimeMillis();
-    mysql.findByName("toto");
+    mysql.findById(id);
     return ""+(System.currentTimeMillis() - start);
   }
 
   @GET
-  @Path("search/ehcache/{query}")
-  public String findByNameEhcache(@PathParam("query") String query) {
+  @Path("wines/ehcache/{id}")
+  public String findByIdEhcache(@PathParam("id")Long id) {
     long start = System.currentTimeMillis();
-    ehcache.findByName("toto");
+    ehcache.findById(id);
     return ""+(System.currentTimeMillis() - start);
   }
 

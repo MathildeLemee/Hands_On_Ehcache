@@ -21,10 +21,10 @@ public class Exercice3 implements WineService {
   public Exercice3() {
     //TODO : not logic to have to include for exercice4
     Configuration configuration = new Configuration() .
-        cache(new CacheConfiguration("writeSOR", 3)
+        cache(new CacheConfiguration("writeSOR", 1000)
             .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_THROUGH)
             )).defaultCache(new CacheConfiguration("default", 1000)).
-    cache(new CacheConfiguration("writeBehindSOR", 3)
+    cache(new CacheConfiguration("writeBehindSOR", 1000)
         .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
         )).defaultCache(new CacheConfiguration("default", 1000));
     this.manager = CacheManager.create(configuration);

@@ -9,9 +9,7 @@ import org.coenraets.model.Wine;
 
 import java.util.List;
 
-/**
- * @author Christophe Coenraets
- */
+
 public class Exercice1 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
@@ -19,7 +17,7 @@ public class Exercice1 implements WineService {
 
   public Exercice1() {
     Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("searchWine", 3));
+        .cache(new CacheConfiguration("searchWine", 1000));
     this.manager = CacheManager.create(configuration);
     this.searchWine = manager.getCache("searchWine");
   }
@@ -32,22 +30,20 @@ public class Exercice1 implements WineService {
 
   @Override
   public List<Wine> findByName(String name) {
-    Element element = searchWine.get(name);
-    if (element != null && element.getObjectValue() != null) {
-      return (List<Wine>)element.getObjectValue();
-    } else {
-      List<Wine> list = mysql.findByName(name);
-      searchWine.put(new Element(name, list));
-      return list;
-    }
+    return mysql.findByName(name);
   }
-
-
 
 
   @Override
   public Wine findById(long id) {
-    return mysql.findById(id);
+    Element element = searchWine.get(id);
+    if (element != null && element.getObjectValue() != null) {
+      return (Wine)element.getObjectValue();
+    } else {
+      Wine wine = mysql.findById(id);
+      searchWine.put(new Element(id, wine));
+      return wine;
+    }
   }
 
   @Override

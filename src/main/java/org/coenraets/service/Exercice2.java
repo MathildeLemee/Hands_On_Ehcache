@@ -20,7 +20,7 @@ public class Exercice2 implements WineService {
 
   public Exercice2() {
     Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("writeSOR", 3));
+        .cache(new CacheConfiguration("writeSOR", 1000));
     this.manager = CacheManager.create(configuration);
     this.wine = manager.getCache("writeSOR");
     MyCacheEntryFactory myCacheEntryFactory = new MyCacheEntryFactory();

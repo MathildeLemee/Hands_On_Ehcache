@@ -11,6 +11,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * Exercice 4 : Write-Behind
+ * Cache sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
+ * Implémenter l'écriture via la méthode create. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
+ * L'écriture devra etre asynchone.
+ *
+ * Indice : Le cacheWriter pourra surement vous aider :)
+ *
+ *  Rendez vous sur la page Exercice4.html pour voir le résultat
+
+ * @author : Mathilde Lemee
+ */
 @Path("/exercice4")
 public class Exercice4Resource {
 

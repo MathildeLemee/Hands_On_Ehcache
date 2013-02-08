@@ -29,7 +29,7 @@
     setInterval(function() {
         $.ajax({
             type:"GET",
-            url:"api/exercice1/search/mysql/toto",
+            url:"api/exercice1/wines/mysql/1",
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
@@ -39,7 +39,7 @@
 
         $.ajax({
             type:"GET",
-            url:"api/exercice1/search/ehcache/toto",
+            url:"api/exercice1/wines/ehcache/2",
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
