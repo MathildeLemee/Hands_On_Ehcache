@@ -95,7 +95,6 @@ public class WineMysql implements WineService {
     PreparedStatement ps = null;
     try {
       c = ConnectionHelper.getConnection();
-      System.out.println("INSERT "+wine.getId());
       ps = c.prepareStatement("INSERT INTO wine (name, grapes, country, region, year, picture, description,id) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
