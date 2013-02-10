@@ -3,22 +3,27 @@ package org.coenraets.service;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.Configuration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
 
 /**
- * @author Christophe Coenraets
+ * Exercise 1
+ * Cache as Cache aside
  */
-public class Exercice4 implements WineService {
+
+public class Exercise1 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
   private Cache wineCache;
 
-  public Exercice4() {
-    this.manager = CacheManager.getInstance();
-    this.wineCache = manager.getCache("writeBehindSOR");
-    wineCache.registerCacheWriter(new MyCacheWriter());
+  public Exercise1() {
+    Configuration configuration = new Configuration()
+        .cache(new CacheConfiguration("searchWine", 3));
+    this.manager = CacheManager.create(configuration);
+    this.wineCache = manager.getCache("searchWine");
   }
 
   @Override
@@ -29,12 +34,20 @@ public class Exercice4 implements WineService {
 
   @Override
   public List<Wine> findByName(String name) {
-    return mysql.findByName(name);
+    Element element = wineCache.get(name);
+    if (element != null && element.getObjectValue() != null) {
+      return (List<Wine>)element.getObjectValue();
+    } else {
+      List<Wine> list = mysql.findByName(name);
+      wineCache.put(new Element(name, list));
+      return list;
+    }
   }
+
 
   @Override
   public Wine findById(long id) {
-    return (Wine)wineCache.get(id).getObjectValue();
+    return mysql.findById(id);
   }
 
   @Override
@@ -44,8 +57,7 @@ public class Exercice4 implements WineService {
 
   @Override
   public Wine create(Wine wine) {
-    wineCache.putWithWriter(new Element(wine.getId(),wine));
-    return null;
+    return mysql.create(wine);
   }
 
   @Override
@@ -63,6 +75,5 @@ public class Exercice4 implements WineService {
   public void clear() {
     wineCache.removeAll();
   }
-
 
 }

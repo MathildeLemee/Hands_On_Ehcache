@@ -1,8 +1,8 @@
 package org.coenraets.resource;
 
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercice3;
-import org.coenraets.service.Exercice4;
+import org.coenraets.service.Exercise3;
+import org.coenraets.service.Exercise4;
 import org.coenraets.service.WineService;
 
 import javax.ws.rs.DELETE;
@@ -11,11 +11,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/exercice4")
-public class Exercice4Resource {
+@Path("/exercise4")
+public class Exercise4Resource {
 
-  WineService ehcacheWriteThrough = new Exercice3();
-  WineService ehcacheWriteBehind= new Exercice4();
+  WineService ehcacheWriteThrough = new Exercise3();
+  WineService ehcacheWriteBehind= new Exercise4();
 
   @POST
   @Path("writeBehind/create")

@@ -15,14 +15,12 @@
     // Data
     var line1 = new TimeSeries();
     var line2 = new TimeSeries();
-    var line3 = new TimeSeries();
-    var line4 = new TimeSeries();
 
     $("#button").click(function(){
         console.log("2");
         $.ajax({
             type:"DELETE",
-            url:"api/exercice3/clear",
+            url:"api/exercise2/clear",
             dataType:"html"
 
         });
@@ -34,8 +32,8 @@
       var id =  Math.floor((Math.random()*10)+1);
 
         $.ajax({
-            type:"POST",
-            url:"api/exercice3/mysql/create/",
+            type:"GET",
+            url:"api/exercise2/mysql/"+id,
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
@@ -44,32 +42,12 @@
         });
 
         $.ajax({
-            type:"POST",
-            url:"api/exercice3/ehcache/create/",
+            type:"GET",
+            url:"api/exercise2/ehcache/"+id,
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
                 $("#ehcache-latency").html(data);
-            }
-        });
-
-        $.ajax({
-            type:"GET",
-            url:"api/exercice3/mysql/createAndGet/",
-            dataType:"html",
-            success:function (data) {
-                line3.append(new Date().getTime(), data);
-                $("#db-rd-latency").html(data);
-            }
-        });
-
-        $.ajax({
-            type:"GET",
-            url:"api/exercice3/ehcache/createAndGet/",
-            dataType:"html",
-            success:function (data) {
-                line4.append(new Date().getTime(), data);
-                $("#ehcache-rd-latency").html(data);
             }
         });
     }, 1000);
@@ -78,21 +56,13 @@
             { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.4)', lineWidth:3 });
     smoothie.addTimeSeries(line2,
             { strokeStyle:'rgb(255, 0, 255)', fillStyle:'rgba(255, 0, 255, 0.3)', lineWidth:3 });
-    smoothie.addTimeSeries(line3,
-            { strokeStyle:'rgb(255, 0, 255)', fillStyle:'rgba(255, 255, 255, 0.3)', lineWidth:3 });
-    smoothie.addTimeSeries(line4,
-            { strokeStyle:'rgb(255, 0, 255)', fillStyle:'rgba(255, 0, 128, 0.3)', lineWidth:3 });
 
 
 
 </script>
 
-<h2 style="color: blue">Database WRITE latency:<span id="db-latency">...</span>ms</h2>
-<h2 style="color: red">Ehcache WRITE latency:<span id="ehcache-latency">...</span>ms</h2>
-<h2 style="color: red">Database READ latency:<span id="db-rd-latency">...</span>ms</h2>
-<h2 style="color: red">Ehcache  READ  latency:<span id="ehcache-rd-latency">...</span>ms</h2>
-
-
+<h2 style="color: blue">Database latency:<span id="db-latency">...</span>ms</h2>
+<h2 style="color: red">Ehcache latency:<span id="ehcache-latency">...</span>ms</h2>
 <a href="#" id="button">Clear Cache</a>
 
 </body>

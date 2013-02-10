@@ -13,13 +13,13 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
-public class Exercice3 implements WineService {
+public class Exercise3 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
   private Cache wineCache;
 
-  public Exercice3() {
-    //TODO : not logic to have to include for exercice4
+  public Exercise3() {
+    //TODO : not logic to have to include for exercise4
     Configuration configuration = new Configuration() .
         cache(new CacheConfiguration("writeSOR", 3)
             .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_THROUGH)

@@ -1,7 +1,7 @@
 package org.coenraets.resource;
 
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercice1;
+import org.coenraets.service.Exercise1;
 import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
 
@@ -14,17 +14,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/exercice1")
-public class Exercice1Resource {
+@Path("/exercise1")
+public class Exercise1Resource {
 
-  WineService mysql = new WineMysql();
-  WineService ehcache = new Exercice1();
+  WineService sqlService = new WineMysql();
+  WineService cacheService = new Exercise1();
 
   @GET
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public List<Wine> findAll() {
     System.out.println("findAll");
-    return mysql.findAll();
+    return sqlService.findAll();
   }
 
   @GET
@@ -34,23 +34,25 @@ public class Exercice1Resource {
    */
   public String findByNameMysql(@PathParam("query") String query) {
     long start = System.currentTimeMillis();
-    mysql.findByName("toto");
-    return ""+(System.currentTimeMillis() - start);
+    sqlService.findByName(query);
+    long end = System.currentTimeMillis();
+    return ""+(end - start);
   }
 
   @GET
   @Path("search/ehcache/{query}")
   public String findByNameEhcache(@PathParam("query") String query) {
     long start = System.currentTimeMillis();
-    ehcache.findByName("toto");
-    return ""+(System.currentTimeMillis() - start);
+    cacheService.findByName(query);
+    long end = System.currentTimeMillis();
+    return ""+(end - start);
   }
 
 
   @DELETE
   @Path("clear")
   public void clearCache() {
-    ehcache.clear();
+    cacheService.clear();
   }
 
 

@@ -3,8 +3,6 @@ package org.coenraets.service;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -12,16 +10,15 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
-public class Exercice1 implements WineService {
+public class Exercise4 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
-  private Cache searchWine;
+  private Cache wineCache;
 
-  public Exercice1() {
-    Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("searchWine", 3));
-    this.manager = CacheManager.create(configuration);
-    this.searchWine = manager.getCache("searchWine");
+  public Exercise4() {
+    this.manager = CacheManager.getInstance();
+    this.wineCache = manager.getCache("writeBehindSOR");
+    wineCache.registerCacheWriter(new MyCacheWriter());
   }
 
   @Override
@@ -32,22 +29,12 @@ public class Exercice1 implements WineService {
 
   @Override
   public List<Wine> findByName(String name) {
-    Element element = searchWine.get(name);
-    if (element != null && element.getObjectValue() != null) {
-      return (List<Wine>)element.getObjectValue();
-    } else {
-      List<Wine> list = mysql.findByName(name);
-      searchWine.put(new Element(name, list));
-      return list;
-    }
+    return mysql.findByName(name);
   }
-
-
-
 
   @Override
   public Wine findById(long id) {
-    return mysql.findById(id);
+    return (Wine)wineCache.get(id).getObjectValue();
   }
 
   @Override
@@ -57,7 +44,8 @@ public class Exercice1 implements WineService {
 
   @Override
   public Wine create(Wine wine) {
-    return mysql.create(wine);
+    wineCache.putWithWriter(new Element(wine.getId(),wine));
+    return null;
   }
 
   @Override
@@ -73,7 +61,8 @@ public class Exercice1 implements WineService {
 
   @Override
   public void clear() {
-    searchWine.removeAll();
+    wineCache.removeAll();
   }
+
 
 }

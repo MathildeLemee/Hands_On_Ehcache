@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
-public class Exercice2 implements WineService {
+public class Exercise2 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
   private Cache wine;
   private SelfPopulatingCache selfPopulatingCache;
 
-  public Exercice2() {
+  public Exercise2() {
     Configuration configuration = new Configuration()
         .cache(new CacheConfiguration("writeSOR", 3));
     this.manager = CacheManager.create(configuration);
@@ -40,7 +40,7 @@ public class Exercice2 implements WineService {
 
   @Override
   /**
-   * Exercice 2A. Modifier cette méthode. Le système de données est le cache => aucun appel à mysql dans cette méthode.
+   * Exercise 2A. Modifier cette méthode. Le système de données est le cache => aucun appel à mysql dans cette méthode.
    * C'est au cache qu'il faut indiquer comment se mettre à jour en cas d'objet non présent dans le cache
    */
   public Wine findById(long id) {
