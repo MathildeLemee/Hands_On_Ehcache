@@ -8,84 +8,97 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Wine {
 
-    private long id;
+  private long id;
 
-    private String name;
+  private String name;
 
-    private String grapes;
+  private String grapes;
 
-    private String country;
+  private String country;
 
-    private String region;
-    
-    private String year;
-    
-    private String picture;
+  private String region;
 
-    private String description;
+  private String year;
 
-	public long getId() {
-		return id;
-	}
+  private String picture;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  private String description;
 
-	public String getName() {
-		return name;
-	}
+  public Wine(final String name, final String grapes, final String country, final String region, final String year, final String picture, final String description) {
+    this.name = name;
+    this.grapes = grapes;
+    this.country = country;
+    this.region = region;
+    this.year = year;
+    this.picture = picture;
+    this.description = description;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public Wine() {
+  }
 
-	public String getGrapes() {
-		return grapes;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public void setGrapes(String grapes) {
-		this.grapes = grapes;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public String getCountry() {
-		return country;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getRegion() {
-		return region;
-	}
+  public String getGrapes() {
+    return grapes;
+  }
 
-	public void setRegion(String region) {
-		this.region = region;
-	}
+  public void setGrapes(String grapes) {
+    this.grapes = grapes;
+  }
 
-	public String getYear() {
-		return year;
-	}
+  public String getCountry() {
+    return country;
+  }
 
-	public void setYear(String year) {
-		this.year = year;
-	}
+  public void setCountry(String country) {
+    this.country = country;
+  }
 
-	public String getPicture() {
-		return picture;
-	}
+  public String getRegion() {
+    return region;
+  }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+  public void setRegion(String region) {
+    this.region = region;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public String getYear() {
+    return year;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setYear(String year) {
+    this.year = year;
+  }
+
+  public String getPicture() {
+    return picture;
+  }
+
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
 }

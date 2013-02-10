@@ -73,5 +73,8 @@ public class Exercise2 implements WineService {
     selfPopulatingCache.removeAll();
   }
 
+  @Override
+  public void init() {
+  }
 
 }

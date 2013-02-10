@@ -14,18 +14,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/exercise6")
-public class Exercise6Resource {
+@Path("/exercise7")
+public class Exercise7Resource {
 
   WineService sqlService = new WineMysql();
   WineService cacheService = new Exercise6();
-
-  @GET
-  @Path("initcache")
-  public String initCache() {
-    cacheService.init();
-    return "OK";
-  }
 
   @GET
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

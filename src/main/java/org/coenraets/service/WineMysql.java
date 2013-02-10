@@ -162,6 +162,10 @@ public class WineMysql implements WineService {
     throw new RuntimeException("No clean available for mysql");
   }
 
+  @Override
+  public void init() {
+  }
+
   protected Wine processRow(ResultSet rs) throws SQLException {
     Wine wine = new Wine();
     wine.setId(rs.getLong("id"));

@@ -75,5 +75,8 @@ public class Exercise3 implements WineService {
     wineCache.removeAll();
   }
 
+  @Override
+  public void init() {
+  }
 
 }

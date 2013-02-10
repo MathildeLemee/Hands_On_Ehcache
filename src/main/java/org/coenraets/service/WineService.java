@@ -23,4 +23,6 @@ public interface WineService {
   boolean remove(long id);
 
   void clear();
+
+  void init();
 }
