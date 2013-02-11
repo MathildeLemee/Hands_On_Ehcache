@@ -1,11 +1,17 @@
 package org.coenraets.resource;
 
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.Element;
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercise6;
+import org.coenraets.service.Exercise7;
+import org.coenraets.service.Exercise7Solution;
 import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
+import org.coenraets.util.WineBuilder;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,32 +23,60 @@ import javax.ws.rs.core.MediaType;
 @Path("/exercise7")
 public class Exercise7Resource {
 
-  WineService sqlService = new WineMysql();
-  WineService cacheService = new Exercise6();
+  Exercise7Solution cacheService = new Exercise7Solution();
+
 
   @GET
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  public List<Wine> findAll() {
-    System.out.println("findAll");
-    return sqlService.findAll();
+  @Path("ehcache/fill/{cacheNb}")
+  public String fillCaches(@PathParam("cacheNb") final Integer cacheNb) {
+    new Thread () {
+      @Override
+      public void run() {
+        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " starting to fill the cache " + cacheNb);
+        WineBuilder wineBuilder = new WineBuilder();
+        final Ehcache ehcache = cacheService.getCaches().get(cacheNb - 1);
+        for (int i = 0; i < 300000; i++) {
+          ehcache.put(new Element(UUID.randomUUID().toString(), wineBuilder.next()));
+        }
+        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " finished.");
+      }
+    }.start();
+    return "OK";
   }
 
   @GET
-  @Path("search/mysql/{query}")
-  public String findByNameMysql(@PathParam("query") String query) {
-    long start = System.currentTimeMillis();
-    sqlService.findByName(query);
-    long end = System.currentTimeMillis();
-    return "" + (end - start);
+  @Path("ehcache/del/{cacheNb}")
+  public String emptyCaches(@PathParam("cacheNb") final Integer cacheNb) {
+    new Thread () {
+      @Override
+      public void run() {
+        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " starting to empty the cache " + cacheNb);
+        final Ehcache ehcache = cacheService.getCaches().get(cacheNb - 1);
+        final List keys = ehcache.getKeys();
+        for (int i = 0; i < 300000; i++) {
+          ehcache.remove(keys.get(i));
+        }
+        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " finished.");
+      }
+    }.start();
+    return "OK";
   }
 
   @GET
-  @Path("search/ehcache/{query}")
-  public String findByNameEhcache(@PathParam("query") String query) {
-    long start = System.currentTimeMillis();
-    cacheService.findByName(query);
-    long end = System.currentTimeMillis();
-    return "" + (end - start);
+  @Path("ehcache/sizes")
+  public String getCachesSizes(@PathParam("query") String query, @PathParam("cacheNb") Integer cacheNb) {
+
+    StringBuilder jsonString = new StringBuilder();
+    jsonString.append("{")
+        .append("\"heap1\": ").append(cacheService.getCaches().get(0).calculateInMemorySize()).append(",")
+        .append("\"offheap1\": ").append(cacheService.getCaches().get(0).calculateOffHeapSize()).append(",")
+        .append("\"heap2\": ").append(cacheService.getCaches().get(1).calculateInMemorySize()).append(",")
+        .append("\"offheap2\": ").append(cacheService.getCaches().get(1).calculateOffHeapSize()).append(",")
+        .append("\"heap3\": ").append(cacheService.getCaches().get(2).calculateInMemorySize()).append(",")
+        .append("\"offheap3\": ").append(cacheService.getCaches().get(2).calculateOffHeapSize())
+        .append("}");
+
+    return jsonString.toString();
   }
 
 

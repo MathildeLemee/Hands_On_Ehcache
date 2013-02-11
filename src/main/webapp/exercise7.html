@@ -7,56 +7,163 @@
     <script src="lib/jquery-1.7.1.min.js"></script>
 
     <script type="text/javascript">
+        function bytesToSize(bytes, precision) {
+            var kilobyte = 1024;
+            var megabyte = kilobyte * 1024;
+            var gigabyte = megabyte * 1024;
+            var terabyte = gigabyte * 1024;
+
+            if ((bytes >= 0) && (bytes < kilobyte)) {
+                return bytes + ' B';
+
+            } else if ((bytes >= kilobyte) && (bytes < megabyte)) {
+                return (bytes / kilobyte).toFixed(precision) + ' KB';
+
+            } else if ((bytes >= megabyte) && (bytes < gigabyte)) {
+                return (bytes / megabyte).toFixed(precision) + ' MB';
+
+            } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
+                return (bytes / gigabyte).toFixed(precision) + ' GB';
+
+            } else if (bytes >= terabyte) {
+                return (bytes / terabyte).toFixed(precision) + ' TB';
+
+            } else {
+                return bytes + ' B';
+            }
+        }
+
         function clearCache() {
             $.ajax({
-                type: "DELETE",
-                url: "api/exercise1/clear",
-                dataType: "html"
+                type:"DELETE",
+                url:"api/exercise7/clear",
+                dataType:"html"
             });
         }
 
         $(document).ready(function () {
-            var smoothie = new SmoothieChart();
+            var smoothie1 = new SmoothieChart();
+            var smoothie2 = new SmoothieChart();
             var intervalId = null;
-            smoothie.streamTo(document.getElementById("mycanvas"), 1000);
+            smoothie1.streamTo(document.getElementById("mycanvas1"), 1500);
+            smoothie2.streamTo(document.getElementById("mycanvas2"), 1500);
 
             var line1 = new TimeSeries();
-                       var line2 = new TimeSeries();
+            var line2 = new TimeSeries();
+            var line3 = new TimeSeries();
+            var line4 = new TimeSeries();
+            var line5 = new TimeSeries();
+            var line6 = new TimeSeries();
 
-            smoothie.addTimeSeries(line1,
-                    { strokeStyle: 'rgb(0, 0, 255)', fillStyle: 'rgba(0, 0, 255, 0.4)', lineWidth: 3 });
-            smoothie.addTimeSeries(line2,
-                    { strokeStyle: 'rgb(255, 0, 0)', fillStyle: 'rgba(255, 0, 0, 0.3)', lineWidth: 3 });
+            smoothie1.addTimeSeries(line1,
+                    { strokeStyle:'rgb(0, 0, 255)', fillStyle:'rgba(0, 0, 255, 0.4)', lineWidth:3 });
+            smoothie1.addTimeSeries(line2,
+                    { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:3 });
+            smoothie1.addTimeSeries(line3,
+                    { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
+            smoothie2.addTimeSeries(line4,
+                    { strokeStyle:'rgb(0, 0, 255)', fillStyle:'rgba(0, 0, 255, 0.4)', lineWidth:3 });
+            smoothie2.addTimeSeries(line5,
+                    { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:3 });
+            smoothie2.addTimeSeries(line6,
+                    { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
 
             $("#clear").click(function () {
                 clearCache();
             });
 
-            $("#start").click(function () {
-                clearCache();
-
-                intervalId = setInterval(function () {
-                    $.ajax({
-                        type: "GET",
-                        url: "api/exercise6/search/mysql/toto",
-                        dataType: "html",
-                        success: function (data) {
-                            line1.append(new Date().getTime(), data);
-                            $("#db-latency").html(data);
-                        }
-                    });
-
-                    $.ajax({
-                        type: "GET",
-                        url: "api/exercise6/search/ehcache/toto",
-                        dataType: "html",
-                        success: function (data) {
-                            line2.append(new Date().getTime(), data);
-                            $("#ehcache-latency").html(data);
-                        }
-                    });
-                }, 1000);
+            $("#start1").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/fill/1",
+                    dataType:"html",
+                    success:function (data) { }
+                });
             });
+
+            $("#start2").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/fill/2",
+                    dataType:"html",
+                    success:function (data) { }
+                });
+            });
+
+            $("#start3").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/fill/3",
+                    dataType:"html",
+                    success:function (data) { }
+                });
+            });
+
+            $("#del1").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/del/1",
+                    dataType:"html",
+                    success:function (data) { }
+                });
+            });
+
+            $("#del2").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/del/2",
+                    dataType:"html",
+                    success:function (data) { }
+                });
+            });
+
+            $("#del3").click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/del/3",
+                    dataType:"html",
+                    success:function (data) { }
+                });
+            });
+
+            intervalId = setInterval(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"api/exercise7/ehcache/sizes",
+                    dataType:"json",
+                    success:function (data) {
+                        $.each(data, function (key, val) {
+                            if (key == 'heap1') {
+                                line1.append(new Date().getTime(), val);
+                                $("#cache1-size").html(bytesToSize(val, 1));
+                            }
+                            if (key == 'heap2') {
+                                line2.append(new Date().getTime(), val);
+                                $("#cache2-size").html(bytesToSize(val, 1));
+                            }
+                            if (key == 'heap3') {
+                                line3.append(new Date().getTime(), val);
+                                $("#cache3-size").html(bytesToSize(val, 1));
+                            }
+
+                            if (key == 'offheap1') {
+                                line4.append(new Date().getTime(), val);
+                                $("#cache1-size2").html(bytesToSize(val, 1));
+                            }
+                            if (key == 'offheap2') {
+                                line5.append(new Date().getTime(), val);
+                                $("#cache2-size2").html(bytesToSize(val, 1));
+                            }
+                            if (key == 'offheap3') {
+                                line6.append(new Date().getTime(), val);
+                                $("#cache3-size2").html(bytesToSize(val, 1));
+                            }
+                        });
+
+                    }
+                });
+
+            }, 1500);
 
         });
     </script>
@@ -67,16 +174,34 @@
     <h1>Terracotta Hands-on Ehcache - ARC</h1>
 </div>
 <div id="right">
-    <input type="button" id="start" value="Start perf test"/><br/>
+    <input type="button" id="start1" value="Start filling cache 1"/><br/>
+    <input type="button" id="start2" value="Start filling cache 2"/><br/>
+    <input type="button" id="start3" value="Start filling cache 3"/><br/>
+    <input type="button" id="del1" value="Remove entries from cache 1"/><br/>
+    <input type="button" id="del2" value="Remove entries from cache 2"/><br/>
+    <input type="button" id="del3" value="Remove entries from cache 3"/><br/>
     <input type="button" id="clear" value="Clear cache"/><br/>
 
+    <h2>HEAP</h2>
 
-    <h2 style="color: blue">Database latency:<span id="db-latency">...</span>ms</h2>
+    <h2 style="color: blue">Cache 1 heap size:<span id="cache1-size">...</span></h2>
 
-    <h2 style="color: red">Ehcache latency:<span id="ehcache-latency">...</span>ms</h2>
+    <h2 style="color: red">Cache 2 heap size:<span id="cache2-size">...</span></h2>
+
+    <h2 style="color: green">Cache 3 heap size:<span id="cache3-size">...</span></h2>
+
+    <h2>OFFHEAP</h2>
+
+    <h2 style="color: blue">Cache 1 offheap size:<span id="cache1-size2">...</span></h2>
+
+    <h2 style="color: red">Cache 2 offheap size:<span id="cache2-size2">...</span></h2>
+
+    <h2 style="color: green">Cache 3 offheap size:<span id="cache3-size2">...</span></h2>
 </div>
 <div id="center">
-    <canvas id="mycanvas" width="1000" height="550"></canvas>
+    <canvas id="mycanvas1" width="1000" height="250"></canvas>
+    <br/>
+    <canvas id="mycanvas2" width="1000" height="250"></canvas>
 </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ package org.coenraets.resource;
 
 import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise6;
+import org.coenraets.service.Exercise6Solution;
 import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
 
@@ -18,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class Exercise6Resource {
 
   WineService sqlService = new WineMysql();
-  WineService cacheService = new Exercise6();
+  WineService cacheService = new Exercise6Solution();
 
   @GET
   @Path("initcache")
@@ -47,7 +48,7 @@ public class Exercise6Resource {
   @Path("search/ehcache/{query}")
   public String findByNameEhcache(@PathParam("query") String query) {
     long start = System.currentTimeMillis();
-    cacheService.findByName(query);
+    System.out.println(")) "+ cacheService.findByName(query));;
     long end = System.currentTimeMillis();
     return "" + (end - start);
   }

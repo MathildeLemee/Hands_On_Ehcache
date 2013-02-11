@@ -14,6 +14,12 @@
     </dependency>
 
     <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.22</version>
+    </dependency>
+
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
@@ -21,8 +27,20 @@
 
     <dependency>
       <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache-core</artifactId>
+      <artifactId>ehcache-ee</artifactId>
       <version>2.6.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.terracotta.bigmemory</groupId>
+      <artifactId>bigmemory</artifactId>
+      <version>3.7.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.terracotta.qa</groupId>
+      <artifactId>license-wrapper</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>

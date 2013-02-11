@@ -1,12 +1,14 @@
 package org.coenraets.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Christophe Coenraets
  */
 @XmlRootElement
-public class Wine {
+public class Wine implements Serializable {
 
   private long id;
 

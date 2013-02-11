@@ -35,7 +35,7 @@ public class DatabaseFiller {
     try {
       List<Future<Object>> futureList = executorService.invokeAll(tasksList);
     } catch (InterruptedException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      e.printStackTrace();
     }
 
     executorService.shutdown();

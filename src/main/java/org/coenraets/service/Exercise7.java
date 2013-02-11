@@ -4,20 +4,23 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.coenraets.model.Wine;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Search exercise
+ * ARC exercise
  * <p/>
- * Using the cache as SOR, searching directly into it
+ * using several caches
  *
  * @author Aurelien Broszniowski
  */
-public class Exercise6 implements WineService {
+public class Exercise7 implements WineService {
 
-  private Ehcache cache;
+  private Ehcache cache1;
+  private Ehcache cache2;
+  private Ehcache cache3;
 
-  public Exercise6() {
+  public Exercise7() {
     //TODO : implement
 
   }
@@ -29,8 +32,6 @@ public class Exercise6 implements WineService {
 
   @Override
   public List<Wine> findByName(final String name) {
-    // TODO : implement
-
     return null;
   }
 
@@ -61,23 +62,18 @@ public class Exercise6 implements WineService {
 
   @Override
   public void clear() {
-    cache.removeAll();
+    cache1.removeAll();
+    cache2.removeAll();
+    cache3.removeAll();
   }
 
   @Override
   public void init() {
-    List<Wine> all = new WineMysql().findAll();
-    for (Wine wine : all) {
-      cache.put(new Element(wine.getId(), wine));
-    }
+    //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public Ehcache getCache() {
-    return cache;
-  }
-
-  public void setCache(final Ehcache cache) {
-    this.cache = cache;
+  public List<Ehcache> getCaches() {
+    return Arrays.asList(cache1, cache2, cache3);
   }
 
 }
