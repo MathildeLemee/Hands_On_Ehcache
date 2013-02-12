@@ -2,14 +2,9 @@ package org.coenraets.resource;
 
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise7;
-import org.coenraets.service.Exercise7Solution;
-import org.coenraets.service.WineMysql;
-import org.coenraets.service.WineService;
 import org.coenraets.util.WineBuilder;
 
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,13 +12,11 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 @Path("/exercise7")
 public class Exercise7Resource {
 
-  Exercise7Solution cacheService = new Exercise7Solution();
+  Exercise7 cacheService = new Exercise7();
 
 
   @GET

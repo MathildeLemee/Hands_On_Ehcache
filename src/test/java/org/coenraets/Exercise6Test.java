@@ -10,13 +10,15 @@ import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise6;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.testng.annotations.BeforeTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +29,24 @@ import static org.mockito.Mockito.when;
  */
 public class Exercise6Test {
 
+  @Mock
+  Ehcache cache ;
+  @Mock
+  Query query;
+  @Mock
+  Results results;
+
+  @Mock
+  Result result1 ;
+  @Mock
+  Result result2;
+  @Mock
+  Result result3;
+
+   @BeforeTest
+  public void beforeTest(){
+    MockitoAnnotations.initMocks(this);
+  }
   @Test
   public void testCacheIsConfigured() {
     Exercise6 exercise6 = new Exercise6();
@@ -43,15 +63,12 @@ public class Exercise6Test {
 
   @Test
   public void testFindByNameCreateQuery() {
-    Ehcache cache = mock(Ehcache.class);
     Exercise6 exercise6 = new Exercise6();
     exercise6.setCache(cache);
 
-    Query query = mock(Query.class);
     when(cache.createQuery()).thenReturn(query);
     when(query.addCriteria((Criteria)any())).thenReturn(query);
 
-    Results results = mock(Results.class);
     when(query.execute()).thenReturn(results);
 
     when(results.all()).thenReturn(new ArrayList<Result>());
@@ -64,20 +81,14 @@ public class Exercise6Test {
 
   @Test
   public void testFindByNameQueryReturnsCorrectCollection() {
-    Ehcache cache = mock(Ehcache.class);
     Exercise6 exercise6 = new Exercise6();
     exercise6.setCache(cache);
 
-    Query query = mock(Query.class);
     when(cache.createQuery()).thenReturn(query);
 
-    Results results = mock(Results.class);
     when(query.execute()).thenReturn(results);
     when(query.addCriteria((Criteria)any())).thenReturn(query);
 
-    Result result1 = mock(Result.class);
-    Result result2 = mock(Result.class);
-    Result result3 = mock(Result.class);
     List<Result> resultsList = new ArrayList<Result>();
     resultsList.add(result1);
     resultsList.add(result2);

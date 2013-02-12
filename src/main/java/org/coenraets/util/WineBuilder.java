@@ -50,7 +50,7 @@ public class WineBuilder {
   };
 
   String[] regions = new String[] {
-      "Rochefort sur Loire", "Saint Lambert du Lattay", "Beaulieu sur Layon", "Saint Aubin de Luigné",
+      "Rochefort sur Loire", "Saint Lambert du Lattay", "Beaulieu sur Layon", "Saint Aubin de Luigny",
       "Faye d'Anjou", "Concourson sur Layon"
   };
 

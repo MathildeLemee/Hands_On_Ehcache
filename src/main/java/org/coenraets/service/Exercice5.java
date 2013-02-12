@@ -75,5 +75,10 @@ public class Exercice5 implements WineService {
     wineCache.removeAll();
   }
 
+  @Override
+  public void init() {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
+
 
 }
