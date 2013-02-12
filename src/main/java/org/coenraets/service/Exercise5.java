@@ -5,6 +5,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
+import net.sf.ehcache.config.DiskStoreConfiguration;
 import net.sf.ehcache.config.PersistenceConfiguration;
 import org.coenraets.model.Wine;
 
@@ -19,9 +20,9 @@ public class Exercise5 implements WineService {
   private Cache wineCache;
 
   public Exercise5() {
-    Configuration configuration = new Configuration().
+    Configuration configuration = new Configuration().name("frs").diskStore(new DiskStoreConfiguration().path("frs_sav")).
         cache(new CacheConfiguration("frs", 1000).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE)));
-    this.manager = CacheManager.create(configuration);
+    this.manager = new CacheManager(configuration);
     this.wineCache = manager.getCache("frs");
   }
 

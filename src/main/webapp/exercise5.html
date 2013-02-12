@@ -10,10 +10,7 @@
 <body>
 <canvas id="mycanvas" width="400" height="400"></canvas>
 <script type="text/javascript">
-    var smoothie = new SmoothieChart();
-    smoothie.streamTo(document.getElementById("mycanvas"),1000);
     // Data
-    var line2 = new TimeSeries();
 
     $("#button").click(function(){
         console.log("2");
@@ -34,12 +31,10 @@
             url:"api/exercise5/ehcache/create/",
             dataType:"html",
             success:function (data) {
-                line2.append(new Date().getTime(), data);
-                $("#ehcache-latency").html(data);
             }
-        },
-          {
-              type:"POST",
+        });
+        $.ajax({
+              type:"GET",
               url:"api/exercise5/ehcache/nb/",
               dataType:"html",
               success:function (data) {
@@ -56,8 +51,7 @@
 
 </script>
 
-<h2 style="color: red">Ehcache WRITE latency:<span id="ehcache-latency">...</span>ms</h2>
-<h2 style="color: blue">Nb Element : <span id="nb-element">...</span>ms</h2>
+<h2 style="color: blue">Nb Element : <span id="nb-element"></span> elements</h2>
 
 
 <a href="#" id="button">Clear Cache</a>
