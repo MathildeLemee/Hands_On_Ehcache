@@ -2,7 +2,7 @@ package org.coenraets.resource;
 
 import net.sf.ehcache.CacheManager;
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercice5;
+import org.coenraets.service.Exercise5;
 import org.coenraets.service.WineService;
 import javax.ws.rs.GET;
 
@@ -20,10 +20,10 @@ import javax.ws.rs.core.MediaType;
  *
  * @author : Mathilde Lemee
  */
-@Path("/exercice5")
-public class Exercice5Resource {
+@Path("/exercise5")
+public class Exercise5Resource {
 
-  WineService ehcache = new Exercice5();
+  WineService ehcache = new Exercise5();
 
   @POST
   @Path("ehcache/create")

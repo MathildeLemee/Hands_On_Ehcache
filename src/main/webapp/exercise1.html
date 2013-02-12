@@ -18,7 +18,7 @@
     $("#button").click(function(){
         $.ajax({
             type:"DELETE",
-            url:"api/exercice1/clear",
+            url:"api/exercise1/clear",
             dataType:"html"
 
         });
@@ -29,7 +29,7 @@
     setInterval(function() {
         $.ajax({
             type:"GET",
-            url:"api/exercice1/wines/mysql/1",
+            url:"api/exercise1/wines/mysql/1",
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
@@ -39,7 +39,7 @@
 
         $.ajax({
             type:"GET",
-            url:"api/exercice1/wines/ehcache/2",
+            url:"api/exercise1/wines/ehcache/2",
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);

@@ -13,12 +13,12 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
-public class Exercice5 implements WineService {
+public class Exercise5 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
   private Cache wineCache;
 
-  public Exercice5() {
+  public Exercise5() {
     Configuration configuration = new Configuration().
         cache(new CacheConfiguration("frs", 1000).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE)));
     this.manager = CacheManager.create(configuration);

@@ -22,7 +22,7 @@
         console.log("2");
         $.ajax({
             type:"DELETE",
-            url:"api/exercice5/clear",
+            url:"api/exercise5/clear",
             dataType:"html"
 
         });
@@ -34,7 +34,7 @@
       var id =  Math.floor((Math.random()*10)+1);
   $.ajax({
             type:"POST",
-            url:"api/exercice5/ehcache/create/",
+            url:"api/exercise5/ehcache/create/",
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
@@ -43,7 +43,7 @@
         },
           {
               type:"POST",
-              url:"api/exercice5/ehcache/nb/",
+              url:"api/exercise5/ehcache/nb/",
               dataType:"html",
               success:function (data) {
                   $("#nb-element").html(data);

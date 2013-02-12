@@ -20,11 +20,11 @@ import javax.ws.rs.core.MediaType;
  c'est le cache qui saura comment aller la chercher.
  Indice : SelfPopulatingCache pourra surement vous aider :)
 
- Rendez vous sur la page Exercice2.html pour voir le résultat
+ Rendez vous sur la page exercise2.html pour voir le résultat
 
  * @author : Mathilde Lemee
  */
-@Path("/exercice2")
+@Path("/exercise2")
 public class Exercise2Resource {
 
   WineService mysql = new WineMysql();

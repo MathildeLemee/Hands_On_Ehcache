@@ -17,17 +17,17 @@ import javax.ws.rs.core.MediaType;
 
 /**
  Exercice 1 :  Cache Aside
- Implémenter un cache aside dans le service exercice1 pour la méthode findBy.
+ Implémenter un cache aside dans le service exercise1 pour la méthode findBy.
  Un cache aside a l'algo suivant :
  Si j'ai la valeur dans mon cache alors je la retourne
  Sinon je vais la chercher en base de données et je la place dans mon cache
 
- Une fois que vous etes confiant, rendez-vous sur la page Exercice1.html
+ Une fois que vous etes confiant, rendez-vous sur la page exercise1.html
 
 
  * @author : Mathilde Lemee
  */
-@Path("/exercice1")
+@Path("/exercise1")
 public class Exercise1Resource {
 
   WineService mysql = new WineMysql();

@@ -21,11 +21,11 @@ import javax.ws.rs.core.MediaType;
  *
  * Indice : Le cacheWriter pourra surement vous aider :)
  *
- *  Rendez vous sur la page Exercice3.html pour voir le résultat
+ *  Rendez vous sur la page exercise3.html pour voir le résultat
 
  * @author : Mathilde Lemee
  */
-@Path("/exercice3")
+@Path("/exercise3")
 public class Exercise3Resource {
 
   WineService mysql = new WineMysql();

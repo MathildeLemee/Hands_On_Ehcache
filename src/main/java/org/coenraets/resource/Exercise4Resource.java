@@ -19,11 +19,11 @@ import javax.ws.rs.core.MediaType;
  * <p/>
  * Indice : Le cacheWriter pourra surement vous aider :)
  * <p/>
- * Rendez vous sur la page Exercice4.html pour voir le résultat
+ * Rendez vous sur la page exercise4.html pour voir le résultat
  *
  * @author : Mathilde Lemee
  */
-@Path("/exercice4")
+@Path("/exercise4")
 public class Exercise4Resource {
 
   WineService ehcacheWriteThrough = new Exercise3();
