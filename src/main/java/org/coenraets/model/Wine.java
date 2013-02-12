@@ -103,4 +103,17 @@ public class Wine implements Serializable {
     this.description = description;
   }
 
+  @Override
+  public String toString() {
+    return "Wine{" +
+           "id=" + id +
+           ", name='" + name + '\'' +
+           ", grapes='" + grapes + '\'' +
+           ", country='" + country + '\'' +
+           ", region='" + region + '\'' +
+           ", year='" + year + '\'' +
+           ", picture='" + picture + '\'' +
+           ", description='" + description + '\'' +
+           '}';
+  }
 }

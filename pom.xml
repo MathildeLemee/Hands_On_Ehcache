@@ -47,11 +47,11 @@
     </dependency>
 
 
-    <!--<dependency>-->
-      <!--<groupId>org.terracotta.bigmemory</groupId>-->
-      <!--<artifactId>bigmemory</artifactId>-->
-      <!--<version>3.7.3</version>-->
-    <!--</dependency>-->
+    <dependency>
+      <groupId>org.terracotta.bigmemory</groupId>
+      <artifactId>bigmemory</artifactId>
+      <version>3.7.3</version>
+    </dependency>
 
     <dependency>
       <groupId>org.terracotta.qa</groupId>

@@ -16,11 +16,15 @@ import org.coenraets.model.Wine;
 public class WriteToCache {
 
   public static void main(String[] args) {
-    /** adapt the config to your version
-     * - the url of the server
+    /**
+     * Default config version with only one server
+     *
+     * adapt the config to your version if multiple server
+     * - the url of the server, for a mirror groups, separate active ip and passives ip with a comma
      * - the name of the cache */
+    String url = "localhost:9510";//localhost:9510,localhost:9515";
     Configuration configuration = new Configuration()
-        .terracotta(new TerracottaClientConfiguration().url("localhost:9510"))
+        .terracotta(new TerracottaClientConfiguration().url(url))
         .defaultCache(new CacheConfiguration("defaultCache", 100))
         .cache(new CacheConfiguration("clusteredCache", 100)
             .terracotta(new TerracottaConfiguration()));
