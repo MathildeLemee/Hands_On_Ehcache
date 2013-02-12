@@ -15,4 +15,4 @@ Set Up:
 
 	mysql wine -uroot < cellar.sql
 
-3. Run the project with mvn clean install jetty:run
+3. Run the project with mvn clean jetty:run

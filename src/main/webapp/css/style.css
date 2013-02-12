@@ -1,0 +1,45 @@
+body {
+    background-color: #aaa;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+
+    display: block;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: -1px;
+    color: #fff;
+    line-height: 10px;
+}
+
+#header {
+    color: white;
+    height: 25px;
+}
+
+#right {
+    float: right;
+    width: 280px;
+    background-color: #888;
+    min-height: 550px; /* for modern browsers */
+    height: auto !important; /* for modern browsers */
+    height: 550px; /* for IE5.x and IE6 */
+}
+
+#center {
+    margin-right: 280px;
+    background-color: #eec;
+    min-height: 550px; /* for modern browsers */
+    height: auto !important; /* for modern browsers */
+    height: 550px; /* for IE5.x and IE6 */
+}
+
+input.btn {
+    color: #050;
+    font: bold small Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+
+}
+

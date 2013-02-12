@@ -3,6 +3,9 @@ package org.coenraets.service;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.CacheWriterConfiguration;
+import net.sf.ehcache.config.Configuration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -10,14 +13,22 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
-public class Exercice4 implements WineService {
+public class Exercise3 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
   private Cache wineCache;
 
-  public Exercice4() {
-    this.manager = CacheManager.getInstance();
-    this.wineCache = manager.getCache("writeBehindSOR");
+  public Exercise3() {
+    //TODO : not logic to have to include for exercise4
+    Configuration configuration = new Configuration() .
+        cache(new CacheConfiguration("writeSOR", 1000)
+            .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_THROUGH)
+            )).defaultCache(new CacheConfiguration("default", 1000)).
+    cache(new CacheConfiguration("writeBehindSOR", 1000)
+        .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
+        )).defaultCache(new CacheConfiguration("default", 1000));
+    this.manager = CacheManager.create(configuration);
+    this.wineCache = manager.getCache("writeSOR");
     wineCache.registerCacheWriter(new MyCacheWriter());
   }
 
@@ -44,7 +55,7 @@ public class Exercice4 implements WineService {
 
   @Override
   public Wine create(Wine wine) {
-    wineCache.putWithWriter(new Element(wine.getId(),wine));
+     wineCache.putWithWriter(new Element(wine.getId(),wine));
     return null;
   }
 
@@ -64,5 +75,8 @@ public class Exercice4 implements WineService {
     wineCache.removeAll();
   }
 
+  @Override
+  public void init() {
+  }
 
 }

@@ -28,7 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author : Mathilde Lemee
  */
 @Path("/exercice1")
-public class Exercice1Resource {
+public class Exercise1Resource {
 
   WineService mysql = new WineMysql();
   WineService ehcache = new Exercice1();

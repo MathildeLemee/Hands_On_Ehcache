@@ -1,7 +1,7 @@
 package org.coenraets.resource;
 
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercice3;
+import org.coenraets.service.Exercise3;
 import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
 
@@ -25,10 +25,10 @@ import javax.ws.rs.core.MediaType;
  * @author : Mathilde Lemee
  */
 @Path("/exercice3")
-public class Exercice3Resource {
+public class Exercise3Resource {
 
   WineService mysql = new WineMysql();
-  WineService ehcache = new Exercice3();
+  WineService ehcache = new Exercise3();
 
 
   @POST

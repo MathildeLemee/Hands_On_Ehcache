@@ -2,29 +2,24 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import org.coenraets.model.Wine;
 
 import java.util.List;
 
-/**
- * @author Christophe Coenraets
- */
-public class Exercice2 implements WineService {
+
+public class Exercise1 implements WineService {
   WineMysql mysql = new WineMysql();
   private CacheManager manager;
-  private Cache wine;
-  private SelfPopulatingCache selfPopulatingCache;
+  private Cache searchWine;
 
-  public Exercice2() {
+  public Exercise1() {
     Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("writeSOR", 1000));
+        .cache(new CacheConfiguration("searchWine", 1000));
     this.manager = CacheManager.create(configuration);
-    this.wine = manager.getCache("writeSOR");
-    MyCacheEntryFactory myCacheEntryFactory = new MyCacheEntryFactory();
-    selfPopulatingCache = new SelfPopulatingCache(wine, myCacheEntryFactory);
+    this.searchWine = manager.getCache("searchWine");
   }
 
   @Override
@@ -38,13 +33,17 @@ public class Exercice2 implements WineService {
     return mysql.findByName(name);
   }
 
+
   @Override
-  /**
-   * Exercice 2A. Modifier cette méthode. Le système de données est le cache => aucun appel à mysql dans cette méthode.
-   * C'est au cache qu'il faut indiquer comment se mettre à jour en cas d'objet non présent dans le cache
-   */
   public Wine findById(long id) {
-       return (Wine)selfPopulatingCache.get(id).getObjectValue();
+    Element element = searchWine.get(id);
+    if (element != null && element.getObjectValue() != null) {
+      return (Wine)element.getObjectValue();
+    } else {
+      Wine wine = mysql.findById(id);
+      searchWine.put(new Element(id, wine));
+      return wine;
+    }
   }
 
   @Override
@@ -70,8 +69,12 @@ public class Exercice2 implements WineService {
 
   @Override
   public void clear() {
-    selfPopulatingCache.removeAll();
+    searchWine.removeAll();
   }
 
+  @Override
+  public void init() {
+    //To change body of implemented methods use File | Settings | File Templates.
+  }
 
 }

@@ -20,7 +20,7 @@
         console.log("2");
         $.ajax({
             type:"DELETE",
-            url:"api/exercice4/clear",
+            url:"api/exercise4/clear",
             dataType:"html"
 
         });
@@ -33,7 +33,7 @@
 
         $.ajax({
             type:"POST",
-            url:"api/exercice4/writeThrough/create",
+            url:"api/exercise4/writeThrough/create",
             dataType:"html",
             success:function (data) {
                 line1.append(new Date().getTime(), data);
@@ -43,7 +43,7 @@
 
         $.ajax({
             type:"POST",
-            url:"api/exercice4/writeBehind/create",
+            url:"api/exercise4/writeBehind/create",
             dataType:"html",
             success:function (data) {
                 line2.append(new Date().getTime(), data);
