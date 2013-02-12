@@ -4,6 +4,7 @@ import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise3;
 import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
+import org.coenraets.util.WineBuilder;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -36,12 +37,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createEhcache() {
     long start = System.currentTimeMillis();
-    Wine wine = new Wine();
-    wine.setId(System.currentTimeMillis());
-    wine.setCountry("fr");
-    wine.setName("Vin Divers");
-    wine.setYear(String.valueOf(System.currentTimeMillis()));
-    ehcache.create(wine);
+    ehcache.create(WineBuilder.next());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -50,12 +46,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createMysql() {
     long start = System.currentTimeMillis();
-    Wine wine = new Wine();
-    wine.setId(System.currentTimeMillis() - 107);
-    wine.setCountry("fr");
-    wine.setName("Vin Divers");
-    wine.setYear(String.valueOf(System.currentTimeMillis()));
-    mysql.create(wine);
+     mysql.create(WineBuilder.next());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -64,14 +55,10 @@ public class Exercise3Resource {
   @Path("ehcache/createAndGet")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetEhcache() {
-    Wine wine = new Wine();
-    wine.setId(System.currentTimeMillis() - 305);
-    wine.setCountry("fr");
-    wine.setName("Vin Divers");
-    wine.setYear(String.valueOf(System.currentTimeMillis()));
-    ehcache.create(wine);
+    Wine next = WineBuilder.next();
+    ehcache.create(next);
     long start = System.currentTimeMillis();
-    ehcache.findById(wine.getId());
+    ehcache.findById(next.getId());
     String s = "" + (System.currentTimeMillis() - start);
     return s;
   }
@@ -80,11 +67,7 @@ public class Exercise3Resource {
   @Path("mysql/createAndGet")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetMysql() {
-    Wine wine = new Wine();
-    wine.setId(System.currentTimeMillis() - 78);
-    wine.setCountry("fr");
-    wine.setName("Vin Divers");
-    wine.setYear(String.valueOf(System.currentTimeMillis()));
+    Wine wine = WineBuilder.next();
     mysql.create(wine);
     long start = System.currentTimeMillis();
     mysql.findById(wine.getId());

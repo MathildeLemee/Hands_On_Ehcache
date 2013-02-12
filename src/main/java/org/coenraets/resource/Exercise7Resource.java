@@ -26,10 +26,9 @@ public class Exercise7Resource {
       @Override
       public void run() {
         System.out.println("--->>> Thread " + Thread.currentThread().getName() + " starting to fill the cache " + cacheNb);
-        WineBuilder wineBuilder = new WineBuilder();
         final Ehcache ehcache = cacheService.getCaches().get(cacheNb - 1);
         for (int i = 0; i < 300000; i++) {
-          ehcache.put(new Element(UUID.randomUUID().toString(), wineBuilder.next()));
+          ehcache.put(new Element(UUID.randomUUID().toString(), WineBuilder.next()));
         }
         System.out.println("--->>> Thread " + Thread.currentThread().getName() + " finished.");
       }
