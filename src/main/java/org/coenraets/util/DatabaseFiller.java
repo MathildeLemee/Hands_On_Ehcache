@@ -19,14 +19,13 @@ public class DatabaseFiller {
     final WineService mysql = new WineMysql();
     ExecutorService executorService = Executors.newFixedThreadPool(4);
     List<Callable<Object>> tasksList = new ArrayList<Callable<Object>>(4);
-    final WineBuilder wineBuilder = new WineBuilder();
 
     for (int i = 0; i < 4; i++) {
       tasksList.add(new Callable<Object>() {
         @Override
         public Object call() throws Exception {
           for (int i = 0; i < 1000; i++) {
-            mysql.create(wineBuilder.next());
+            mysql.create(WineBuilder.next());
           }
           return null;
         }

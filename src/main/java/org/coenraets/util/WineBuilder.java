@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public class WineBuilder {
 
-  public Wine next() {
+  public final static Wine next() {
     SecureRandom rnd = new SecureRandom();
     String name = names[rnd.nextInt(names.length - 1)];
     String grape = grapes[rnd.nextInt(grapes.length - 1)];
@@ -23,7 +23,7 @@ public class WineBuilder {
     return new Wine(name, grape, country, region, year, picture, desc);
   }
 
-  String[] names = new String[] {
+  final static String[] names = new String[] {
       "gewurztraminer", "pinot", "riesling", "sylvaner", "tokay-pinot gris",
       "cremant d'alsace", "gewurztraminer", "pinot", "riesling", "sylvaner",
       "tokay-pinot gris", "cremant d'alsace", "barsac", "bordeaux", "cotes de bourg",
@@ -41,15 +41,15 @@ public class WineBuilder {
       "ajaccio", "patrimonio", "bergerac", "buzet", "cahors", "gaillac", "jurancon", "madiran", "monbazillac"
   };
 
-  String[] grapes = new String[] {
+  final static String[] grapes = new String[] {
       "red", "white", "syrah", "pinot", "grenache", "stones", "chenin"
   };
 
-  String[] countries = new String[] {
+  final static String[] countries = new String[] {
       "france", "australia", "california", "spain", "italia", "argentina"
   };
 
-  String[] regions = new String[] {
+  final static String[] regions = new String[] {
       "Rochefort sur Loire", "Saint Lambert du Lattay", "Beaulieu sur Layon", "Saint Aubin de Luigny",
       "Faye d'Anjou", "Concourson sur Layon"
   };
