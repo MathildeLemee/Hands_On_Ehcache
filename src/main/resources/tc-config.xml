@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+    >
+  <!--Ne sert que dans l'exercice sur le clustering actif passif.
+   Modifier les hosts / ips en consequences
+
+    Utiliser l'option -f path/de/ce/fichier lorsque vous lancez le server
+    /bin/start-tc-server.sh / bat -->
+
+  <servers>
+    <server host="host1" name="server1" bind="ip1"/>
+    <server host="host2" name="server2" bind="ip2"/>
+    <mirror-groups>
+      <mirror-group group-name="groupA">
+        <members>
+          <member>server1</member>
+          <member>server2</member>
+        </members>
+      </mirror-group>
+      <!-- Ici on pourrait ajouter plusieurs mirrors groups - chacun aurait un actif et n passif
+        les donnees des caches seraient reparties entre les mirror-group-->
+    </mirror-groups>
+    <ha>
+      <mode>networked-active-passive</mode>
+    </ha>
+  </servers>
+
+
+</tc:tc-config>

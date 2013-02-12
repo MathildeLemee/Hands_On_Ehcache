@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+    >
+  <!--Ne sert que si quelqu'un a envie de lancer 2 server sur la meme machine
+  Lancer avec ./bin/start-tc-server.sh -f ../../../work/backbone-jax-cellar/src/main/resources/tc-config.xml -n server1
+ et ./bin/start-tc-server.sh -f ../../../work/backbone-jax-cellar/src/main/resources/tc-config.xml -n server2
+  -->
+
+  <servers>
+    <server host="localhost" name="server1" >
+      <dso-port>9510</dso-port>
+      <jmx-port>9020</jmx-port>
+      <l2-group-port>9530</l2-group-port>
+    </server>
+    <server host="localhost" name="server2" >
+      <dso-port>9515</dso-port>
+      <jmx-port>9025</jmx-port>
+      <l2-group-port>9535</l2-group-port>
+      <statistics>
+      ~/stats
+      </statistics>
+      <data>
+      ~/data
+</data>
+    </server>
+    <mirror-groups>
+      <mirror-group group-name="groupA">
+        <members>
+          <member>server1</member>
+          <member>server2</member>
+        </members>
+      </mirror-group>
+      <!-- Ici on peut ajouter plusieurs mirrors groups - pas le cas ici -->
+    </mirror-groups>
+    <ha>
+      <mode>networked-active-passive</mode>
+    </ha>
+  </servers>
+
+
+</tc:tc-config>

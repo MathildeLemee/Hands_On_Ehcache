@@ -52,7 +52,7 @@ Toutes les données seront placées dans le cache et celui-ci, meme en cas de cr
 Indice : Pour stocker les données, il faut les placer sur le disque. Pour ca, il vous faudra activer l'option Fast Restart
 et définir lors de la configuration du cachemanager le path où seront stockés les données
 
-Aller ensuite sur la page exercise5.html insere une nouvelle valeur dans le cache par seconde. Elle affiche le nombre d'enregistrements.
+Aller ensuite sur la page exercise5.html : celle-ci insère une nouvelle valeur dans le cache par seconde. Elle affiche le nombre d'enregistrements.
 Tuer brutalement jetty (killall java par exemple).
 Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
@@ -64,29 +64,29 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 #Exercice 8 : BigMemory
 
 #Exercice 9 : Clustering - sur la meme machine
-             Télécharger le dernier kit sur le site de terracotta.
-             Lancer un serveur terracotta
-             Lancer la classe CacheWriter qui va se connecter au L2 (1er Client) et y charger des données
-             Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire les données.
+Télécharger le dernier kit sur le site de terracotta.
+Lancer un serveur terracotta
+Lancer la classe CacheWriter qui va se connecter au L2 (1er Client) et y charger des données
+Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire les données.
 
 #Exercice 10 : Clustering classique
-              Trouver un autre binome pour faire l'exercice.
-              1 binome lance un serveur.
-              Les 2 binomes s'y connectent, l'un pour écrire des données, l'autre pour les lire.
+ Trouver un autre binome pour faire l'exercice.
+ 1 binome lance un serveur.
+ Les 2 binomes s'y connectent, l'un pour écrire des données, l'autre pour les lire.
 
 #Exercice 11 : Un cache hautement disponible - réplication
-              Trouver un autre binome pour faire l'exercice.
-              1 binome lance un serveur actif
-              1 binome lance un serveur passif
-              Les 2 binomes se connectent sur l'actif.
-              Ecrivez des données.
-              Arreter (brutalement ou non) le serveur actif.
-              Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
-               présentes.
+ Trouver un autre binome pour faire l'exercice.
+ 1 binome lance un serveur actif
+ 1 binome lance un serveur passif
+ Les 2 binomes se connectent sur l'actif.
+ Ecrivez des données.
+ Arreter (brutalement ou non) le serveur actif.
+ Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
+  présentes.
 #Exercice 12 : Réplication directement avec ehcache - JMS
-              Il est possible de gérer la réplication avec ehcache.
-              http://ehcache.org/documentation/replication/jms-replicated-caching
-              Exemple avec JMS
+ Il est possible de gérer la réplication avec ehcache.
+ http://ehcache.org/documentation/replication/jms-replicated-caching
+ Exemple avec JMS
 #Exercice 13  : WAN http://ehcache.org/documentation/wan-replication
 
 
