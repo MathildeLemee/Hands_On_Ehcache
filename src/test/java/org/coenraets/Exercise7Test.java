@@ -1,7 +1,8 @@
-package org.coenraets.service;
+package org.coenraets;
 
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.MemoryUnit;
+import org.coenraets.service.Exercise7;
 import org.junit.Assert;
 import org.junit.Test;
 

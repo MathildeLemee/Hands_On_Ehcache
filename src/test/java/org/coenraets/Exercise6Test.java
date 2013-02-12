@@ -1,14 +1,13 @@
-package org.coenraets.service;
+package org.coenraets;
 
 import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.config.PersistenceConfiguration;
 import net.sf.ehcache.config.SearchAttribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 import net.sf.ehcache.search.expression.Criteria;
-import net.sf.ehcache.search.expression.ILike;
 import org.coenraets.model.Wine;
+import org.coenraets.service.Exercise6;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
