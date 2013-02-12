@@ -41,7 +41,6 @@ public class Exercice3Resource {
     wine.setCountry("fr");
     wine.setName("Vin Divers");
     wine.setYear(String.valueOf(System.currentTimeMillis()));
-    System.out.println("EHCACHE SAVE");
     ehcache.create(wine);
     return "" + (System.currentTimeMillis() - start);
   }
@@ -56,7 +55,6 @@ public class Exercice3Resource {
     wine.setCountry("fr");
     wine.setName("Vin Divers");
     wine.setYear(String.valueOf(System.currentTimeMillis()));
-    System.out.println("MYSQL SAVE");
     mysql.create(wine);
     return "" + (System.currentTimeMillis() - start);
   }
@@ -75,7 +73,6 @@ public class Exercice3Resource {
     long start = System.currentTimeMillis();
     ehcache.findById(wine.getId());
     String s = "" + (System.currentTimeMillis() - start);
-    System.out.println("ehcache " + s);
     return s;
   }
 
@@ -92,7 +89,6 @@ public class Exercice3Resource {
     long start = System.currentTimeMillis();
     mysql.findById(wine.getId());
     String s = "" + (System.currentTimeMillis() - start);
-    System.out.println("MYSQL :" + s);
     return s;
   }
 

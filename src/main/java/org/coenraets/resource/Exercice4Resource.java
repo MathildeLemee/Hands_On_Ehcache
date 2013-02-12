@@ -33,7 +33,6 @@ public class Exercice4Resource {
   @Path("writeBehind/create")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createWriteBehind() {
-    System.out.println("WRITE BEHIND ");
     Wine wine = new Wine();
     wine.setId(System.currentTimeMillis());
     wine.setCountry("fr");
@@ -48,7 +47,6 @@ public class Exercice4Resource {
   @Path("writeThrough/create")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createWriteThrough() {
-    System.out.println("WRITE THROUGH ");
     Wine wine = new Wine();
     wine.setId(System.currentTimeMillis() - 7);
     wine.setCountry("fr");

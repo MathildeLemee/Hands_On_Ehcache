@@ -36,7 +36,6 @@ public class Exercice1Resource {
   @GET
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public List<Wine> findAll() {
-    System.out.println("findAll");
     return mysql.findAll();
   }
 
