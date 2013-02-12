@@ -34,7 +34,7 @@ public class Exercise4Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createWriteBehind() {
     long start = System.currentTimeMillis();
-    ehcacheWriteBehind.create(WineBuilder.next());
+    ehcacheWriteBehind.create(WineBuilder.nextWithId(start));
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -43,7 +43,7 @@ public class Exercise4Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createWriteThrough() {
     long start = System.currentTimeMillis();
-    ehcacheWriteThrough.create(WineBuilder.next());
+    ehcacheWriteThrough.create(WineBuilder.nextWithId(start+200));
     return "" + (System.currentTimeMillis() - start);
   }
 
