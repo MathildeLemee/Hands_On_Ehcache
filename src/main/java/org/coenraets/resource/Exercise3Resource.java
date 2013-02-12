@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Exercice 3 : Write-Through
- * Cache sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
+ * Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
  * Implémenter l'écriture via la méthode create. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
  * L'écriture devra etre synchronisée.
  *

@@ -16,9 +16,6 @@ import javax.ws.rs.core.MediaType;
  * Cache sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
  * Implémenter l'écriture via la méthode create. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
  * L'écriture devra etre asynchone.
- * <p/>
- * Indice : Le cacheWriter pourra surement vous aider :)
- * <p/>
  * Rendez vous sur la page exercise4.html pour voir le résultat
  *
  * @author : Mathilde Lemee
