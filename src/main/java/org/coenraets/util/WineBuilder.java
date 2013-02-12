@@ -19,8 +19,14 @@ public class WineBuilder {
     String year = "" + (1990 + rnd.nextInt(20));
     String picture = null;
     String desc = UUID.randomUUID().toString();
-
     return new Wine(name, grape, country, region, year, picture, desc);
+  }
+
+  public final static Wine nextWithId() {
+    SecureRandom rnd = new SecureRandom();
+    Wine wine = WineBuilder.next();
+    wine.setId(System.currentTimeMillis() +rnd.nextInt(500));
+    return wine;
   }
 
   final static String[] names = new String[] {

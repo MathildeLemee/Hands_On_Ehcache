@@ -37,7 +37,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createEhcache() {
     long start = System.currentTimeMillis();
-    ehcache.create(WineBuilder.nextWithId(start));
+    ehcache.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -46,7 +46,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createMysql() {
     long start = System.currentTimeMillis();
-     mysql.create(WineBuilder.nextWithId(start+200));
+     mysql.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -55,7 +55,7 @@ public class Exercise3Resource {
   @Path("ehcache/createAndGet")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetEhcache() {
-    Wine next = WineBuilder.nextWithId(System.currentTimeMillis()+50);
+    Wine next = WineBuilder.nextWithId();
     ehcache.create(next);
     long start = System.currentTimeMillis();
     ehcache.findById(next.getId());
@@ -67,7 +67,7 @@ public class Exercise3Resource {
   @Path("mysql/createAndGet")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetMysql() {
-    Wine wine = WineBuilder.nextWithId(System.currentTimeMillis()+500);
+    Wine wine = WineBuilder.nextWithId();
     mysql.create(wine);
     long start = System.currentTimeMillis();
     mysql.findById(wine.getId());

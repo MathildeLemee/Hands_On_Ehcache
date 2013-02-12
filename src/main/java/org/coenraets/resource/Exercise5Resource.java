@@ -1,12 +1,12 @@
 package org.coenraets.resource;
 
 import net.sf.ehcache.CacheManager;
-import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise5;
 import org.coenraets.service.WineService;
-import javax.ws.rs.GET;
+import org.coenraets.util.WineBuilder;
 
 import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,12 +30,7 @@ public class Exercise5Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createEhcache() {
     long start = System.currentTimeMillis();
-    Wine wine = new Wine();
-    wine.setId(System.currentTimeMillis());
-    wine.setCountry("fr");
-    wine.setName("Vin Divers");
-    wine.setYear(String.valueOf(System.currentTimeMillis()));
-    ehcache.create(wine);
+     ehcache.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
