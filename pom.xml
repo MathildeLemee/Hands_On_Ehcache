@@ -64,6 +64,20 @@
       <artifactId>maven-jetty-plugin</artifactId>
       <version>6.1.26</version>
     </dependency>
+
+    <!--Replication stuff-->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+      <version>5.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-jmsreplication</artifactId>
+      <version>0.5-SNAPSHOT</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
@@ -135,7 +149,41 @@
           </dependency>
         </dependencies>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.activemq.tooling</groupId>
+        <artifactId>maven-activemq-plugin</artifactId>
+        <version>5.7.0</version>
+        <configuration>
+          <fork>false</fork>
+          <systemProperties>
+            <property>
+              <name>javax.net.ssl.keyStorePassword</name>
+              <value>password</value>
+            </property>
+            <property>
+              <name>org.apache.activemq.default.directory.prefix</name>
+              <value>./target/</value>
+            </property>
+          </systemProperties>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.5.5</version>
+          </dependency>
+          <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-xbean</artifactId>
+            <version>6.1.11</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-activemq</artifactId>
+            <version>1.1.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <!--jetty -->
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
