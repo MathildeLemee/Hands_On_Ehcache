@@ -65,8 +65,10 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
 #Exercice 9 : Clustering - sur la meme machine
              Télécharger le dernier kit sur le site de terracotta.
-             Lancer un serveur terracotta
-             Lancer la classe CacheWriter qui va se connecter au L2 (1er Client) et y charger des données
+             Lancer un serveur terracotta.
+             Modifier la classe WriteToCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle écrira 10 nouveaux enregistrements dans le cache.
+             Modifier la classe ReadFromCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle lira l'ensemble des enregistrements dans le cache.
+
              Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire les données.
 
 #Exercice 10 : Clustering classique
@@ -83,12 +85,5 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
               Arreter (brutalement ou non) le serveur actif.
               Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
                présentes.
-#Exercice 12 : Réplication directement avec ehcache - JMS
-              Il est possible de gérer la réplication avec ehcache.
-              http://ehcache.org/documentation/replication/jms-replicated-caching
-              Exemple avec JMS
-#Exercice 13  : WAN http://ehcache.org/documentation/wan-replication
-
-
-Exer
+#Exercice 12  : WAN http://ehcache.org/documentation/wan-replication
 
