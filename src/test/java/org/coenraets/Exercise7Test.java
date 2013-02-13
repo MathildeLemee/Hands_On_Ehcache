@@ -3,7 +3,6 @@ package org.coenraets;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.MemoryUnit;
 import org.coenraets.service.Exercise7;
-import org.coenraets.service.Exercise7Solution;
 import org.junit.Assert;
 import org.junit.Test;
 
