@@ -1,3 +1,6 @@
 .*/*
 frs_sav/*
 logs*
+.*
+src/main/data/*
+src/main/logs/*
