@@ -3,6 +3,8 @@ package org.coenraets.service;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.CacheWriterConfiguration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -11,25 +13,32 @@ import java.util.List;
  * @author Christophe Coenraets
  */
 public class Exercise4 implements WineService {
-  WineMysql mysql = new WineMysql();
-  private CacheManager manager;
+  private WineMysql mysql;
   private Cache wineCache;
 
   public Exercise4() {
-    this.manager = CacheManager.getInstance();
+    CacheManager manager = CacheManager.getInstance();
+    if (!manager.cacheExists("writeBehindSOR")) {
+      CacheConfiguration cacheConfig = new CacheConfiguration("writeBehindSOR", 1000)
+          .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
+          );
+      Cache cache = new Cache(cacheConfig);
+      manager.addCache(cache);
+    }
     this.wineCache = manager.getCache("writeBehindSOR");
     wineCache.registerCacheWriter(new MyCacheWriter());
+    this.mysql = new WineMysql();
   }
 
   @Override
   public List<Wine> findAll() {
-    return mysql.findAll();
+    throw new RuntimeException("not implemented");
   }
 
 
   @Override
   public List<Wine> findByName(String name) {
-    return mysql.findByName(name);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
@@ -39,24 +48,24 @@ public class Exercise4 implements WineService {
 
   @Override
   public Wine save(Wine wine) {
-    return mysql.save(wine);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public Wine create(Wine wine) {
-    wineCache.putWithWriter(new Element(wine.getId(),wine));
+    wineCache.putWithWriter(new Element(wine.getId(), wine));
     return null;
   }
 
   @Override
   public Wine update(Wine wine) {
-    return mysql.update(wine);
+    throw new RuntimeException("not implemented");
 
   }
 
   @Override
   public boolean remove(long id) {
-    return mysql.remove(id);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
@@ -68,4 +77,11 @@ public class Exercise4 implements WineService {
   public void init() {
   }
 
+  public void setMysql(final WineMysql mysql) {
+    this.mysql = mysql;
+  }
+
+  public void setCache(final Cache wineCache) {
+    this.wineCache = wineCache;
+  }
 }

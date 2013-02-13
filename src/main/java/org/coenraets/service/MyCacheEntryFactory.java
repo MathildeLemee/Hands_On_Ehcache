@@ -8,6 +8,10 @@ import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
 public class MyCacheEntryFactory implements CacheEntryFactory {
   public WineMysql wineMysql = new WineMysql();
 
+  public MyCacheEntryFactory(final WineMysql mysql) {
+    this.wineMysql=wineMysql;
+  }
+
 
   @Override
   public Object createEntry(final Object key) throws Exception {
