@@ -2,5 +2,9 @@
 frs_sav/*
 logs*
 .*
-src/main/data/*
-src/main/logs/*
+src/main/resources/data/*
+src/main/resources/logs/*
+src/main/resources/statistics/*
+*.iml
+target/*
+
