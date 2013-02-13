@@ -3,6 +3,7 @@ package org.coenraets;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.MemoryUnit;
 import org.coenraets.service.Exercise7;
+import org.coenraets.service.Exercise7Solution;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author Aurelien Broszniowski
  *
- * -XX:MaxDirectMemorySize=500m -Xmx=600m -Xms=600m
+ * -XX:MaxDirectMemorySize=500m -Xmx600m -Xms600m
  */
 public class Exercise7Test {
 
@@ -39,7 +40,7 @@ public class Exercise7Test {
 
   @Test
   public void testCacheIsConfiguredWithARC() {
-    Exercise7 exercise7 = new Exercise7();
+    Exercise7Solution exercise7 = new Exercise7Solution();
     final List<Ehcache> caches = exercise7.getCaches();
     Ehcache cache1 = caches.get(0);
     Ehcache cache2 = caches.get(1);

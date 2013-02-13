@@ -63,6 +63,7 @@ public class Exercise6Test {
 
     when(cache.createQuery()).thenReturn(query);
     when(query.addCriteria((Criteria)any())).thenReturn(query);
+    when(query.includeValues()).thenReturn(query);
 
     when(query.execute()).thenReturn(results);
 
@@ -83,6 +84,7 @@ public class Exercise6Test {
 
     when(query.execute()).thenReturn(results);
     when(query.addCriteria((Criteria)any())).thenReturn(query);
+    when(query.includeValues()).thenReturn(query);
 
     List<Result> resultsList = new ArrayList<Result>();
     resultsList.add(result1);
