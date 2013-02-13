@@ -1,27 +1,21 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
 
-
+/**
+ * Des indices pour créer le cache sont dans le fichier tips1.txt dans ce meme répertoire !
+ * Saurez vous vous en passer ? :)
+ *
+ */
 public class Exercise1 implements WineService {
   private WineMysql mysql;
   private Cache wineCache;
 
   public Exercise1() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("wineCache")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("wineCache", 1000);
-      Cache cache = new Cache(cacheConfig);
-      manager.addCache(cache);
-    }
-    this.wineCache = manager.getCache("wineCache");
-    mysql = new WineMysql();
+      //TODO
   }
 
 
@@ -39,14 +33,8 @@ public class Exercise1 implements WineService {
 
   @Override
   public Wine findById(long id) {
-    Element element = wineCache.get(id);
-    if (element != null && element.getObjectValue() != null) {
-      return (Wine)element.getObjectValue();
-    } else {
-      Wine wine = mysql.findById(id);
-      wineCache.put(new Element(id, wine));
-      return wine;
-    }
+   //TODO
+    return null;
   }
 
   @Override

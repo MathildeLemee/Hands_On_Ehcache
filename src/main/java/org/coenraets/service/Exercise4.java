@@ -1,10 +1,6 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.CacheWriterConfiguration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -17,17 +13,7 @@ public class Exercise4 implements WineService {
   private Cache wineCache;
 
   public Exercise4() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("writeBehindSOR")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("writeBehindSOR", 1000)
-          .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
-          );
-      Cache cache = new Cache(cacheConfig);
-      manager.addCache(cache);
-    }
-    this.wineCache = manager.getCache("writeBehindSOR");
-    wineCache.registerCacheWriter(new MyCacheWriter());
-    this.mysql = new WineMysql();
+  //TODO
   }
 
   @Override
@@ -43,7 +29,8 @@ public class Exercise4 implements WineService {
 
   @Override
   public Wine findById(long id) {
-    return (Wine)wineCache.get(id).getObjectValue();
+    //TODO
+    return null;
   }
 
   @Override
@@ -53,7 +40,7 @@ public class Exercise4 implements WineService {
 
   @Override
   public Wine create(Wine wine) {
-    wineCache.putWithWriter(new Element(wine.getId(), wine));
+    //TODO
     return null;
   }
 
