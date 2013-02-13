@@ -87,11 +87,11 @@ Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire l
  Arreter (brutalement ou non) le serveur actif.
  Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
   présentes.
-#Exercice 12 : Réplication directement avec ehcache - JMS
- Il est possible de gérer la réplication avec ehcache.
- http://ehcache.org/documentation/replication/jms-replicated-caching
- Exemple avec JMS
-#Exercice 13  : WAN http://ehcache.org/documentation/wan-replication
+#Exercice 12  :
+Télecharger ActiveMQ
+Lancer le
+Essayer de faire fonctionner un cache pour qu il se connecte automatiquement au bridge WAN.
+WAN http://ehcache.org/documentation/wan-replication
 
 
 
