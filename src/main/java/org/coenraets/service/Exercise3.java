@@ -43,7 +43,11 @@ public class Exercise3 implements WineService {
 
   @Override
   public Wine findById(long id) {
-    throw new RuntimeException("not implemented");
+    Element element = wineCache.get(id);
+    if (element != null) {
+      return (Wine)element.getObjectValue();
+    }
+    return null;
   }
 
   @Override
