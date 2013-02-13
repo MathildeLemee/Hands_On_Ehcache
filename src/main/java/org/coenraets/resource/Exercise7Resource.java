@@ -3,6 +3,7 @@ package org.coenraets.resource;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.coenraets.service.Exercise7;
+import org.coenraets.service.Exercise7Solution;
 import org.coenraets.util.WineBuilder;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import javax.ws.rs.PathParam;
 @Path("/exercise7")
 public class Exercise7Resource {
 
-  Exercise7 cacheService = new Exercise7();
+  Exercise7Solution cacheService = new Exercise7Solution();
 
 
   @GET

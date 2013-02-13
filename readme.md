@@ -13,7 +13,7 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 
 
 export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
-mvn jetty:run -Dmaven.test.skip=true
+mvn clean jetty:run -Dmaven.test.skip=true
 
 
 #Exercice 1 :  Cache Aside

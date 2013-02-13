@@ -4,10 +4,10 @@ import net.sf.ehcache.pool.sizeof.AgentSizeOf;
 import org.coenraets.model.Wine;
 import org.coenraets.util.WineBuilder;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * This should create long GC pauses then Full GCs
@@ -18,8 +18,8 @@ import java.util.Queue;
  * and is getting filled faster than the GC can cope with
  *
  * @author Aurelien Broszniowski
- *      use with vm options:
- *         -verbose:gc -Xms500m -Xmx2G  -XX:NewRatio=3 -server
+ *         use with vm options:
+ *         -verbose:gc -Xms500m -Xmx4G  -XX:NewRatio=3 -server
  */
 public class Exercise8 {
 
@@ -28,51 +28,83 @@ public class Exercise8 {
   public static void main(String[] args) {
     Runtime runtime = Runtime.getRuntime();
 
-    RefKeeper refKeeper = new RefKeeper();
-
-    WineBuilder wineBuilder = new WineBuilder();
+    Map<Integer, Wine> container = new HashMap<Integer, Wine>();
 
     AgentSizeOf sizeOfEngine = new AgentSizeOf();
     for (int i = 0; i < 10; i++) {
-      System.out.println("Size of an object: " + sizeOfEngine.deepSizeOf(1000, true, wineBuilder.next()).getCalculated());
+      System.out
+          .println("Size of an object: " + sizeOfEngine.deepSizeOf(1000, true, WineBuilder.next()).getCalculated());
     }
 
-    while (true) {
-      while (runtime.freeMemory() > 50 * Mb) {
+    Producer producer = new Producer(container);
+    Consumer consumer = new Consumer(container);
 
-        System.out.println("Free Memory:" + runtime.freeMemory() / Mb);
-        long start = System.currentTimeMillis();
-        List<Wine> wines = new ArrayList<Wine>();
-        for (int i = 0; i < 100000; i++) {
-          wines.add(wineBuilder.next());
-        }
-        refKeeper.addReference(wines);
-        long end = System.currentTimeMillis();
-        final long length = end - start;
-        System.out.println("Time taken to fill List : " + length);
-      }
+    producer.start();
+    consumer.start();
+
+    try {
+      producer.join();
+      consumer.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
     }
+
   }
 
-  public static class RefKeeper extends Thread {
+  public static class Producer extends Thread {
 
-    Queue<List<Wine>> queue = new LinkedList<List<Wine>>();
+    Runtime runtime = Runtime.getRuntime();
+    SecureRandom rnd = new SecureRandom();
+    int cnt = 0;
+    Map<Integer, Wine> container;
 
+    public Producer(Map<Integer, Wine> container) {
+      this.container = container;
+    }
 
     @Override
     public void run() {
+      System.out.println("Producer started....");
+
       while (true) {
-        try {
-          sleep(1000);
-        } catch (InterruptedException e) {
-          this.interrupt();
+        if (cnt > 14000000) {
+          container.remove(rnd.nextInt(container.size()));
         }
-        queue.remove();
+        container.put(cnt++, WineBuilder.next());
       }
     }
 
-    public void addReference(List<Wine> wines) {
-      queue.add(wines);
+  }
+
+  public static class Consumer extends Thread {
+
+    Random rnd = new Random();
+    Map<Integer, Wine> container;
+
+    public Consumer(Map<Integer, Wine> container) {
+      this.container = container;
+    }
+
+    @Override
+    public void run() {
+      System.out.println("Consumer started....");
+      try {
+        sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      }
+
+      while (true) {
+        int size = container.size();
+        int key = rnd.nextInt(size);
+        long start = System.currentTimeMillis();
+        container.get(key);
+        long end = System.currentTimeMillis();
+        if (size % 100000 == 0) {
+          System.out.println("Time taken to read from map: " + (end - start) + "ms for a size of " + size);
+        }
+      }
     }
   }
+
 }
