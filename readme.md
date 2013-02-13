@@ -10,7 +10,9 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
     Maven
     Git
     Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
-    
+
+
+export MAVEN_OPTS=-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m
 
 #Exercice 1 :  Cache Aside
 Implémenter un cache aside dans le service Exercise1 pour la méthode findBy.

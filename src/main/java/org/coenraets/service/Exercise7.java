@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * ARC exercise
+ * Ehcache ARC and Terracotta Management Console
  * <p/>
  * using several caches
  *

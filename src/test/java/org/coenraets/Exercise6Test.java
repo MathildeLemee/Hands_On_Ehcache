@@ -9,10 +9,10 @@ import net.sf.ehcache.search.expression.Criteria;
 import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise6;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.BeforeTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +29,19 @@ import static org.mockito.Mockito.when;
  */
 public class Exercise6Test {
 
-  @Mock
-  Ehcache cache ;
-  @Mock
-  Query query;
-  @Mock
-  Results results;
+  @Mock Ehcache cache;
+  @Mock Query query;
+  @Mock Results results;
 
-  @Mock
-  Result result1 ;
-  @Mock
-  Result result2;
-  @Mock
-  Result result3;
+  @Mock Result result1;
+  @Mock Result result2;
+  @Mock Result result3;
 
-   @BeforeTest
-  public void beforeTest(){
+  @Before
+  public void beforeTest() {
     MockitoAnnotations.initMocks(this);
   }
+
   @Test
   public void testCacheIsConfigured() {
     Exercise6 exercise6 = new Exercise6();
