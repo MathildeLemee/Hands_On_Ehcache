@@ -3,7 +3,6 @@ package org.coenraets;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.config.MemoryUnit;
 import org.coenraets.service.Exercise7;
-import org.coenraets.service.Exercise7Solution;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,7 +19,7 @@ public class Exercise7Test {
 
   @Test
   public void testCacheIsConfiguredWithTMC() {
-    Exercise7Solution exercise7 = new Exercise7Solution();
+    Exercise7 exercise7 = new Exercise7();
     final List<Ehcache> caches = exercise7.getCaches();
     Ehcache cache1 = caches.get(0);
     Ehcache cache2 = caches.get(1);
@@ -40,7 +39,7 @@ public class Exercise7Test {
 
   @Test
   public void testCacheIsConfiguredWithARC() {
-    Exercise7Solution exercise7 = new Exercise7Solution();
+    Exercise7 exercise7 = new Exercise7();
     final List<Ehcache> caches = exercise7.getCaches();
     Ehcache cache1 = caches.get(0);
     Ehcache cache2 = caches.get(1);
