@@ -1,0 +1,49 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd">
+
+
+    <terracottaConfig url="localhost:9510" />
+
+  <cacheManagerPeerProviderFactory
+      class="net.sf.ehcache.distribution.wan.jms.JMSCacheManagerPeerProviderFactory"
+      properties="initialContextFactoryName=org.apache.activemq.jndi.ActiveMQInitialContextFactory,
+    destinationType=queue,
+    noOfReadDestinations=1,
+    noOfWriteDestinations=1,
+    writeProviderURL=nio://localhost:61616,
+    readProviderURL=nio://10.0.4.201:61616,
+    writeDestinationBindingName=dynamicQueues/queue2,
+    readDestinationBindingName=dynamicQueues/queue2,
+    writeDestinationConnectionFactoryBindingName=ConnectionFactory,
+    readDestinationConnectionFactoryBindingName=ConnectionFactory,
+    acknowledgementMode=CLIENT_ACKNOWLEDGE,
+    persistent=true,
+pooledConnectionFactoryProvider=net.sf.ehcache.distribution.wan.jms.AmqPooledConnectionFactoryProvider,
+    poolMaxConnections=10,
+    poolIdleTimeout=5000,
+    consumerThreads=1,
+    resourceCaching=CONSUMER,
+    conflictResolver=net.sf.ehcache.distribution.wan.jms.TimeBasedConflictResolver"
+      propertySeparator=","/>
+
+
+  <cache name="sampleCache"
+         maxElementsInMemory="1000"
+         eternal="false"
+         timeToIdleSeconds="1000"
+         timeToLiveSeconds="1000"
+         overflowToDisk="false">
+    <terracotta />
+    <cacheEventListenerFactory
+        class="net.sf.ehcache.distribution.wan.jms.JMSCacheReplicatorFactory" properties="replicateAsynchronously=true,
+    replicatePuts=true,
+    replicateUpdates=true,
+    replicateUpdatesViaCopy=true,
+    replicateRemovals=true, conflationEnabled=true, asynchronousReplicationIntervalMillis=30000"
+        propertySeparator=","/>
+  </cache>
+
+
+
+
+</ehcache>

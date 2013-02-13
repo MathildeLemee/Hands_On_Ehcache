@@ -1,75 +1,66 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
 
-
+/**
+ * Des indices pour créer le cache sont dans le fichier tips1.txt dans ce meme répertoire !
+ * Saurez vous vous en passer ? :)
+ *
+ */
 public class Exercise1 implements WineService {
-  WineMysql mysql = new WineMysql();
-  private CacheManager manager;
-  private Cache searchWine;
+  private WineMysql mysql;
+  private Cache wineCache;
 
   public Exercise1() {
-    Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("searchWine", 1000));
-    this.manager = CacheManager.create(configuration);
-    this.searchWine = manager.getCache("searchWine");
+      //TODO
   }
+
 
   @Override
   public List<Wine> findAll() {
-    return mysql.findAll();
+    throw new RuntimeException("not implemented");
   }
 
 
   @Override
   public List<Wine> findByName(String name) {
-    return mysql.findByName(name);
+    throw new RuntimeException("not implemented");
   }
 
 
   @Override
   public Wine findById(long id) {
-    Element element = searchWine.get(id);
-    if (element != null && element.getObjectValue() != null) {
-      return (Wine)element.getObjectValue();
-    } else {
-      Wine wine = mysql.findById(id);
-      searchWine.put(new Element(id, wine));
-      return wine;
-    }
+   //TODO
+    return null;
   }
 
   @Override
   public Wine save(Wine wine) {
-    return mysql.save(wine);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public Wine create(Wine wine) {
-    return mysql.create(wine);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public Wine update(Wine wine) {
-    return mysql.update(wine);
+    throw new RuntimeException("not implemented");
 
   }
 
   @Override
   public boolean remove(long id) {
-    return mysql.remove(id);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public void clear() {
-    searchWine.removeAll();
+    wineCache.removeAll();
   }
 
   @Override
@@ -77,4 +68,15 @@ public class Exercise1 implements WineService {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
+  public Cache getCache() {
+    return wineCache;
+  }
+
+  public void setMysql(final WineMysql mysql) {
+    this.mysql = mysql;
+  }
+
+  public void setWineCache(final Cache wineCache) {
+    this.wineCache = wineCache;
+  }
 }

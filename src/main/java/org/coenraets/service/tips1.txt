@@ -1,0 +1,17 @@
+/**
+ *
+ * Extrait de la documentation :
+ *
+ //Configuration du cache manager
+ Configuration config = new Configuration();
+
+ // configuration du cache myCache
+ CacheConfiguration myCache = new CacheConfiguration("myCache", 10000);
+
+ configuration.addCache(myCache);
+
+ CacheManager mgr =  CacheManager.create(configuration);
+ Cache exampleCache = mgr.getCache("myCache");
+
+
+ */

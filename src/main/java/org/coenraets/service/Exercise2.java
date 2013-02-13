@@ -1,10 +1,6 @@
 package org.coenraets.service;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
+import net.sf.ehcache.Ehcache;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -13,23 +9,17 @@ import java.util.List;
  * @author Christophe Coenraets
  */
 public class Exercise2 implements WineService {
-  WineMysql mysql = new WineMysql();
-  private CacheManager manager;
-  private Cache wine;
-  private SelfPopulatingCache selfPopulatingCache;
+  WineMysql mysql;
+  private Ehcache selfPopulatingCache;
 
   public Exercise2() {
-    Configuration configuration = new Configuration()
-        .cache(new CacheConfiguration("writeSOR", 1000));
-    this.manager = CacheManager.create(configuration);
-    this.wine = manager.getCache("writeSOR");
-    MyCacheEntryFactory myCacheEntryFactory = new MyCacheEntryFactory();
-    selfPopulatingCache = new SelfPopulatingCache(wine, myCacheEntryFactory);
+    //TODO
   }
+
 
   @Override
   public List<Wine> findAll() {
-    return mysql.findAll();
+    throw new RuntimeException("not implemented");
   }
 
 
@@ -44,28 +34,28 @@ public class Exercise2 implements WineService {
    * C'est au cache qu'il faut indiquer comment se mettre à jour en cas d'objet non présent dans le cache
    */
   public Wine findById(long id) {
-       return (Wine)selfPopulatingCache.get(id).getObjectValue();
+  //TODO
+    return null;
   }
 
   @Override
   public Wine save(Wine wine) {
-    return mysql.save(wine);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public Wine create(Wine wine) {
-    return mysql.create(wine);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public Wine update(Wine wine) {
-    return mysql.update(wine);
-
+    throw new RuntimeException("not implemented");
   }
 
   @Override
   public boolean remove(long id) {
-    return mysql.remove(id);
+    throw new RuntimeException("not implemented");
   }
 
   @Override
@@ -77,4 +67,20 @@ public class Exercise2 implements WineService {
   public void init() {
   }
 
+  public Ehcache getCache() {
+    return selfPopulatingCache;
+  }
+
+  public WineMysql getMysql() {
+    return mysql;
+  }
+
+  public void setMysql(final WineMysql mysql) {
+    this.mysql = mysql;
+  }
+
+
+  public void setCache(final Ehcache selfPopulatingCache) {
+    this.selfPopulatingCache = selfPopulatingCache;
+  }
 }

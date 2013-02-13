@@ -1,0 +1,9 @@
+.*/*
+frs_sav/*
+logs*
+.*
+src/main/resources/data/*
+src/main/resources/logs/*
+src/main/resources/statistics/*
+*.iml
+target/*

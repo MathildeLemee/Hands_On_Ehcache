@@ -1,19 +1,20 @@
-package org.coenraets.util;
+package org.coenraets.scripts;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.TerracottaClientConfiguration;
 import net.sf.ehcache.config.TerracottaConfiguration;
-import org.coenraets.model.Wine;
+
+import java.util.List;
 
 /**
  * Cette classe ne sert que dans la 2eme partie du hands-on, celle sur le clustering
  *
  * @author Mathilde Lemee
  */
-public class WriteToCache {
+public class ReadFromCache {
 
   public static void main(String[] args) {
     /**
@@ -29,9 +30,10 @@ public class WriteToCache {
         .cache(new CacheConfiguration("clusteredCache", 100)
             .terracotta(new TerracottaConfiguration()));
     CacheManager manager = new CacheManager(configuration);
-    for (int i = 0; i < 10; i++) {
-      Wine wine = WineBuilder.nextWithId();
-      manager.getCache("clusteredCache").put(new Element(wine.getId(), wine));
+    Cache clusteredCache = manager.getCache("clusteredCache");
+    List keys = clusteredCache.getKeys();
+    for (long id : (List<Long>)keys) {
+      System.out.println(clusteredCache.get(id));
     }
   }
 

@@ -1,12 +1,7 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.config.DiskStoreConfiguration;
-import net.sf.ehcache.config.PersistenceConfiguration;
 import org.coenraets.model.Wine;
 
 import java.util.List;
@@ -15,15 +10,10 @@ import java.util.List;
  * @author Christophe Coenraets
  */
 public class Exercise5 implements WineService {
-  WineMysql mysql = new WineMysql();
-  private CacheManager manager;
   private Cache wineCache;
 
   public Exercise5() {
-    Configuration configuration = new Configuration().name("frs").diskStore(new DiskStoreConfiguration().path("frs_sav")).
-        cache(new CacheConfiguration("frs", 1000).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE)));
-    this.manager = new CacheManager(configuration);
-    this.wineCache = manager.getCache("frs");
+    //TODO
   }
 
   @Override
@@ -45,7 +35,6 @@ public class Exercise5 implements WineService {
     } else {
       return null;
     }
-
   }
 
   @Override
@@ -81,5 +70,7 @@ public class Exercise5 implements WineService {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-
+  public void setWineCache(final Cache wineCache) {
+    this.wineCache = wineCache;
+  }
 }
