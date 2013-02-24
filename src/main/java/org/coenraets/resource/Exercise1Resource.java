@@ -31,10 +31,10 @@ import javax.ws.rs.core.MediaType;
 @Component
 public class Exercise1Resource {
 
-  @Resource(name="wineMysql")
+  @Resource
   WineService wineMysql;
 
-  @Resource(name = "exercise1")
+  @Resource
   WineService exercise1;
 
   @GET

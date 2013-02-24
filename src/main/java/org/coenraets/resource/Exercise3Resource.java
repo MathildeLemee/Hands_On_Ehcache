@@ -28,8 +28,8 @@ import javax.ws.rs.core.MediaType;
 @Path("/exercise3")
 @Component
 public class Exercise3Resource {
-  @Resource(name="wineMysql")
-  WineService mysql;
+  @Resource
+  WineService wineMysql;
 
   @Resource
   WineService exercise3;
@@ -49,7 +49,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createMysql() {
     long start = System.currentTimeMillis();
-     mysql.create(WineBuilder.nextWithId());
+     wineMysql.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -71,9 +71,9 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetMysql() {
     Wine wine = WineBuilder.nextWithId();
-    mysql.create(wine);
+    wineMysql.create(wine);
     long start = System.currentTimeMillis();
-    mysql.findById(wine.getId());
+    wineMysql.findById(wine.getId());
     String s = "" + (System.currentTimeMillis() - start);
     return s;
   }

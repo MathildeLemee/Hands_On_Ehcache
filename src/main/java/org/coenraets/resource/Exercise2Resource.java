@@ -28,8 +28,8 @@ import javax.ws.rs.core.MediaType;
 @Component
 public class Exercise2Resource {
 
-  @Resource(name="wineMysql")
-  WineService mysql;
+  @Resource
+  WineService wineMysql;
 
   @Resource
   WineService exercise2;
@@ -38,7 +38,7 @@ public class Exercise2Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String findByIdMysql(@PathParam("id") String id) {
     long start = System.currentTimeMillis();
-     mysql.findById(Integer.parseInt(id));
+     wineMysql.findById(Integer.parseInt(id));
     return ""+(System.currentTimeMillis() - start);
   }
 
