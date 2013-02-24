@@ -2,16 +2,22 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import javax.annotation.Resource;
 
 /**
  * Des indices pour créer le cache sont dans le fichier tips1.txt dans ce meme répertoire !
  * Saurez vous vous en passer ? :)
  *
  */
+@Service(value = "exercise1")
 public class Exercise1 implements WineService {
+  @Resource
   private WineMysql mysql;
+
   private Cache wineCache;
 
   public Exercise1() {

@@ -2,14 +2,19 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Ehcache;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 /**
- * @author Christophe Coenraets
  */
+@Service
 public class Exercise2 implements WineService {
+  @Resource
   WineMysql mysql;
+
   private Ehcache selfPopulatingCache;
 
   public Exercise2() {

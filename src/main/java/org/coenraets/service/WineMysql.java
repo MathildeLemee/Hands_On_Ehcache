@@ -2,6 +2,7 @@ package org.coenraets.service;
 
 import org.coenraets.model.Wine;
 import org.coenraets.util.ConnectionHelper;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
+@Service
 public class WineMysql implements WineService {
 
   @Override

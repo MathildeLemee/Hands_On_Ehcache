@@ -3,12 +3,13 @@ package org.coenraets.service;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @author Christophe Coenraets
  */
+@Service
 public class Exercise5 implements WineService {
   private Cache wineCache;
 

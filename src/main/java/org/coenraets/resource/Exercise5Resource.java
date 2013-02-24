@@ -1,10 +1,11 @@
 package org.coenraets.resource;
 
 import net.sf.ehcache.CacheManager;
-import org.coenraets.service.Exercise5;
 import org.coenraets.service.WineService;
 import org.coenraets.util.WineBuilder;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -28,16 +29,18 @@ import javax.ws.rs.core.MediaType;
  * @author : Mathilde Lemee
  */
 @Path("/exercise5")
+@Component
 public class Exercise5Resource {
 
-  WineService ehcache = new Exercise5();
+  @Resource
+  WineService exercise5;
 
   @POST
   @Path("ehcache/create")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createEhcache() {
     long start = System.currentTimeMillis();
-     ehcache.create(WineBuilder.nextWithId());
+     exercise5.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -51,7 +54,7 @@ public class Exercise5Resource {
   @DELETE
   @Path("clear")
   public void clearCache() {
-    ehcache.clear();
+    exercise5.clear();
   }
 
 }

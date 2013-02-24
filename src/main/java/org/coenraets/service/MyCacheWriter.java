@@ -8,14 +8,18 @@ import net.sf.ehcache.writer.CacheWriter;
 import net.sf.ehcache.writer.writebehind.operations.SingleOperationType;
 
 import org.coenraets.model.Wine;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 /**
  * @author : Mathilde Lemee
  */
+@Service
 public class MyCacheWriter implements CacheWriter {
-  public WineMysql wineMysql = new WineMysql();
+  @Autowired
+  public WineMysql wineMysql;
 
   @Override
   public CacheWriter clone(final Ehcache ehcache) throws CloneNotSupportedException {

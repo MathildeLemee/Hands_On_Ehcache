@@ -1,11 +1,11 @@
 package org.coenraets.resource;
 
 import org.coenraets.model.Wine;
-import org.coenraets.service.Exercise3;
-import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
 import org.coenraets.util.WineBuilder;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Exercice 3 : Write-Through
  * Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
- * Implémenter l'écriture via la méthode create. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
+ * Implémenter l'écriture via la méthode create. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici wineMysql
  * L'écriture devra etre synchronisée.
  *
  * Indice : Le cacheWriter pourra surement vous aider :)
@@ -26,10 +26,13 @@ import javax.ws.rs.core.MediaType;
  * @author : Mathilde Lemee
  */
 @Path("/exercise3")
+@Component
 public class Exercise3Resource {
+  @Resource(name="wineMysql")
+  WineService mysql;
 
-  WineService mysql = new WineMysql();
-  WineService ehcache = new Exercise3();
+  @Resource
+  WineService exercise3;
 
 
   @POST
@@ -37,7 +40,7 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createEhcache() {
     long start = System.currentTimeMillis();
-    ehcache.create(WineBuilder.nextWithId());
+    exercise3.create(WineBuilder.nextWithId());
     return "" + (System.currentTimeMillis() - start);
   }
 
@@ -56,9 +59,9 @@ public class Exercise3Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String createAndGetEhcache() {
     Wine next = WineBuilder.nextWithId();
-    ehcache.create(next);
+    exercise3.create(next);
     long start = System.currentTimeMillis();
-    ehcache.findById(next.getId());
+    exercise3.findById(next.getId());
     String s = "" + (System.currentTimeMillis() - start);
     return s;
   }
@@ -79,7 +82,7 @@ public class Exercise3Resource {
   @DELETE
   @Path("clear")
   public void clearCache() {
-    ehcache.clear();
+    exercise3.clear();
   }
 
 }
