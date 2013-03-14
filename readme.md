@@ -12,6 +12,8 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
     Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
 
 
+    mysql -u root < cellar.sql
+
 export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
 mvn clean jetty:run -Dmaven.test.skip=true
 
@@ -66,6 +68,39 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 #Exercice 7 - Bonus : ARC
 
 #Exercice 8 : BigMemory
+
+ 1) telecharger Bigmeory go et la licence
+ 2) creer un cache
+ 3) Mettre le monitoring a ON
+
+  <ehcache ...
+           monitoring="on">
+    <managementRESTService enabled="true" bind="localhost:9888"/>
+  </ehcache>
+
+ 4) lancer la tmc :
+     dans le repertoire bigmemory-go
+          management-console/bin/start.sh
+ 5) la tmc est accessible:
+  http://localhost:9889/tmc
+
+  elle permet de verifier les infos du cache et du cluster associé... taille, performances, etc
+
+ 6) configurer la offheap
+    Attention, on peut configurer la taille d'un cache sur le nombre d'elements
+      ex.:
+       new CacheConfiguration().name("count-based")
+                    .maxEntriesLocalHeap(10000)
+                    .maxEntriesLocalOffHeap(100000)
+
+      ou sur la taille memoire:
+      new CacheConfiguration().name("size-based")
+                  .maxBytesLocalHeap(300, MemoryUnit.MEGABYTES)
+                  .maxBytesLocalOffHeap(1, MemoryUnit.GIGABYTES)
+
+
+
+
 
 #Exercice 9 : Clustering - sur la meme machine
 Télécharger le dernier kit sur le site de terracotta.
