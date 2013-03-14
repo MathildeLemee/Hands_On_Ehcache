@@ -5,18 +5,34 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 
 ====================================================
 
-#Prérequis :
+#Prérequis
 
-    Maven
-    Git
-    Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
+##A télécharger et installer
 
+ - Maven
+ - Git
+ - MySQL avec une connexion root
+ - Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
 
-    mysql -u root < cellar.sql
+##Configuration MySQL
 
-export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
-mvn clean jetty:run -Dmaven.test.skip=true
+Changer le mot de passe root si nécessaire:
 
+    $ mysql -u root --password=motdepasseroot
+    mysql> SET PASSWORD FOR root@localhost=PASSWORD('');
+
+Creer et importer la base
+
+    mysql> CREATE DATABASE wine;
+    mysql> exit
+    $ mysql wine -u root  < src/main/resources/cellar.sql
+ 
+##Compiler et lancer le server:
+
+    export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
+    mvn clean jetty:run -Dmaven.test.skip=true
+
+L'application est disponible sur [http://localhost:8080/cache](http://localhost:8080/cache)
 
 #Exercice 1 :  Cache Aside
 Implémenter un cache aside dans le service Exercise1 pour la méthode findBy.

@@ -4,6 +4,8 @@ import org.coenraets.model.Wine;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 /**
  * @author : Mathilde Lemee
  */

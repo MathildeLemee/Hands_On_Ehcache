@@ -2,13 +2,17 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 /**
- * @author Christophe Coenraets
  */
+@Service
 public class Exercise4 implements WineService {
+  @Resource
   private WineMysql mysql;
   private Cache wineCache;
 
