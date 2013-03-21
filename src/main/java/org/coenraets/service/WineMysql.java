@@ -2,6 +2,7 @@ package org.coenraets.service;
 
 import org.coenraets.model.Wine;
 import org.coenraets.util.ConnectionHelper;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Christophe Coenraets
  */
+@Service
 public class WineMysql implements WineService {
 
   @Override
@@ -22,7 +24,7 @@ public class WineMysql implements WineService {
     Connection c = null;
     String sql = "SELECT * FROM wine ORDER BY name";
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       Statement s = c.createStatement();
       ResultSet rs = s.executeQuery(sql);
       while (rs.next()) {
@@ -46,7 +48,7 @@ public class WineMysql implements WineService {
                  "WHERE UPPER(name) LIKE ? " +
                  "ORDER BY name";
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       PreparedStatement ps = c.prepareStatement(sql);
       ps.setString(1, "%" + name.toUpperCase() + "%");
       ResultSet rs = ps.executeQuery();
@@ -68,7 +70,7 @@ public class WineMysql implements WineService {
     Wine wine = null;
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       PreparedStatement ps = c.prepareStatement(sql);
       ps.setLong(1, id);
       ResultSet rs = ps.executeQuery();
@@ -94,7 +96,7 @@ public class WineMysql implements WineService {
     Connection c = null;
     PreparedStatement ps = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       ps = c.prepareStatement("INSERT INTO wine (name, grapes, country, region, year, picture, description,id) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
@@ -119,7 +121,7 @@ public class WineMysql implements WineService {
   public Wine update(Wine wine) {
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       PreparedStatement ps = c.prepareStatement("UPDATE wine SET name=?, grapes=?, country=?, region=?, year=?, picture=?, description=? WHERE id=?");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
@@ -143,7 +145,7 @@ public class WineMysql implements WineService {
   public boolean remove(long id) {
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = ConnectionHelper.getMySqlConnection();
       PreparedStatement ps = c.prepareStatement("DELETE FROM wine WHERE id=?");
       ps.setLong(1, id);
       int count = ps.executeUpdate();

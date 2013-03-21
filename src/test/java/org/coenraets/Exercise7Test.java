@@ -13,13 +13,13 @@ import java.util.List;
  *
  * @author Aurelien Broszniowski
  *
- * -XX:MaxDirectMemorySize=500m -Xmx=600m -Xms=600m
+ * -XX:MaxDirectMemorySize=500m -Xmx600m -Xms600m
  */
 public class Exercise7Test {
 
   @Test
   public void testCacheIsConfiguredWithTMC() {
-    Exercise7Solution exercise7 = new Exercise7Solution();
+    Exercise7 exercise7 = new Exercise7();
     final List<Ehcache> caches = exercise7.getCaches();
     Ehcache cache1 = caches.get(0);
     Ehcache cache2 = caches.get(1);

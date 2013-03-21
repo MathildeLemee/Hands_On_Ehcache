@@ -11,14 +11,44 @@ public class ConnectionHelper {
 
   }
 
-  public static Connection getConnection() throws SQLException {
+  public static Connection getMySqlConnection() throws SQLException {
     if (instance == null) {
       instance = new ConnectionHelper();
     }
     try {
       Class.forName("com.mysql.jdbc.Driver");
-      return DriverManager.getConnection(
-          "jdbc:mysql://localhost/wine?user=root");
+      return DriverManager.getConnection("jdbc:mysql://localhost/wine?user=root");
+    } catch (SQLException e) {
+      throw e;
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      return null;
+    }
+  }
+
+  public static Connection getH2Connection() throws SQLException {
+    if (instance == null) {
+      instance = new ConnectionHelper();
+    }
+    try {
+      Class.forName("org.h2.Driver");
+      return DriverManager.getConnection("jdbc:h2:tcp://localhost:8092/mem;USER=sa:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE");
+    } catch (SQLException e) {
+      throw e;
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+      return null;
+    }
+  }
+
+  private static Connection getConnection(String url) throws SQLException {
+    if (instance == null) {
+      instance = new ConnectionHelper();
+    }
+    try {
+      Class.forName("org.h2.Driver");
+      Class.forName("com.mysql.jdbc.Driver");
+      return DriverManager.getConnection(url);
     } catch (SQLException e) {
       throw e;
     } catch (ClassNotFoundException e) {

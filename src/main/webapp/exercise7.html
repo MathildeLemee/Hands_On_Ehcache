@@ -42,31 +42,6 @@
         }
 
         $(document).ready(function () {
-            var smoothie1 = new SmoothieChart();
-            var smoothie2 = new SmoothieChart();
-            var intervalId = null;
-            smoothie1.streamTo(document.getElementById("mycanvas1"), 1500);
-            smoothie2.streamTo(document.getElementById("mycanvas2"), 1500);
-
-            var line1 = new TimeSeries();
-            var line2 = new TimeSeries();
-            var line3 = new TimeSeries();
-            var line4 = new TimeSeries();
-            var line5 = new TimeSeries();
-            var line6 = new TimeSeries();
-
-            smoothie1.addTimeSeries(line1,
-                    { strokeStyle:'rgb(0, 0, 255)', fillStyle:'rgba(0, 0, 255, 0.4)', lineWidth:3 });
-            smoothie1.addTimeSeries(line2,
-                    { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:3 });
-            smoothie1.addTimeSeries(line3,
-                    { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
-            smoothie2.addTimeSeries(line4,
-                    { strokeStyle:'rgb(0, 0, 255)', fillStyle:'rgba(0, 0, 255, 0.4)', lineWidth:3 });
-            smoothie2.addTimeSeries(line5,
-                    { strokeStyle:'rgb(255, 0, 0)', fillStyle:'rgba(255, 0, 0, 0.3)', lineWidth:3 });
-            smoothie2.addTimeSeries(line6,
-                    { strokeStyle:'rgb(0, 255, 0)', fillStyle:'rgba(0, 255, 0, 0.3)', lineWidth:3 });
 
             $("#clear").click(function () {
                 clearCache();
@@ -134,28 +109,22 @@
                     success:function (data) {
                         $.each(data, function (key, val) {
                             if (key == 'heap1') {
-                                line1.append(new Date().getTime(), val);
                                 $("#cache1-size").html(bytesToSize(val, 1));
                             }
                             if (key == 'heap2') {
-                                line2.append(new Date().getTime(), val);
                                 $("#cache2-size").html(bytesToSize(val, 1));
                             }
                             if (key == 'heap3') {
-                                line3.append(new Date().getTime(), val);
                                 $("#cache3-size").html(bytesToSize(val, 1));
                             }
 
                             if (key == 'offheap1') {
-                                line4.append(new Date().getTime(), val);
                                 $("#cache1-size2").html(bytesToSize(val, 1));
                             }
                             if (key == 'offheap2') {
-                                line5.append(new Date().getTime(), val);
                                 $("#cache2-size2").html(bytesToSize(val, 1));
                             }
                             if (key == 'offheap3') {
-                                line6.append(new Date().getTime(), val);
                                 $("#cache3-size2").html(bytesToSize(val, 1));
                             }
                         });
@@ -197,11 +166,6 @@
     <h2 style="color: red">Cache 2 offheap size:<span id="cache2-size2">...</span></h2>
 
     <h2 style="color: green">Cache 3 offheap size:<span id="cache3-size2">...</span></h2>
-</div>
-<div id="center">
-    <canvas id="mycanvas1" width="1000" height="250"></canvas>
-    <br/>
-    <canvas id="mycanvas2" width="1000" height="250"></canvas>
 </div>
 </body>
 </html>

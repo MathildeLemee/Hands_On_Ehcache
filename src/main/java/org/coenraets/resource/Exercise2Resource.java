@@ -1,9 +1,9 @@
 package org.coenraets.resource;
 
-import org.coenraets.service.Exercise2;
-import org.coenraets.service.WineMysql;
 import org.coenraets.service.WineService;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,16 +25,20 @@ import javax.ws.rs.core.MediaType;
  * @author : Mathilde Lemee
  */
 @Path("/exercise2")
+@Component
 public class Exercise2Resource {
 
-  WineService mysql = new WineMysql();
-  WineService ehcache = new Exercise2();
+  @Resource
+  WineService wineMysql;
+
+  @Resource
+  WineService exercise2;
 
   @GET @Path("mysql/{id}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String findByIdMysql(@PathParam("id") String id) {
     long start = System.currentTimeMillis();
-     mysql.findById(Integer.parseInt(id));
+     wineMysql.findById(Integer.parseInt(id));
     return ""+(System.currentTimeMillis() - start);
   }
 
@@ -42,14 +46,14 @@ public class Exercise2Resource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public String findByIdEhcache(@PathParam("id") String id) {
     long start = System.currentTimeMillis();
-    ehcache.findById(Integer.parseInt(id));
+    exercise2.findById(Integer.parseInt(id));
     return ""+(System.currentTimeMillis() - start);  }
 
 
   @DELETE
   @Path("clear")
   public void clearCache() {
-    ehcache.clear();
+    exercise2.clear();
   }
 
 }

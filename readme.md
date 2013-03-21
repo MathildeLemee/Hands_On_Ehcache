@@ -5,16 +5,34 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 
 ====================================================
 
-#Prérequis :
+#Prérequis
 
-    Maven
-    Git
-    Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
+##A télécharger et installer
 
+ - Maven
+ - Git
+ - MySQL avec une connexion root
+ - Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
 
-export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
-mvn jetty:run -Dmaven.test.skip=true
+##Configuration MySQL
 
+Changer le mot de passe root si nécessaire:
+
+    $ mysql -u root --password=motdepasseroot
+    mysql> SET PASSWORD FOR root@localhost=PASSWORD('');
+
+Creer et importer la base
+
+    mysql> CREATE DATABASE wine;
+    mysql> exit
+    $ mysql wine -u root  < src/main/resources/cellar.sql
+ 
+##Compiler et lancer le server:
+
+    export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
+    mvn clean jetty:run -Dmaven.test.skip=true
+
+L'application est disponible sur [http://localhost:8080/cache](http://localhost:8080/cache)
 
 #Exercice 1 :  Cache Aside
 Implémenter un cache aside dans le service Exercise1 pour la méthode findBy.
@@ -67,6 +85,39 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
 #Exercice 8 : BigMemory
 
+ 1) telecharger Bigmeory go et la licence
+ 2) creer un cache
+ 3) Mettre le monitoring a ON
+
+  <ehcache ...
+           monitoring="on">
+    <managementRESTService enabled="true" bind="localhost:9888"/>
+  </ehcache>
+
+ 4) lancer la tmc :
+     dans le repertoire bigmemory-go
+          management-console/bin/start.sh
+ 5) la tmc est accessible:
+  http://localhost:9889/tmc
+
+  elle permet de verifier les infos du cache et du cluster associé... taille, performances, etc
+
+ 6) configurer la offheap
+    Attention, on peut configurer la taille d'un cache sur le nombre d'elements
+      ex.:
+       new CacheConfiguration().name("count-based")
+                    .maxEntriesLocalHeap(10000)
+                    .maxEntriesLocalOffHeap(100000)
+
+      ou sur la taille memoire:
+      new CacheConfiguration().name("size-based")
+                  .maxBytesLocalHeap(300, MemoryUnit.MEGABYTES)
+                  .maxBytesLocalOffHeap(1, MemoryUnit.GIGABYTES)
+
+
+
+
+
 #Exercice 9 : Clustering - sur la meme machine
 Télécharger le dernier kit sur le site de terracotta.
 Lancer un serveur terracotta
@@ -87,11 +138,11 @@ Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire l
  Arreter (brutalement ou non) le serveur actif.
  Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
   présentes.
-#Exercice 12 : Réplication directement avec ehcache - JMS
- Il est possible de gérer la réplication avec ehcache.
- http://ehcache.org/documentation/replication/jms-replicated-caching
- Exemple avec JMS
-#Exercice 13  : WAN http://ehcache.org/documentation/wan-replication
+#Exercice 12  :
+Télecharger ActiveMQ
+Lancer le
+Essayer de faire fonctionner un cache pour qu il se connecte automatiquement au bridge WAN.
+WAN http://ehcache.org/documentation/wan-replication
 
 
 

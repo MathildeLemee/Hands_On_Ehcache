@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public class WineBuilder {
 
-  public final static Wine next() {
+  public static Wine next() {
     SecureRandom rnd = new SecureRandom();
     String name = names[rnd.nextInt(names.length - 1)];
     String grape = grapes[rnd.nextInt(grapes.length - 1)];
@@ -22,7 +22,7 @@ public class WineBuilder {
     return new Wine(name, grape, country, region, year, picture, desc);
   }
 
-  public final static Wine nextWithId() {
+  public static Wine nextWithId() {
     SecureRandom rnd = new SecureRandom();
     Wine wine = WineBuilder.next();
     wine.setId(System.currentTimeMillis() +rnd.nextInt(500));

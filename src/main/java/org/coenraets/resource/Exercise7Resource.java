@@ -22,10 +22,11 @@ public class Exercise7Resource {
   @GET
   @Path("ehcache/fill/{cacheNb}")
   public String fillCaches(@PathParam("cacheNb") final Integer cacheNb) {
-    new Thread () {
+    new Thread() {
       @Override
       public void run() {
-        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " starting to fill the cache " + cacheNb);
+        System.out
+            .println("--->>> Thread " + Thread.currentThread().getName() + " starting to fill the cache " + cacheNb);
         final Ehcache ehcache = cacheService.getCaches().get(cacheNb - 1);
         for (int i = 0; i < 300000; i++) {
           ehcache.put(new Element(UUID.randomUUID().toString(), WineBuilder.next()));
@@ -39,10 +40,11 @@ public class Exercise7Resource {
   @GET
   @Path("ehcache/del/{cacheNb}")
   public String emptyCaches(@PathParam("cacheNb") final Integer cacheNb) {
-    new Thread () {
+    new Thread() {
       @Override
       public void run() {
-        System.out.println("--->>> Thread " + Thread.currentThread().getName() + " starting to empty the cache " + cacheNb);
+        System.out
+            .println("--->>> Thread " + Thread.currentThread().getName() + " starting to empty the cache " + cacheNb);
         final Ehcache ehcache = cacheService.getCaches().get(cacheNb - 1);
         final List keys = ehcache.getKeys();
         for (int i = 0; i < 300000; i++) {
