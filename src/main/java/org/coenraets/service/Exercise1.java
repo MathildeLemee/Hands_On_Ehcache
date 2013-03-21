@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 public class Exercise1 implements WineService {
   @Resource
   private WineMysql mysql;
+
   private final Cache wineCache;
 
   public Exercise1() {

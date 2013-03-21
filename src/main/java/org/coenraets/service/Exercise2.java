@@ -11,27 +11,32 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
  */
 @Service
 public class Exercise2 implements WineService {
+
   @Resource
   WineMysql mysql;
 
+  @Resource
+  MyCacheEntryFactory myCacheEntryFactory;
+
   private Ehcache selfPopulatingCache;
 
-  public Exercise2() {
+  @PostConstruct
+  public void postContruct() {
     CacheManager manager = CacheManager.getInstance();
     if (!manager.cacheExists("readThrough")) {
       CacheConfiguration cacheConfig =  new CacheConfiguration("readThrough", 1000);
       Cache cache = new Cache(cacheConfig);
       manager.addCache(cache);
     }
+    System.out.println("myCache "+myCacheEntryFactory);
     Cache wine = manager.getCache("readThrough");
-    mysql = new WineMysql();
-    MyCacheEntryFactory myCacheEntryFactory = new MyCacheEntryFactory();
     selfPopulatingCache = new SelfPopulatingCache(wine, myCacheEntryFactory);
   }
 

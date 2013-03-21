@@ -22,7 +22,7 @@ public class WineMysql implements WineService {
   public List<Wine> findAll() {
     List<Wine> list = new ArrayList<Wine>();
     Connection c = null;
-    String sql = "SELECT * FROM wine ORDER BY name";
+    String sql = "SELECT * FROM public.wine ORDER BY name";
     try {
       c = ConnectionHelper.getConnection();
       Statement s = c.createStatement();
@@ -44,7 +44,7 @@ public class WineMysql implements WineService {
   public List<Wine> findByName(String name) {
     List<Wine> list = new ArrayList<Wine>();
     Connection c = null;
-    String sql = "SELECT * FROM wine as e " +
+    String sql = "SELECT * FROM  public.wine as e " +
                  "WHERE UPPER(name) LIKE ? " +
                  "ORDER BY name";
     try {
@@ -66,7 +66,7 @@ public class WineMysql implements WineService {
 
   @Override
   public Wine findById(long id) {
-    String sql = "SELECT * FROM wine WHERE id = ?";
+    String sql = "select * from PUBLIC.WINE WHERE id = ?";
     Wine wine = null;
     Connection c = null;
     try {
@@ -97,7 +97,7 @@ public class WineMysql implements WineService {
     PreparedStatement ps = null;
     try {
       c = ConnectionHelper.getConnection();
-      ps = c.prepareStatement("INSERT INTO wine (name, grapes, country, region, year, picture, description,id) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
+      ps = c.prepareStatement("INSERT INTO  public.wine (name, grapes, country, region, year, picture, description,id) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
       ps.setString(3, wine.getCountry());
@@ -122,7 +122,7 @@ public class WineMysql implements WineService {
     Connection c = null;
     try {
       c = ConnectionHelper.getConnection();
-      PreparedStatement ps = c.prepareStatement("UPDATE wine SET name=?, grapes=?, country=?, region=?, year=?, picture=?, description=? WHERE id=?");
+      PreparedStatement ps = c.prepareStatement("UPDATE  public.wine SET name=?, grapes=?, country=?, region=?, year=?, picture=?, description=? WHERE id=?");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
       ps.setString(3, wine.getCountry());
@@ -146,7 +146,7 @@ public class WineMysql implements WineService {
     Connection c = null;
     try {
       c = ConnectionHelper.getConnection();
-      PreparedStatement ps = c.prepareStatement("DELETE FROM wine WHERE id=?");
+      PreparedStatement ps = c.prepareStatement("DELETE FROM  public.wine WHERE id=?");
       ps.setLong(1, id);
       int count = ps.executeUpdate();
       return count == 1;

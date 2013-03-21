@@ -17,7 +17,7 @@ public class ConnectionHelper {
     }
     try {
       Class.forName("org.h2.Driver");
-      return DriverManager.getConnection("jdbc:h2:tcp://localhost:8092/mem;USER=sa:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE");
+      return DriverManager.getConnection("jdbc:h2:tcp://localhost:8092/mem:db1", "sa", "");
     } catch (SQLException e) {
       throw e;
     } catch (ClassNotFoundException e) {

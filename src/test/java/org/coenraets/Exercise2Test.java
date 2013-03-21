@@ -1,41 +1,48 @@
 package org.coenraets;
 
-import net.sf.ehcache.Ehcache;
 import org.coenraets.service.Exercise2;
-import org.coenraets.service.WineMysql;
+import org.coenraets.service.MyCacheEntryFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import javax.annotation.Resource;
 
 /**
  * @author : Mathilde Lemee
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"classpath:applicationContext.xml"})
 public class Exercise2Test {
+  @Autowired
+  private ApplicationContext applicationContext;
+  @Resource
+  MyCacheEntryFactory myCacheEntryFactory;
 
-  @Mock
-  WineMysql wineMysql;
-  @Mock
-  Ehcache ehcache;
-
+  @Resource
   private Exercise2 exercise2;
 
   @Before
   public void beforeTest() {
-    MockitoAnnotations.initMocks(this);
-    exercise2 = new Exercise2();
-    exercise2.setMysql(wineMysql);
-    exercise2.setCache(ehcache);
   }
 
+
   @Test
-  public void when_key_not_in_cache_then_calling_cache() {
-    exercise2.findById(1l);
-    verifyZeroInteractions(wineMysql);
-    verify(ehcache).get(1l);
+  public void when_read_through_then_use_selfPopulatingCache() {
+    long start = System.currentTimeMillis();
+    exercise2.findById(2);
+    long delta = (System.currentTimeMillis() - start);
+    System.out.println(delta);
+     start = System.currentTimeMillis();
+    exercise2.findById(2);
+     delta = (System.currentTimeMillis() - start);
+    System.out.println(delta);
   }
+
+
 
 }

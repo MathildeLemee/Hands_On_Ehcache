@@ -32,7 +32,6 @@ public class Exercise1Test {
 
   @Test
   public void when_key_not_in_cache_then_calling_db() throws InterruptedException {
-
     long id = System.currentTimeMillis();
     exercise1.findById(id);
     verify(wineMysql).findById(id);
