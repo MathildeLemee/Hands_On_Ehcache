@@ -9,7 +9,7 @@
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/src/main/resources/applicationContext.xml</param-value>
+    <param-value>classpath*:applicationContext.xml</param-value>
   </context-param>
 
   <servlet>
