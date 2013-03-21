@@ -11,23 +11,8 @@ public class ConnectionHelper {
 
   }
 
-  public static Connection getMySqlConnection() throws SQLException {
-    if (instance == null) {
-      instance = new ConnectionHelper();
-    }
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
-      return DriverManager.getConnection("jdbc:mysql://localhost/wine?user=root");
-    } catch (SQLException e) {
-      throw e;
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-      return null;
-    }
-  }
-
-  public static Connection getH2Connection() throws SQLException {
-    if (instance == null) {
+  public static Connection getConnection() throws SQLException {
+      if (instance == null) {
       instance = new ConnectionHelper();
     }
     try {
