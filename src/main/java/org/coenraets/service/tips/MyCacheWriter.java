@@ -1,4 +1,4 @@
-package org.coenraets.service;
+package org.coenraets.service.tips;
 
 import net.sf.ehcache.CacheEntry;
 import net.sf.ehcache.CacheException;
@@ -7,6 +7,7 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.writer.CacheWriter;
 import net.sf.ehcache.writer.writebehind.operations.SingleOperationType;
 import org.coenraets.model.Wine;
+import org.coenraets.service.WineMysql;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.Collection;
 import javax.annotation.Resource;
 
 /**
+ * Aide pour l'exo 3
  * @author : Mathilde Lemee
  */
 @Service
