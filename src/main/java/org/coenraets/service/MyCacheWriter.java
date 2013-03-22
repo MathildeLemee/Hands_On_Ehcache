@@ -6,19 +6,19 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.writer.CacheWriter;
 import net.sf.ehcache.writer.writebehind.operations.SingleOperationType;
-
 import org.coenraets.model.Wine;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+
+import javax.annotation.Resource;
 
 /**
  * @author : Mathilde Lemee
  */
 @Service
 public class MyCacheWriter implements CacheWriter {
-  @Autowired
+  @Resource
   public WineMysql wineMysql;
 
   @Override

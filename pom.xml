@@ -94,6 +94,20 @@
     </dependency>
 
     <dependency>
+      <groupId>org.kubek2k</groupId>
+      <artifactId>springockito</artifactId>
+      <version>1.0.7</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kubek2k</groupId>
+      <artifactId>springockito-annotations</artifactId>
+      <version>1.0.8</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>maven-jetty-plugin</artifactId>
       <version>6.1.26</version>
