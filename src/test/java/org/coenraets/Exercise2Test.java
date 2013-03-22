@@ -4,7 +4,6 @@ import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import org.coenraets.service.Exercise2;
 import org.coenraets.service.MyCacheEntryFactory;
 import org.coenraets.service.WineMysql;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,10 +52,6 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
 
   }
 
-  @After
-  public void afterTest() {
-
-  }
 
   @Test
   public void when_read_through_then_use_selfPopulatingCache() {
