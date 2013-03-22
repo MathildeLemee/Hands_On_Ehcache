@@ -36,7 +36,7 @@ public class DbServer {
     });
 
     Configuration configuration = new Configuration().configure("/hibernate.cfg.xml");
-    configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE");
+    configuration.setProperty("hibernate.connection.url", "jdbc:h2:tcp://localhost:8092/data;DB_CLOSE_DELAY=-1;MVCC=TRUE");
     configuration.addResource("Wine.hbm.xml");
 
     final String[] args = new String[] {
@@ -55,13 +55,16 @@ public class DbServer {
 
     sessionFactory = configuration.buildSessionFactory();
 
-    List<Wine> wines = new ArrayList<Wine>();
-    for (int i = 0; i < 10; i++) {
-      wines.add(WineBuilder.next());
+    System.out.print("Creating DB: ");
+    for (int j = 0; j < 10; j++) {
+      List<Wine> wines = new ArrayList<Wine>();
+      for (int i = 0; i < 25000; i++) {
+        wines.add(WineBuilder.next());
+      }
+      saveEntities(sessionFactory, wines);
+      System.out.print(".");
     }
-
-    saveEntities(sessionFactory, wines);
-    System.out.println("saved...");
+    System.out.println("... Done!");
 
     try {
       Thread.currentThread().join(24 * 60 * 60 * 1000);

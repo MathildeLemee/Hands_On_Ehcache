@@ -11,27 +11,18 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 
  - Maven
  - Git
- - MySQL avec une connexion root
  - Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
 
-##Configuration MySQL
+##Lancer la base de données
 
-Changer le mot de passe root si nécessaire:
+    mvn exec:java
 
-    $ mysql -u root --password=motdepasseroot
-    mysql> SET PASSWORD FOR root@localhost=PASSWORD('');
+La base de données va être crée et rempli de données, ceci prendra quelques secondes à quelques minutes suivant votre machine/
 
-Creer et importer la base
-
-    mysql> CREATE DATABASE wine;
-    mysql> exit
-    $ mysql wine -u root  < src/main/resources/cellar.sql
- 
-##Compiler et lancer le server:
+##Compiler et lancer l'application:
 
     export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
     mvn clean jetty:run -Dmaven.test.skip=true
-
 L'application est disponible sur [http://localhost:8080/cache](http://localhost:8080/cache)
 
 #Exercice 1 :  Cache Aside

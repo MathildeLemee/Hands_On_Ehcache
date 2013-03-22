@@ -1,7 +1,7 @@
 package org.coenraets.service;
 
 import org.coenraets.model.Wine;
-import org.coenraets.util.ConnectionHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -12,11 +12,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 /**
  * @author Christophe Coenraets
  */
 @Service
 public class WineMysql implements WineService {
+
+  @Autowired
+  public DataSource dataSource;
 
   @Override
   public List<Wine> findAll() {
@@ -24,17 +29,23 @@ public class WineMysql implements WineService {
     Connection c = null;
     String sql = "SELECT * FROM public.wine ORDER BY name";
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       Statement s = c.createStatement();
       ResultSet rs = s.executeQuery(sql);
       while (rs.next()) {
         list.add(processRow(rs));
       }
-    } catch (SQLException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return list;
   }
@@ -48,18 +59,24 @@ public class WineMysql implements WineService {
                  "WHERE UPPER(name) LIKE ? " +
                  "ORDER BY name";
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       PreparedStatement ps = c.prepareStatement(sql);
       ps.setString(1, "%" + name.toUpperCase() + "%");
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
         list.add(processRow(rs));
       }
-    } catch (SQLException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return list;
   }
@@ -70,7 +87,7 @@ public class WineMysql implements WineService {
     Wine wine = null;
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       PreparedStatement ps = c.prepareStatement(sql);
       ps.setLong(1, id);
       ResultSet rs = ps.executeQuery();
@@ -81,14 +98,20 @@ public class WineMysql implements WineService {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return wine;
   }
 
   @Override
   public Wine save(Wine wine) {
-     throw new RuntimeException("not implemented");
+    throw new RuntimeException("not implemented");
   }
 
   @Override
@@ -96,7 +119,7 @@ public class WineMysql implements WineService {
     Connection c = null;
     PreparedStatement ps = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       ps = c.prepareStatement("INSERT INTO  public.wine (name, grapes, country, region, year, picture, description,id) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
@@ -112,7 +135,13 @@ public class WineMysql implements WineService {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return wine;
   }
@@ -121,7 +150,7 @@ public class WineMysql implements WineService {
   public Wine update(Wine wine) {
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       PreparedStatement ps = c.prepareStatement("UPDATE  public.wine SET name=?, grapes=?, country=?, region=?, year=?, picture=?, description=? WHERE id=?");
       ps.setString(1, wine.getName());
       ps.setString(2, wine.getGrapes());
@@ -132,11 +161,17 @@ public class WineMysql implements WineService {
       ps.setString(7, wine.getDescription());
       ps.setLong(8, wine.getId());
       ps.executeUpdate();
-    } catch (SQLException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return wine;
   }
@@ -145,7 +180,7 @@ public class WineMysql implements WineService {
   public boolean remove(long id) {
     Connection c = null;
     try {
-      c = ConnectionHelper.getConnection();
+      c = dataSource.getConnection();
       PreparedStatement ps = c.prepareStatement("DELETE FROM  public.wine WHERE id=?");
       ps.setLong(1, id);
       int count = ps.executeUpdate();
@@ -154,7 +189,13 @@ public class WineMysql implements WineService {
       e.printStackTrace();
       throw new RuntimeException(e);
     } finally {
-      ConnectionHelper.close(c);
+      try {
+        if (c != null) {
+          c.close();
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
   }
 
