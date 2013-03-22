@@ -93,12 +93,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.kubek2k</groupId>
-      <artifactId>springockito</artifactId>
-      <version>1.0.7</version>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.kubek2k</groupId>
       <artifactId>springockito-annotations</artifactId>
@@ -308,6 +303,15 @@
   </build>
 
   <repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
     <repository>
       <id>terracotta-snapshots</id>
       <url>http://www.terracotta.org/download/reflector/snapshots</url>
