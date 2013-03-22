@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 /**
+ * Exercice BONUS !
+ *
  * @author : Mathilde Lemee
  */
 @RunWith(SpringJUnit4ClassRunner.class)
