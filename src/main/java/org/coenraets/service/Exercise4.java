@@ -2,14 +2,17 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.CacheWriterConfiguration;
+import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
@@ -18,20 +21,25 @@ import javax.annotation.Resource;
 public class Exercise4 implements WineService {
   @Resource
   private WineMysql mysql;
+
+  @Resource
+  private CacheWriter cacheWriter;
+
   private Cache wineCache;
 
-  public Exercise4() {
+
+  @PostConstruct
+  public void postConstruct() {
     CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("writeBehindSOR")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("writeBehindSOR", 1000)
+    if (!manager.cacheExists("writeBehind")) {
+      CacheConfiguration cacheConfig = new CacheConfiguration("writeBehind", 1000)
           .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
           );
       Cache cache = new Cache(cacheConfig);
       manager.addCache(cache);
     }
-    this.wineCache = manager.getCache("writeBehindSOR");
-    wineCache.registerCacheWriter(new MyCacheWriter());
-    this.mysql = new WineMysql();
+    this.wineCache = manager.getCache("writeBehind");
+    wineCache.registerCacheWriter(cacheWriter);
   }
 
   @Override
@@ -81,11 +89,7 @@ public class Exercise4 implements WineService {
   public void init() {
   }
 
-  public void setMysql(final WineMysql mysql) {
-    this.mysql = mysql;
-  }
-
-  public void setCache(final Cache wineCache) {
-    this.wineCache = wineCache;
+  public Ehcache getCache() {
+    return wineCache;
   }
 }

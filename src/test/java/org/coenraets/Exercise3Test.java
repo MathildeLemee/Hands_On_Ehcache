@@ -81,6 +81,12 @@ public class Exercise3Test {
     assertThat(exercise3.findById(wine.getId())).isEqualTo(wine);
   }
 
+  @Test
+  public void after_write_behind_then_data_is_in_db() {
+    Wine wine = WineBuilder.nextWithId();
+    exercise3.create(wine);
+    assertThat(wineMysql.findById(wine.getId())).isNotNull();
+  }
   /**
    * TIPS :
    *
