@@ -69,7 +69,7 @@ public class Exercise4Test {
   public void after_write_behind_then_data_is_in_cache() {
     Wine wine = WineBuilder.nextWithId();
     exercise.create(wine);
-    assertThat(exercise.getCache().getSize()).isEqualTo(2);
+    assertThat(exercise.findById(wine.getId())).isEqualTo(wine);
   }
 
   @Test
@@ -84,7 +84,7 @@ public class Exercise4Test {
     Wine wine = WineBuilder.nextWithId();
     exercise.create(wine);
     Thread.sleep(3000);      //this value is arbitrary, you can augment it if you think that the test fail with no reason
-    assertThat(wineMysql.findById(wine.getId())).isNotNull();
+    assertThat(wineMysql.findById(wine.getId())).isEqualTo(wine);
   }
 
 }

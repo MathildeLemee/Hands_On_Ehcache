@@ -3,6 +3,7 @@ package org.coenraets;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import org.coenraets.service.Exercise2;
 import org.coenraets.service.MyCacheEntryFactory;
+import org.coenraets.service.MyCacheWriter;
 import org.coenraets.service.WineMysql;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,4 +85,12 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
     long delta_second = (System.currentTimeMillis() - start);
     assertThat(delta_second).isLessThan(delta_first);
   }
+
+
+
+
+  @Resource
+  @WrapWithSpy
+  MyCacheWriter myCacheWriter;
+
 }
