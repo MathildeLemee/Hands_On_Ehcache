@@ -102,12 +102,5 @@ public class Exercise2 implements WineService {
     return mysql;
   }
 
-  public void setMysql(final WineMysql mysql) {
-    this.mysql = mysql;
-  }
 
-
-  public void setCache(final Ehcache selfPopulatingCache) {
-    this.selfPopulatingCache = selfPopulatingCache;
-  }
 }
