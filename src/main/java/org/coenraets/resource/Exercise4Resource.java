@@ -50,6 +50,7 @@ public class Exercise4Resource {
   @DELETE
   @Path("clear")
   public void clearCache() {
+    System.out.println("CLEAR CACHE");
     exercise3.clear();
     exercise4.clear();
   }

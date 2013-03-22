@@ -53,6 +53,7 @@ public class Exercise2Resource {
   @DELETE
   @Path("clear")
   public void clearCache() {
+    System.out.println("CLEAR CACHE");
     exercise2.clear();
   }
 

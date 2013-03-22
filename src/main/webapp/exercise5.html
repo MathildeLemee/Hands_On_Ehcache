@@ -12,41 +12,43 @@
 <script type="text/javascript">
     // Data
 
-    $("#button").click(function(){
-        console.log("2");
-        $.ajax({
-            type:"DELETE",
-            url:"api/exercise5/clear",
-            dataType:"html"
+    $(function () {
+        $("#clear").click(function () {
+            $.ajax({
+                type: "DELETE",
+                url: "api/exercise5/clear",
+                dataType: "html"
 
+            });
+
+            return false;
         });
     });
 
     // Add a random value to each line every second
 
-    setInterval(function() {
-      var id =  Math.floor((Math.random()*10)+1);
-  $.ajax({
-            type:"POST",
-            url:"api/exercise5/ehcache/create/",
-            dataType:"html",
-            success:function (data) {
+    setInterval(function () {
+        var id = Math.floor((Math.random() * 10) + 1);
+        $.ajax({
+            type: "POST",
+            url: "api/exercise5/ehcache/create/",
+            dataType: "html",
+            success: function (data) {
             }
         });
         $.ajax({
-              type:"GET",
-              url:"api/exercise5/ehcache/nb/",
-              dataType:"html",
-              success:function (data) {
-                  $("#nb-element").html(data);
-              }
-          });
+            type: "GET",
+            url: "api/exercise5/ehcache/nb/",
+            dataType: "html",
+            success: function (data) {
+                $("#nb-element").html(data);
+            }
+        });
 
     }, 1000);
 
-     smoothie.addTimeSeries(line2,
-            { strokeStyle:'rgb(255, 0, 255)', fillStyle:'rgba(255, 0, 255, 0.3)', lineWidth:3 });
-
+    smoothie.addTimeSeries(line2,
+            { strokeStyle: 'rgb(255, 0, 255)', fillStyle: 'rgba(255, 0, 255, 0.3)', lineWidth: 3 });
 
 
 </script>
@@ -54,7 +56,7 @@
 <h2 style="color: blue">Nb Element : <span id="nb-element"></span> elements</h2>
 
 
-<a href="#" id="button">Clear Cache</a>
+<a href="#" id="clear">Clear Cache</a>
 
 </body>
 

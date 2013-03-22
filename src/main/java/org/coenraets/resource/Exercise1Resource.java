@@ -63,6 +63,7 @@ public class Exercise1Resource {
   @DELETE
   @Path("clear")
   public void clearCache() {
+    System.out.println("CLEAR CACHE");
     exercise1.clear();
   }
 
