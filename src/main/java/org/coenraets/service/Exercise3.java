@@ -2,6 +2,7 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.CacheWriterConfiguration;
@@ -86,11 +87,7 @@ public class Exercise3 implements WineService {
   public void init() {
   }
 
-  public void setMysql(final WineMysql mysql) {
-    this.mysql = mysql;
-  }
-
-  public void setCache(final Cache wineCache) {
-    this.wineCache = wineCache;
+  public Ehcache getCache() {
+    return wineCache;
   }
 }
