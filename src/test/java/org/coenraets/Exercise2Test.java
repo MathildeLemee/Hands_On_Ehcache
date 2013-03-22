@@ -87,8 +87,9 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
   }
 
 
-
-
+  /**
+   * sprinockito bug - do not remove :) ...
+   */
   @Resource
   @WrapWithSpy
   MyCacheWriter myCacheWriter;
