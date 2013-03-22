@@ -6,11 +6,13 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.CacheWriterConfiguration;
+import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
@@ -20,9 +22,13 @@ public class Exercise3 implements WineService {
   @Resource
   private WineMysql mysql;
 
+  @Resource
+  private CacheWriter cacheWriter;
+
   private Cache wineCache;
 
-  public Exercise3() {
+  @PostConstruct
+  public void postConstruct() {
     CacheManager manager = CacheManager.getInstance();
     if (!manager.cacheExists("writeThrough")) {
       CacheConfiguration cacheConfig = new CacheConfiguration("writeThrough", 1000)
@@ -32,8 +38,7 @@ public class Exercise3 implements WineService {
       manager.addCache(cache);
     }
     this.wineCache = manager.getCache("writeThrough");
-    wineCache.registerCacheWriter(new MyCacheWriter());
-    this.mysql = new WineMysql();
+    wineCache.registerCacheWriter(cacheWriter);
   }
 
   @Override

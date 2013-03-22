@@ -71,9 +71,15 @@ public class Exercise3Test {
   public void when_write_through_then_user_have_modified_the_create_method() {
     Wine wine = WineBuilder.nextWithId();
     exercise3.create(wine);
-    verify(wineMysql).save(wine);
+    verify(wineMysql).create(wine);
   }
 
+  @Test
+  public void after_write_through_then_data_is_in_cache() {
+    Wine wine = WineBuilder.nextWithId();
+    exercise3.create(wine);
+    assertThat(exercise3.findById(wine.getId())).isEqualTo(wine);
+  }
 
   /**
    * TIPS :
@@ -115,7 +121,7 @@ public class Exercise3Test {
     Wine wine = WineBuilder.nextWithId();
     Element element = new Element(wine.getId(), wine);
     exercise3.getCache().putWithWriter(element);
-    verify(wineMysql).save(wine);
+    verify(wineMysql).create(wine);
   }
 
 
