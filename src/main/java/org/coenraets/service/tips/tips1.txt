@@ -1,0 +1,20 @@
+TIPS 1 :
+      récuperer le manager :
+      CacheManager manager = CacheManager.getInstance();
+
+      créer programatiquement une config :
+      CacheConfiguration cacheConfig = new CacheConfiguration("wineCache", 1000);
+
+      créer un cache :
+      Cache cache = new Cache(cacheConfig);
+      manager.addCache(cache);
+
+      acceder au cache :
+      this.wineCache = manager.getCache("wineCache");
+
+
+
+TIPS 2 :
+      Algo :
+      si ma valeur est dans le cache alors je la retourne
+      Sinon je la calcule, je la met dans le cache et je la retourne

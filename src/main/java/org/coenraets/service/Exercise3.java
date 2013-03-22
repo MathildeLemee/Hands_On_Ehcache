@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
+ * Cache as a system of record - Write Through
  */
 @Service
 public class Exercise3 implements WineService {

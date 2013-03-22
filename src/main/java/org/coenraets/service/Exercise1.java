@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 /**
+ * Cache aside
  * Des indices pour créer le cache sont dans le fichier tips1.txt dans ce meme répertoire !
  * Saurez vous vous en passer ? :)
  *

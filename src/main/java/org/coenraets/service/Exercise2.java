@@ -7,6 +7,7 @@ import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import org.coenraets.model.Wine;
+import org.coenraets.service.tips.MyCacheEntryFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
+ * Cache as a system of record - Read Through
  */
 @Service
 public class Exercise2 implements WineService {

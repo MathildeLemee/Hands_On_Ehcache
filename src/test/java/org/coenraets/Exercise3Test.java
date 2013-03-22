@@ -4,9 +4,9 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.CacheWriterConfiguration;
+import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.coenraets.service.Exercise3;
-import org.coenraets.service.MyCacheWriter;
 import org.coenraets.service.WineMysql;
 import org.coenraets.util.WineBuilder;
 import org.junit.Before;
@@ -43,9 +43,10 @@ public class Exercise3Test {
   private WineMysql wineMysql;
 
 
+  //specifier son nom en utilisant @Resource(name="toto")
   @Resource
   @WrapWithSpy
-  MyCacheWriter myCacheWriter;
+  CacheWriter myCacheWriter;
 
 
   @Before

@@ -1,0 +1,3 @@
+TIPS 1 :
+      Utiliser un SelfPopulatingCache
+      Lui passer un objet implémentant un CacheEntryFactory. L'écriture en base se fera dans la méthode createEntry

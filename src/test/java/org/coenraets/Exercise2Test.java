@@ -1,9 +1,9 @@
 package org.coenraets;
 
+import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
+import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.service.Exercise2;
-import org.coenraets.service.MyCacheEntryFactory;
-import org.coenraets.service.MyCacheWriter;
 import org.coenraets.service.WineMysql;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +40,10 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
   private WineMysql wineMysql;
 
 
+  //specifier son nom en utilisant @Resource(name="toto")
   @Resource
   @WrapWithSpy
-  MyCacheEntryFactory myCacheEntryFactory;
+  CacheEntryFactory myCacheEntryFactory;
 
 
   @Before
@@ -87,10 +88,11 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
   }
 
 
-
-
+  /**
+   * sprinockito bug - do not remove :) ...
+   */
   @Resource
   @WrapWithSpy
-  MyCacheWriter myCacheWriter;
+  CacheWriter myCacheWriter;
 
 }
