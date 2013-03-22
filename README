@@ -32,7 +32,7 @@ Rendez vous sur la page exercise2.html pour voir le résultat
 
 #Exercice 3 : Write-Through
 Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
-Implémenter l'écriture via la méthode create de Exercise3. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
+Implémenter l'écriture via la méthode create de Exercise3. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici H2
 L'écriture devra etre synchronisée.
  
 Indice : Le cacheWriter pourra surement vous aider :)
@@ -41,7 +41,7 @@ Rendez vous sur la page exercise3.html pour voir le résultat
 
 #Exercice 4 : Write-Behind
 Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
-Implémenter l'écriture via la méthode create  de Exercise3. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici mysql
+Implémenter l'écriture via la méthode create  de Exercise3. La donnée sera écrite dans le cache et c'est le cache qui saura reporter la donnée dans la base de données secondaires, ici H2
 L'écriture devra etre asynchone.
 Rendez vous sur la page exercise4.html pour voir le résultat
 
