@@ -96,13 +96,13 @@
     <dependency>
       <groupId>org.kubek2k</groupId>
       <artifactId>springockito</artifactId>
-      <version>1.0.7</version>
+      <version>1.0.5</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kubek2k</groupId>
       <artifactId>springockito-annotations</artifactId>
-      <version>1.0.8</version>
+      <version>1.0.5</version>
       <scope>test</scope>
     </dependency>
 
