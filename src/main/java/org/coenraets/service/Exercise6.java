@@ -5,6 +5,7 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.config.Configuration;
+import net.sf.ehcache.config.DiskStoreConfiguration;
 import net.sf.ehcache.config.PersistenceConfiguration;
 import net.sf.ehcache.config.SearchAttribute;
 import net.sf.ehcache.config.Searchable;
@@ -13,6 +14,7 @@ import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 import net.sf.ehcache.search.expression.ILike;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ import java.util.List;
  *
  * @author Aurelien Broszniowski
  */
+@Service
 public class Exercise6 implements WineService {
 
   private Ehcache cache;
@@ -32,14 +35,14 @@ public class Exercise6 implements WineService {
     Searchable searchable = new Searchable();
     searchable.addSearchAttribute(new SearchAttribute().name("name"));
 
-    Configuration configuration = new Configuration()
+    Configuration configuration = new Configuration().name("searchManager")
+        .diskStore(new DiskStoreConfiguration().path("searchManager"))
         .cache(new CacheConfiguration("searchWine", 3)
 //            .persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE))
             .searchable(searchable)
         );
-    CacheManager manager = CacheManager.create(configuration);
+    CacheManager manager = CacheManager.newInstance(configuration);
     cache = manager.getCache("searchWine");
-
   }
 
   @Override

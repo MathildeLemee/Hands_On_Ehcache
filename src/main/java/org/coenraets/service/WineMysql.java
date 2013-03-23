@@ -28,7 +28,7 @@ public class WineMysql implements WineService {
   public List<Wine> findAll() {
     List<Wine> list = new ArrayList<Wine>();
     Connection c = null;
-    String sql = "SELECT * FROM public.wine ORDER BY name";
+    String sql = "SELECT * FROM public.wine ORDER BY name LIMIT 1000";
     try {
       c = dataSource.getConnection();
       Statement s = c.createStatement();

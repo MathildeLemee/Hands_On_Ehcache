@@ -58,7 +58,7 @@ public class DbServer {
     System.out.print("Creating DB: ");
     for (int j = 0; j < 10; j++) {
       List<Wine> wines = new ArrayList<Wine>();
-      for (int i = 0; i < 25000; i++) {
+      for (int i = 0; i < 10000; i++) {
         wines.add(WineBuilder.next());
       }
       saveEntities(sessionFactory, wines);

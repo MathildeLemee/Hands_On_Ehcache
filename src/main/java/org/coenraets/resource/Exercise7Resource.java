@@ -4,6 +4,7 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import org.coenraets.service.Exercise7;
 import org.coenraets.util.WineBuilder;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,10 +15,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 @Path("/exercise7")
+@Component
 public class Exercise7Resource {
 
   Exercise7 cacheService = new Exercise7();
-
 
   @GET
   @Path("ehcache/fill/{cacheNb}")
