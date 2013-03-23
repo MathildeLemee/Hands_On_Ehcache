@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.sql.DataSource;
 
@@ -83,16 +84,30 @@ public class WineMysql implements WineService {
 
   @Override
   public Wine findById(long id) {
-    String sql = "select * from PUBLIC.WINE WHERE id = ?";
+    long start = System.currentTimeMillis();
+    int nbResults = 0;
+
+    Random rnd = new Random();
     Wine wine = null;
     Connection c = null;
     try {
       c = dataSource.getConnection();
-      PreparedStatement ps = c.prepareStatement(sql);
+
+      StringBuilder sql = new StringBuilder("select * from PUBLIC.WINE WHERE id = ?");
+      for (int i = 0; i < 5; i++) {
+        sql.append(" OR id = ?");
+      }
+
+      PreparedStatement ps = c.prepareStatement(sql.toString());
       ps.setLong(1, id);
+      for (int i = 0; i < 5; i++) {
+        ps.setLong(2 + i, (long)(rnd.nextDouble() * id));
+      }
+
       ResultSet rs = ps.executeQuery();
-      if (rs.next()) {
+      while (rs.next()) {
         wine = processRow(rs);
+        nbResults++;
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -106,6 +121,9 @@ public class WineMysql implements WineService {
         e.printStackTrace();
       }
     }
+
+    long end = System.currentTimeMillis();
+    System.out.println("----> For id = " + id + " - Nb results " + nbResults + ", time taken =" + (end - start) + "ms");
     return wine;
   }
 

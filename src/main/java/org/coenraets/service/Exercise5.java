@@ -21,7 +21,9 @@ public class Exercise5 implements WineService {
 
     CacheManager manager = CacheManager.getInstance();
     if (!manager.cacheExists("frs")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("frs", 1000).persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE));
+      CacheConfiguration cacheConfig = new CacheConfiguration("frs", 1000)
+          .persistence(new PersistenceConfiguration()
+              .strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE));
       Cache cache = new Cache(cacheConfig);
       manager.addCache(cache);
     }

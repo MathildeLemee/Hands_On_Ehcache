@@ -15,14 +15,14 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 
 ##Lancer la base de données
 
-    mvn exec:java
+    mvn clean compile exec:java
 
 La base de données va être crée et rempli de données, ceci prendra quelques secondes à quelques minutes suivant votre machine/
 
 ##Compiler et lancer l'application:
 
     export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
-    mvn clean jetty:run -Dmaven.test.skip=true
+    mvn  jetty:run -Dmaven.test.skip=true
 L'application est disponible sur [http://localhost:8080/cache](http://localhost:8080/cache)
 
 #Exercice 1 :  Cache Aside

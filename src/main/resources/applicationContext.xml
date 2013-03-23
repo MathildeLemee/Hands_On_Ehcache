@@ -3,17 +3,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-
-
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-  <context:component-scan base-package="org.coenraets"/>
+  <context:component-scan base-package="org.coenraets" />
 
   <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource" scope="singleton">
     <property name="driverClass" value="org.h2.Driver"/>
     <property name="url" value="jdbc:h2:tcp://localhost:8092/data;DB_CLOSE_DELAY=-1;MVCC=TRUE"/>
-    <!--<property name="url" value="jdbc:h2:file:db1;DB_CLOSE_DELAY=-1;MVCC=TRUE"/>-->
     <property name="username" value="sa"/>
     <property name="password" value=""/>
   </bean>
