@@ -16,6 +16,12 @@
         }
 
         $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "api/exercise6/initcache",
+                dataType: "html"
+            });
+
             var smoothie = new SmoothieChart();
             var intervalId = null;
             smoothie.streamTo(document.getElementById("mycanvas"), 1000);

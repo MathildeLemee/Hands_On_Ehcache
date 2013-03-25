@@ -12,12 +12,15 @@ import net.sf.ehcache.config.Searchable;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
+import net.sf.ehcache.search.expression.EqualTo;
 import net.sf.ehcache.search.expression.ILike;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Resource;
 
 /**
  * Search exercise
@@ -31,13 +34,16 @@ public class Exercise6 implements WineService {
 
   private Ehcache cache;
 
+  @Resource
+  private WineMysql mysql;
+
   public Exercise6() {
     Searchable searchable = new Searchable();
     searchable.addSearchAttribute(new SearchAttribute().name("name"));
 
     Configuration configuration = new Configuration().name("searchManager")
         .diskStore(new DiskStoreConfiguration().path("searchManager"))
-        .cache(new CacheConfiguration("searchWine", 3)
+        .cache(new CacheConfiguration("searchWine", 100000)
 //            .persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE))
             .searchable(searchable)
         );
@@ -52,14 +58,14 @@ public class Exercise6 implements WineService {
 
   @Override
   public List<Wine> findByName(final String name) {
-    Query query = cache.createQuery().addCriteria(new ILike("name", name + "%")).includeValues();
+    Query query = cache.createQuery().addCriteria(new EqualTo("name", name)).includeValues().includeKeys();
     final Results results = query.execute();
-    System.out.println("We found " + results.size() + " results.");
+    System.out.println("Ehcache 'findByName' query found " + results.size() + " results.");
 
     final List<Result> all = results.all();
     List<Wine> wineList = new ArrayList<Wine>();
     for (Result result : all) {
-      wineList.add((Wine)result.getKey());
+      wineList.add((Wine)result.getValue());
     }
 
     return wineList;
@@ -97,10 +103,11 @@ public class Exercise6 implements WineService {
 
   @Override
   public void init() {
-    List<Wine> all = new WineMysql().findAll();
+    List<Wine> all = mysql.findAll();
     for (Wine wine : all) {
       cache.put(new Element(wine.getId(), wine));
     }
+    System.out.println("-------->>>>cache.getSize() : " + cache.getSize());
   }
 
   public Ehcache getCache() {

@@ -28,7 +28,7 @@ public class WineMysql implements WineService {
   public List<Wine> findAll() {
     List<Wine> list = new ArrayList<Wine>();
     Connection c = null;
-    String sql = "SELECT * FROM public.wine ORDER BY name LIMIT 1000";
+    String sql = "SELECT * FROM public.wine";
     try {
       c = dataSource.getConnection();
       Statement s = c.createStatement();
@@ -56,13 +56,11 @@ public class WineMysql implements WineService {
   public List<Wine> findByName(String name) {
     List<Wine> list = new ArrayList<Wine>();
     Connection c = null;
-    String sql = "SELECT * FROM  public.wine as e " +
-                 "WHERE UPPER(name) LIKE ? " +
-                 "ORDER BY name";
+    String sql = "SELECT * FROM  public.wine as e WHERE LOWER(name) = ? ";
     try {
       c = dataSource.getConnection();
       PreparedStatement ps = c.prepareStatement(sql);
-      ps.setString(1, "%" + name.toUpperCase() + "%");
+      ps.setString(1, name.toLowerCase());
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
         list.add(processRow(rs));
@@ -79,6 +77,7 @@ public class WineMysql implements WineService {
         e.printStackTrace();
       }
     }
+    System.out.println("Mysql 'findByName' query found " + list.size() + " results.");
     return list;
   }
 

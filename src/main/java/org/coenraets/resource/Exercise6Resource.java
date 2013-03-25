@@ -48,7 +48,7 @@ public class Exercise6Resource {
   @Path("search/ehcache/{query}")
   public String findByNameEhcache(@PathParam("query") String query) {
     long start = System.currentTimeMillis();
-    System.out.println(")) " + exercise6.findByName(query));
+    exercise6.findByName(query);
     long end = System.currentTimeMillis();
     return "" + (end - start);
   }
