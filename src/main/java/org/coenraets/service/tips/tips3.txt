@@ -4,3 +4,6 @@ TIPS 1 :
 
 TIPS 2 : Créer une configuration cacheWriter
          Instantier un objet qui implémente CacheWriter (et surtout sa méthode write)
+
+TIPS 3 : N'oubliez pas de rattacher votre cacheWriter à votre cache via :
+             wineCache.registerCacheWriter(cacheWriter);

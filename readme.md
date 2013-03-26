@@ -54,9 +54,30 @@ Rendez vous sur la page exercise4.html pour voir le résultat
 
 
 ##Exercice 5 : Bonus : RefreshAhead
+Créer un cache avec un time-to-refresh égal à une seconde dans Exercice5.
+
+RefreshAhead permet d'avoir un cache qui se rafraichit en arrière plan après une lecture sur une clé.
+Il vous faudra 2 choses :
+D'abord la configuration avec la définition du time-to-refresh, durée à partir de laquelle un accès en lecture va déclencher une mise à jour asynchrone.
+via RefreshAheadCacheConfiguration
+Créer le cache comme étant de type RefreshAheadCache en lui donnant en parametre un cache basique que vous aurez crée et l'instance de  RefreshAheadCacheConfiguration.
+
+Maintenant que votre cache connait sa configuration, il vous faut encore définir comment il va mettre ses données un jour.
+Pour cela, il vous faudra utiliser un object de classe CacheLoader et notamment la méthode loadAll qui sera appelée par RefreshAhead.
 
 
 ##Exercice 6 : Bonus : ScheduleRefresh
+ScheduleRefresh permet d'avoir un cache qui se rafraichit en arrière plan de manière automatique.
+Créer un cache ScheduleRefresh qui se met à jour toutes les 3 secondes après le lancement du test.
+
+Vous pourrez utiliser le meme cacheLoader que définit à l'exercice 5.
+La configuration se fera via l'objet ScheduledRefreshConfiguration.
+ Pour info, si vous souhaitez une mise à jour qui s'effectue 3 secondes après le lancement du test l'expression CRON
+ est la suivante : second + "/1 * * * * ?" avec  int second = (new GregorianCalendar().get(Calendar.SECOND) + 3) % 60;
+  Pour attacher la configuration au cache, vous passerez via l'objet  ScheduledRefreshCacheExtension.
+
+  Comme pour l'exercice précedent, il vous faudra alors attacher votre cacheLoader à votre cache. Vous pouvez réutilisez le meme que précedemment.
+
 
 
 #Partie 2

@@ -1,0 +1,11 @@
+TIPS 1 :
+ Configuration du timeToRefresh : RefreshAheadCacheConfiguration refreshConfig = new RefreshAheadCacheConfiguration(). ... .build();
+
+TIPS 2 :
+ wineCache = new RefreshAheadCache( manager.getCache("refreshAhead"), refreshConfig);
+
+TIPS 3 :
+ Créer un object CacheLoader et définir la méthode loadAll qui ira pour chacune des clés de la collection chercher la valeur en base de données.
+
+TIPS 4 :
+ Penser à bien enregistrer votre loader sur le cache
