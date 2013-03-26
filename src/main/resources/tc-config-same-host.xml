@@ -8,33 +8,14 @@
 
   <servers>
     <server host="localhost" name="server1" >
-      <dso-port>9510</dso-port>
-      <jmx-port>9020</jmx-port>
-      <l2-group-port>9530</l2-group-port>
+      <data>data1</data>
+      <tsa-port>9510</tsa-port>
     </server>
     <server host="localhost" name="server2" >
-      <dso-port>9515</dso-port>
-      <jmx-port>9025</jmx-port>
-      <l2-group-port>9535</l2-group-port>
-      <statistics>
-      ~/stats
-      </statistics>
-      <data>
-      ~/data
-</data>
+      <data>data2</data>
+      <tsa-port>9550</tsa-port>
     </server>
-    <mirror-groups>
-      <mirror-group group-name="groupA">
-        <members>
-          <member>server1</member>
-          <member>server2</member>
-        </members>
-      </mirror-group>
-      <!-- Ici on peut ajouter plusieurs mirrors groups - pas le cas ici -->
-    </mirror-groups>
-    <ha>
-      <mode>networked-active-passive</mode>
-    </ha>
+
   </servers>
 
 

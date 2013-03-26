@@ -23,7 +23,7 @@ public class ReadFromCache {
      * adapt the config to your version if multiple server
      * - the url of the server, for a mirror groups, separate active ip and passives ip with a comma
      * - the name of the cache */
-    String url = "localhost:9510";//localhost:9510,localhost:9515";
+    String url = "localhost:9510,localhost:9550";
     Configuration configuration = new Configuration()
         .terracotta(new TerracottaClientConfiguration().url(url))
         .defaultCache(new CacheConfiguration("defaultCache", 100))
