@@ -16,6 +16,12 @@
         }
 
         $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "api/exercise6/initcache",
+                dataType: "html"
+            });
+
             var smoothie = new SmoothieChart();
             var intervalId = null;
             smoothie.streamTo(document.getElementById("mycanvas"), 1000);
@@ -38,7 +44,7 @@
                 intervalId = setInterval(function () {
                     $.ajax({
                         type: "GET",
-                        url: "api/exercise6/search/mysql/toto",
+                        url: "api/exercise6/search/mysql/pinot",
                         dataType: "html",
                         success: function (data) {
                             line1.append(new Date().getTime(), data);
@@ -48,7 +54,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "api/exercise6/search/ehcache/toto",
+                        url: "api/exercise6/search/ehcache/pinot",
                         dataType: "html",
                         success: function (data) {
                             line2.append(new Date().getTime(), data);

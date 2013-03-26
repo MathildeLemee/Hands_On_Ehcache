@@ -49,11 +49,6 @@ public class Exercise6Test {
     Assert.assertNotNull("Cache should be created in service", cache);
     Assert.assertTrue("Search attribute on Wine.name field should be set",
         assertThatSearchAttrIsPresent(cache.getCacheConfiguration().getSearchable().getSearchAttributes(), "name"));
-/*
-    Assert.assertEquals("Cache should be restartable",
-        PersistenceConfiguration.Strategy.LOCALRESTARTABLE,
-        cache.getCacheConfiguration().getPersistenceConfiguration().getStrategy());
-*/
   }
 
   @Test
@@ -94,7 +89,7 @@ public class Exercise6Test {
     when(results.all()).thenReturn(resultsList);
     when(results.size()).thenReturn(3);
 
-    List<Wine> wineList = exercise6.findByName("Beaujolais");
+    List<Wine> wineList = exercise6.findByName("bordeaux");
     Assert.assertEquals(resultsList.size(), wineList.size());
     Assert.assertEquals(3, wineList.size());
 
