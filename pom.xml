@@ -77,16 +77,11 @@
     </dependency>
 
 
+
     <dependency>
       <groupId>net.sf.ehcache</groupId>
       <artifactId>ehcache-ee</artifactId>
       <version>2.7.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.terracotta.bigmemory</groupId>
-      <artifactId>bigmemory</artifactId>
-      <version>4.0.0</version>
     </dependency>
 
     <dependency>

@@ -28,14 +28,16 @@ public class ReadFromCache {
         .terracotta(new TerracottaClientConfiguration().url(url))
         .defaultCache(new CacheConfiguration("defaultCache", 100))
         .cache(new CacheConfiguration("clusteredCache", 100)
-            .terracotta(new TerracottaConfiguration()));
+            .terracotta(new TerracottaConfiguration().concurrency(128)));
     CacheManager manager = new CacheManager(configuration);
     Cache clusteredCache = manager.getCache("clusteredCache");
     List keys = clusteredCache.getKeys();
     for (long id : (List<Long>)keys) {
       System.out.println(clusteredCache.get(id));
     }
+    System.out.println("size : "+keys.size());
   }
+
 
 
 }

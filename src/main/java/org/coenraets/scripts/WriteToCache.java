@@ -28,10 +28,11 @@ public class WriteToCache {
         .terracotta(new TerracottaClientConfiguration().url(url))
         .defaultCache(new CacheConfiguration("defaultCache", 100))
         .cache(new CacheConfiguration("clusteredCache", 100)
-            .terracotta(new TerracottaConfiguration()));
+            .terracotta(new TerracottaConfiguration().concurrency(128)));
     CacheManager manager = new CacheManager(configuration);
-    for (int i = 0; i < 10; i++) {
-      Wine wine = WineBuilder.nextWithId();
+    for (int i = 0; i < 100; i++) {
+      Wine wine = WineBuilder.next();
+      wine.setId(i);
       manager.getCache("clusteredCache").put(new Element(wine.getId(), wine));
     }
   }

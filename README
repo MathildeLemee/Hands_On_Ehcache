@@ -78,12 +78,13 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
 ##Exercice 10 : BigMemory
 
-##Exercice 11 : Clustering - sur la meme machine
+##Exercice 11 :
+            Ajouter les jars apis/ehcache/lib/ehcache-ee-2.7.0.jar, common/lib/bigmemory-4.0.0.jar, apis/toolkit/lib/terracotta-toolkit-runtime-ee-4.0.0.jar.
+            Clustering - sur la meme machine
              Télécharger le dernier kit sur le site de terracotta.
              Lancer un serveur terracotta.
-             Modifier la classe WriteToCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle écrira 10 nouveaux enregistrements dans le cache.
-             Modifier la classe ReadFromCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle lira l'ensemble des enregistrements dans le cache.
-
+             Modifier la classe WriteToCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la classe, elle écrira 10 nouveaux enregistrements dans le cache.
+             Modifier la classe ReadFromCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la classe, elle lira l'ensemble des enregistrements dans le cache.
              Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire les données.
 
 ##Exercice 12 : Clustering classique
