@@ -2,7 +2,6 @@ package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
 import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class Exercise4 implements WineService {
   @Resource
   private WineMysql mysql;
 
-  @Resource
+  //TODO : add @Resource annotation on this field and create a class of the type CacheWriter
   private CacheWriter cacheWriter;
 
   private Cache wineCache;
@@ -55,8 +54,8 @@ public class Exercise4 implements WineService {
 
   @Override
   public Wine create(Wine wine) {
-    wineCache.putWithWriter(new Element(wine.getId(), wine));
-    return null;
+    //TODO
+    throw new RuntimeException("non implemented");
   }
 
   @Override

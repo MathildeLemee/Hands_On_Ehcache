@@ -5,7 +5,6 @@ import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Status;
 import net.sf.ehcache.loader.CacheLoader;
 import org.coenraets.service.WineMysql;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ import javax.annotation.Resource;
  *
  * @author : Mathilde Lemee
  */
-@Service
+//add @Service to make it work
 public class MyCacheLoader implements CacheLoader {
   @Resource
   public WineMysql wineMysql;

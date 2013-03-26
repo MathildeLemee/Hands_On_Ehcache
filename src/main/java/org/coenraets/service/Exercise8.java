@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * FRS
+ *
+ * @MathildeLemee
  */
 @Service
 public class Exercise8 implements WineService {
   private Cache wineCache;
 
   public Exercise8() {
+    //TODO
     this.wineCache = null;
   }
 

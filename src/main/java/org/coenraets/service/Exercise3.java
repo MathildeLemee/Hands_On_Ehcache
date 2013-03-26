@@ -20,7 +20,7 @@ public class Exercise3 implements WineService {
   @Resource
   private WineMysql mysql;
 
-  @Resource
+  //TODO : add @Resource annotation on this field and create a class of the type CacheWriter
   private CacheWriter cacheWriter;
 
   private Cache wineCache;
@@ -44,11 +44,9 @@ public class Exercise3 implements WineService {
 
   @Override
   public Wine findById(long id) {
-    Element element = wineCache.get(id);
-    if (element != null) {
-      return (Wine)element.getObjectValue();
-    }
-    return null;
+    //TODO
+    throw new RuntimeException("non implemented");
+
   }
 
   @Override

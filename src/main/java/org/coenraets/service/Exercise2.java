@@ -1,8 +1,8 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
 import org.coenraets.model.Wine;
-import org.coenraets.service.tips.MyCacheEntryFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +19,8 @@ public class Exercise2 implements WineService {
   @Resource
   WineMysql mysql;
 
-  @Resource
-  MyCacheEntryFactory myCacheEntryFactory;
+  //TODO : add @Resource annotation on this field and create a class of the type CacheEntryFactory
+  CacheEntryFactory myCacheEntryFactory;
 
   private Ehcache selfPopulatingCache;
 
@@ -48,7 +48,7 @@ public class Exercise2 implements WineService {
    * C'est au cache qu'il faut indiquer comment se mettre à jour en cas d'objet non présent dans le cache
    */
   public Wine findById(long id) {
-    return null;
+    throw new RuntimeException("non implemented");
   }
 
   @Override

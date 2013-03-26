@@ -21,7 +21,7 @@ public class Exercise6 implements WineService {
   @Resource
   private WineMysql mysql;
 
-  @Resource
+  //TODO : add @Resource annotation on this field and create a class of the type CacheWriter
   private CacheWriter cacheWriter;
 
   private Cache wineCache;

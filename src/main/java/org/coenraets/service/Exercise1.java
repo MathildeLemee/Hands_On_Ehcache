@@ -41,7 +41,7 @@ public class Exercise1 implements WineService {
   @Override
   public Wine findById(long id) {
     //TODO
-    return null;
+    throw new RuntimeException("non implemented");
   }
 
   @Override
