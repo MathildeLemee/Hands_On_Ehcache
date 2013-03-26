@@ -1,3 +1,12 @@
 TIPS 1 :
-      Utiliser un SelfPopulatingCache
-      Lui passer un objet implémentant un CacheEntryFactory. L'écriture en base se fera dans la méthode createEntry
+      Créer un cache nommé internalCache, le plus basique possible :
+      CacheConfiguration cacheConfig =  new CacheConfiguration("readThrough", 1000);
+      Cache internalCache = new Cache(cacheConfig);
+      manager.addCache(internalCache);
+
+      Définir le cache selfPopulatingCache comme etant une instance de  SelfPopulatingCache :
+      passer au constructeur l'objet cacheInternal ainsi qu'un objet implémentant un CacheEntryFactory.
+      L'écriture en base se fera dans la méthode createEntry
+
+  TIPS 2 :
+      Vous pouvez utiliser la classe MyCacheEntryFactory fournie dans ce repertoire.
