@@ -8,7 +8,10 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
 #Prérequis :
     Maven
     Git
-    Bigmemory go + license http://www.terracotta.org/downloads/bigmemorygo?set=1
+    git clone https://github.com/MathildeLemee/Hands_On_Ehcache.git
+    mvn clean install
+    mvn jetty:run
+    Télécharger BigMemoryMax  + obtenir une license ici : http://www.terracotta.org/downloads/bigmemorymax?set=1
     
 #Partie 1
 
