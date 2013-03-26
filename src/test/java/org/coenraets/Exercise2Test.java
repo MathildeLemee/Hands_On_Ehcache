@@ -2,6 +2,7 @@ package org.coenraets;
 
 import net.sf.ehcache.constructs.blocking.CacheEntryFactory;
 import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
+import net.sf.ehcache.loader.CacheLoader;
 import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.service.Exercise2;
 import org.coenraets.service.WineMysql;
@@ -94,5 +95,9 @@ public class Exercise2Test extends AbstractJUnit4SpringContextTests {
   @Resource
   @WrapWithSpy
   CacheWriter myCacheWriter;
+  @Resource
+  @WrapWithSpy
+  CacheLoader myCacheLoader;
+
 
 }

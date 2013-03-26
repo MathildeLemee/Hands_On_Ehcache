@@ -1,8 +1,8 @@
 package org.coenraets;
 
+import net.sf.ehcache.Cache;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.constructs.refreshahead.RefreshAheadCache;
 import net.sf.ehcache.loader.CacheLoader;
 import org.coenraets.service.Exercise6;
 import org.coenraets.service.WineMysql;
@@ -55,14 +55,14 @@ public class Exercise6Test {
 
 
   @Test
-  public void when_refresh_ahead_then_cache_is_intance_of_RefreshAheadCache() throws InterruptedException {
+  public void when_schedule_refresh_then_cache_is_intance_of_Cache() throws InterruptedException {
     Ehcache cache = exercise6.getCache();
-    assertThat(cache).isInstanceOf(RefreshAheadCache.class);
+    assertThat(cache).isInstanceOf(Cache.class);
   }
 
 
   @Test
-  public void when_refresh_ahead_then_data_is_updated_asynchronously() throws InterruptedException {
+  public void when_schedule_refresh_then_data_is_updated_asynchronously() throws InterruptedException {
     Ehcache cache = exercise6.getCache();
     cache.put(new Element("1", "2"));
     Thread.sleep(4000);
