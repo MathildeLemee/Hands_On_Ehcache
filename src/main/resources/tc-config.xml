@@ -9,12 +9,12 @@
 
   <servers>
       <server host="localhost" name="server1" bind="monipA">
-        <data>/opt/terracotta/server1-data</data>
+        <data>server1-data</data>
         <tsa-port>9510</tsa-port>
         <tsa-group-port>9515</tsa-group-port>
       </server>
       <server host="localhost" name="server2" bind="monipB">
-        <data>/opt/terracotta/server2-data</data>
+        <data>server2-data</data>
         <tsa-port>9520</tsa-port>
         <tsa-group-port>9525</tsa-group-port>
       </server>
