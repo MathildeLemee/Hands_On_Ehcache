@@ -1,28 +1,54 @@
 package org.coenraets.service;
 
+import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
+import net.sf.ehcache.config.CacheConfiguration;
+import net.sf.ehcache.config.Configuration;
+import net.sf.ehcache.config.DiskStoreConfiguration;
+import net.sf.ehcache.config.PersistenceConfiguration;
+import net.sf.ehcache.config.SearchAttribute;
+import net.sf.ehcache.config.Searchable;
+import net.sf.ehcache.search.Query;
+import net.sf.ehcache.search.Result;
+import net.sf.ehcache.search.Results;
+import net.sf.ehcache.search.expression.EqualTo;
+import net.sf.ehcache.search.expression.ILike;
 import org.coenraets.model.Wine;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 /**
- * Ehcache ARC and Terracotta Management Console
+ * Search exercise
  * <p/>
- * using several caches
+ * Using the cache as SOR, searching directly into it
  *
  * @author Aurelien Broszniowski
  */
+@Service
 public class Exercise7 implements WineService {
 
-  private Ehcache cache1;
-  private Ehcache cache2;
-  private Ehcache cache3;
+  private Ehcache cache;
+
+  @Resource
+  private WineMysql mysql;
 
   public Exercise7() {
-    //TODO : implement
+    Searchable searchable = new Searchable();
+    searchable.addSearchAttribute(new SearchAttribute().name("name"));
 
+    Configuration configuration = new Configuration().name("searchManager")
+        .diskStore(new DiskStoreConfiguration().path("searchManager"))
+        .cache(new CacheConfiguration("searchWine", 100000)
+//            .persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE))
+            .searchable(searchable)
+        );
+    CacheManager manager = CacheManager.newInstance(configuration);
+    cache = manager.getCache("searchWine");
   }
 
   @Override
@@ -32,7 +58,17 @@ public class Exercise7 implements WineService {
 
   @Override
   public List<Wine> findByName(final String name) {
-    return null;
+    Query query = cache.createQuery().addCriteria(new EqualTo("name", name)).includeValues().includeKeys();
+    final Results results = query.execute();
+    System.out.println("Ehcache 'findByName' query found " + results.size() + " results.");
+
+    final List<Result> all = results.all();
+    List<Wine> wineList = new ArrayList<Wine>();
+    for (Result result : all) {
+      wineList.add((Wine)result.getValue());
+    }
+
+    return wineList;
   }
 
   @Override
@@ -62,18 +98,23 @@ public class Exercise7 implements WineService {
 
   @Override
   public void clear() {
-    cache1.removeAll();
-    cache2.removeAll();
-    cache3.removeAll();
+    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   @Override
   public void init() {
-    //To change body of implemented methods use File | Settings | File Templates.
+    List<Wine> all = mysql.findAll();
+    for (Wine wine : all) {
+      cache.put(new Element(wine.getId(), wine));
+    }
+    System.out.println("-------->>>>cache.getSize() : " + cache.getSize());
   }
 
-  public List<Ehcache> getCaches() {
-    return Arrays.asList(cache1, cache2, cache3);
+  public Ehcache getCache() {
+    return cache;
   }
 
+  public void setCache(final Ehcache cache) {
+    this.cache = cache;
+  }
 }

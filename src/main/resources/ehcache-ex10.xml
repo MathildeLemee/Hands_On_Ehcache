@@ -1,12 +1,18 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
-         updateCheck="true" monitoring="autodetect"
+         updateCheck="true"
          dynamicConfig="true"
-         maxBytesLocalHeap="400m" maxBytesLocalOffHeap="400m">
+         maxBytesLocalHeap="400m" maxBytesLocalOffHeap="400m"
+         monitoring="on"
+      name="arcManager">
+
+  <managementRESTService enabled="true" bind="localhost:9888"/>
+
+  <diskStore path="arc"/>
 
   <cache eternal="false"
          timeToIdleSeconds="30"
-          timeToLiveSeconds="30"
+         timeToLiveSeconds="30"
          name="wine1"
          maxBytesLocalHeap="200m"
          overflowToOffHeap="true"
@@ -15,7 +21,7 @@
 
   <cache eternal="false"
          timeToIdleSeconds="30"
-          timeToLiveSeconds="30"
+         timeToLiveSeconds="30"
          name="wine2"
          overflowToOffHeap="true"
       >
@@ -23,7 +29,7 @@
 
   <cache eternal="false"
          timeToIdleSeconds="30"
-          timeToLiveSeconds="30"
+         timeToLiveSeconds="30"
          name="wine3"
          maxBytesLocalOffHeap="40%"
       >
