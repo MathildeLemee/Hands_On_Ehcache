@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+    >
+  <!--Ne sert que si quelqu'un a envie de lancer 2 server sur la meme machine
+  Lancer avec ./bin/start-tc-server.sh -f ../../../work/backbone-jax-cellar/src/main/resources/tc-config.xml -n server1
+ et ./bin/start-tc-server.sh -f ../../../work/backbone-jax-cellar/src/main/resources/tc-config.xml -n server2
+  -->
+  <servers>
+    <mirror-group group-name="team1">
+      <server host="localhost" name="server1">
+        <data>data1</data>
+        <tsa-port>9510</tsa-port>
+        <tsa-group-port>9500</tsa-group-port>
+      </server>
+    </mirror-group>
+    <mirror-group group-name="team2">
+
+      <server host="localhost" name="server2">
+        <data>data2</data>
+        <tsa-port>9550</tsa-port>
+        <tsa-group-port>9490</tsa-group-port>
+      </server>
+    </mirror-group>
+  </servers>
+
+
+</tc:tc-config>
