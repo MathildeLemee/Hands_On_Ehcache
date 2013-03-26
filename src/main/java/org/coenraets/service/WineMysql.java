@@ -1,7 +1,9 @@
 package org.coenraets.service;
 
 import org.coenraets.model.Wine;
+import org.h2.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -21,8 +23,7 @@ import javax.sql.DataSource;
 @Service
 public class WineMysql implements WineService {
 
-  @Autowired
-  public DataSource dataSource;
+  public DataSource dataSource = new SimpleDriverDataSource(new Driver(),"jdbc:h2:tcp://localhost:8092/data;DB_CLOSE_DELAY=-1;MVCC=TRUE","sa","");
 
   @Override
   public List<Wine> findAll() {
