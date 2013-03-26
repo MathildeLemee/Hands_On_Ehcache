@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 /**
- * Aide pour l'exo 3
+ * Aide pour l'exo 5
  *
  * @author : Mathilde Lemee
  */
