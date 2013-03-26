@@ -1,12 +1,8 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.config.MemoryUnit;
 import net.sf.ehcache.pool.sizeof.AgentSizeOf;
 import org.coenraets.util.WineBuilder;
 
@@ -31,13 +27,8 @@ public class Exercise10 {
   public static void main(String[] args) {
     Runtime runtime = Runtime.getRuntime();
 
-    Configuration config = new Configuration().cache(
-        new CacheConfiguration().name("offheap")
-            .maxBytesLocalHeap(300, MemoryUnit.MEGABYTES)
-            .maxBytesLocalOffHeap(1, MemoryUnit.GIGABYTES)
-    );
-    CacheManager cacheManager = CacheManager.newInstance(config);
-    Cache container = cacheManager.getCache("offheap");
+    //TODO
+    Cache container = null;
 
 
     AgentSizeOf sizeOfEngine = new AgentSizeOf();

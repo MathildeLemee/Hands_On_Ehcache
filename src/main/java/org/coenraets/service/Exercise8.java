@@ -1,11 +1,7 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.DiskStoreConfiguration;
-import net.sf.ehcache.config.PersistenceConfiguration;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +14,7 @@ public class Exercise8 implements WineService {
   private Cache wineCache;
 
   public Exercise8() {
-
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("frs")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("frs", 1000)
-          .persistence(new PersistenceConfiguration()
-              .strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE));
-      Cache cache = new Cache(cacheConfig);
-      manager.addCache(cache);
-    }
-    if (manager.getConfiguration().getDiskStoreConfiguration() == null) {
-      manager.getConfiguration().name("frs").diskStore(new DiskStoreConfiguration().path("frs_sav"));
-    }
-    this.wineCache = manager.getCache("frs");
+    this.wineCache = null;
   }
 
   @Override

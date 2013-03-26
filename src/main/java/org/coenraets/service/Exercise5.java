@@ -1,12 +1,7 @@
 package org.coenraets.service;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.constructs.refreshahead.RefreshAheadCache;
-import net.sf.ehcache.constructs.refreshahead.RefreshAheadCacheConfiguration;
 import net.sf.ehcache.loader.CacheLoader;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
@@ -31,20 +26,8 @@ public class Exercise5 implements WineService {
 
   @PostConstruct
   public void postConstruct() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("refreshAhead")) {
-      manager.addCache(new Cache(new CacheConfiguration().name("refreshAhead")
-          .maxEntriesLocalHeap(5000).eternal(true)));
-    }
-
-    RefreshAheadCacheConfiguration refreshConfig = new RefreshAheadCacheConfiguration().maximumRefreshBacklogItems(100)
-        .maximumRefreshBacklogItems(Integer.MAX_VALUE)
-        .name("refreshAhead")
-        .timeToRefreshSeconds(1)
-        .build();
-
-    wineCache = new RefreshAheadCache( manager.getCache("refreshAhead"), refreshConfig);
-    wineCache.registerCacheLoader(cacheLoader);
+    //TODO
+    wineCache = null;
   }
 
   @Override

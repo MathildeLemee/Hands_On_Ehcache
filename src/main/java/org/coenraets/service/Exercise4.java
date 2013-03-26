@@ -1,11 +1,8 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.CacheWriterConfiguration;
 import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
@@ -31,16 +28,8 @@ public class Exercise4 implements WineService {
 
   @PostConstruct
   public void postConstruct() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("writeBehind")) {
-      CacheConfiguration cacheConfig = new CacheConfiguration("writeBehind", 1000)
-          .cacheWriter(new CacheWriterConfiguration().writeMode(CacheWriterConfiguration.WriteMode.WRITE_BEHIND)
-          );
-      Cache cache = new Cache(cacheConfig);
-      manager.addCache(cache);
-    }
-    this.wineCache = manager.getCache("writeBehind");
-    wineCache.registerCacheWriter(cacheWriter);
+    //TODO
+    this.wineCache = null;
   }
 
   @Override

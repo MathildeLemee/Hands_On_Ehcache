@@ -1,18 +1,12 @@
 package org.coenraets.service;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.constructs.scheduledrefresh.ScheduledRefreshCacheExtension;
-import net.sf.ehcache.constructs.scheduledrefresh.ScheduledRefreshConfiguration;
 import net.sf.ehcache.writer.CacheWriter;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -34,21 +28,8 @@ public class Exercise6 implements WineService {
 
   @PostConstruct
   public void postConstruct() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("scheduleRefresh")) {
-      manager.addCache(new Cache(new CacheConfiguration().name("scheduleRefresh")
-          .maxEntriesLocalHeap(5000).eternal(true)));
-    }
-    wineCache = manager.getCache("refreshAhead");
-    //premiere mise a jour dans 3 secondes
-    int second = (new GregorianCalendar().get(Calendar.SECOND) + 3) % 60;
-    ScheduledRefreshConfiguration config = new ScheduledRefreshConfiguration()
-        .cronExpression(second + "/1 * * * * ?").build();
-    ScheduledRefreshCacheExtension cacheExtension = new ScheduledRefreshCacheExtension(
-        config, wineCache);
-    cacheExtension.init();
-    wineCache.registerCacheExtension(cacheExtension);
-
+    //TODO
+    wineCache = null;
   }
 
   @Override

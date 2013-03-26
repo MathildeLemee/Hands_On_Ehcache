@@ -1,11 +1,6 @@
 package org.coenraets.service;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
-import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.constructs.blocking.SelfPopulatingCache;
 import org.coenraets.model.Wine;
 import org.coenraets.service.tips.MyCacheEntryFactory;
 import org.springframework.stereotype.Service;
@@ -31,15 +26,8 @@ public class Exercise2 implements WineService {
 
   @PostConstruct
   public void postContruct() {
-    CacheManager manager = CacheManager.getInstance();
-    if (!manager.cacheExists("readThrough")) {
-      CacheConfiguration cacheConfig =  new CacheConfiguration("readThrough", 1000);
-      Cache cache = new Cache(cacheConfig);
-      manager.addCache(cache);
-    }
-    System.out.println("myCache "+myCacheEntryFactory);
-    Cache wine = manager.getCache("readThrough");
-    selfPopulatingCache = new SelfPopulatingCache(wine, myCacheEntryFactory);
+    //TODO
+    selfPopulatingCache = null;
   }
 
 
@@ -60,11 +48,7 @@ public class Exercise2 implements WineService {
    * C'est au cache qu'il faut indiquer comment se mettre à jour en cas d'objet non présent dans le cache
    */
   public Wine findById(long id) {
-    Element element = selfPopulatingCache.get(id);
-    if (element == null) {
-      return null;
-    }
-    return (Wine)element.getObjectValue();
+    return null;
   }
 
   @Override
