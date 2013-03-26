@@ -24,7 +24,7 @@ public class Exercise9 implements WineService {
   private Ehcache cache3;
 
   public Exercise9() {
-    URL url = getClass().getResource("/ehcache-ex7.xml");
+    URL url = getClass().getResource("/ehcache-ex9.xml");
     CacheManager cacheManager = CacheManager.newInstance(url);
     cache1 = cacheManager.getEhcache("wine1");
     cache2 = cacheManager.getEhcache("wine2");
