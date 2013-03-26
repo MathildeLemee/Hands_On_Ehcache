@@ -2,5 +2,5 @@ TIPS 1 :
       un simple appel à cache.put ne déclenchera pas un write dans la base de données.
       Il faut utiliser cache.putWithWriter
 
-TIPS 2 : Créer une configuration cache writer
+TIPS 2 : Créer une configuration cacheWriter
          Instantier un objet qui implémente CacheWriter (et surtout sa méthode write)
