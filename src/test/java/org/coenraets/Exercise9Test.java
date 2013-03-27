@@ -16,8 +16,6 @@ import java.util.List;
  *
  * -XX:MaxDirectMemorySize=500m -Xmx600m -Xms600m
  *
- *
- *
  * http://localhost:9889/tmc/
  *
  */

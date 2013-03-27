@@ -10,6 +10,7 @@ import net.sf.ehcache.config.MemoryUnit;
 import net.sf.ehcache.pool.sizeof.AgentSizeOf;
 import org.coenraets.util.WineBuilder;
 
+import java.net.URL;
 import java.util.Random;
 
 /**
@@ -31,14 +32,9 @@ public class Exercise10 {
   public static void main(String[] args) {
     Runtime runtime = Runtime.getRuntime();
 
-    Configuration config = new Configuration().cache(
-        new CacheConfiguration().name("offheap")
-            .maxBytesLocalHeap(300, MemoryUnit.MEGABYTES)
-            .maxBytesLocalOffHeap(1, MemoryUnit.GIGABYTES)
-    );
-    CacheManager cacheManager = CacheManager.newInstance(config);
+    URL url = Exercise10.class.getResource("/ehcache-ex10.xml");
+    CacheManager cacheManager = CacheManager.newInstance(url);
     Cache container = cacheManager.getCache("offheap");
-
 
     AgentSizeOf sizeOfEngine = new AgentSizeOf();
     for (int i = 0; i < 10; i++) {
@@ -82,7 +78,7 @@ public class Exercise10 {
 
       while (true) {
 //        if (container.calculateOffHeapSize() > 0 && container.calculateOffHeapSize() < 200 * Mb) {
-        if (cnt > 14000000) {
+        if (cnt > 50000) {
           container.remove(rnd.nextInt(container.getSize()));
         }
         container.put(new Element(cnt++, WineBuilder.next()));
@@ -108,14 +104,15 @@ public class Exercise10 {
         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
       }
 
+      long start = System.currentTimeMillis();
       while (true) {
         int size = container.getSize();
         int key = rnd.nextInt(size);
-        long start = System.currentTimeMillis();
         container.get(key);
-        long end = System.currentTimeMillis();
-        if (size % 1000 == 0) {
+        if (size % 100000 == 0) {
+          long end = System.currentTimeMillis();
           System.out.println("Time taken to read from map: " + (end - start) + "ms for a size of " + size);
+          start = System.currentTimeMillis();
         }
       }
     }

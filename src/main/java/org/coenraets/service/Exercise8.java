@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * Bonus : Restartable store
+ *
  */
 @Service
 public class Exercise8 implements WineService {
