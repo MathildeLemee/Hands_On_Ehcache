@@ -1,5 +1,5 @@
 =====================================================
-Hands on Duchess fr - Cache et BigData
+Devoxx - Pratiques de cache avancées
 
 Code from the backbone cellar application developped by Christone Coenraets - https://github.com/ccoenraets/backbone-jax-cellar
 
