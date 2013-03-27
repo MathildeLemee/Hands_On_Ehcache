@@ -1,23 +1,11 @@
 package org.coenraets.service;
 
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.CacheConfiguration;
-import net.sf.ehcache.config.Configuration;
-import net.sf.ehcache.config.DiskStoreConfiguration;
-import net.sf.ehcache.config.PersistenceConfiguration;
-import net.sf.ehcache.config.SearchAttribute;
 import net.sf.ehcache.config.Searchable;
-import net.sf.ehcache.search.Query;
-import net.sf.ehcache.search.Result;
-import net.sf.ehcache.search.Results;
-import net.sf.ehcache.search.expression.EqualTo;
-import net.sf.ehcache.search.expression.ILike;
 import org.coenraets.model.Wine;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,16 +27,7 @@ public class Exercise7 implements WineService {
 
   public Exercise7() {
     Searchable searchable = new Searchable();
-    searchable.addSearchAttribute(new SearchAttribute().name("name"));
-
-    Configuration configuration = new Configuration().name("searchManager")
-        .diskStore(new DiskStoreConfiguration().path("searchManager"))
-        .cache(new CacheConfiguration("searchWine", 100000)
-//            .persistence(new PersistenceConfiguration().strategy(PersistenceConfiguration.Strategy.LOCALRESTARTABLE))
-            .searchable(searchable)
-        );
-    CacheManager manager = CacheManager.newInstance(configuration);
-    cache = manager.getCache("searchWine");
+     //TODO : implement
   }
 
   @Override
@@ -58,17 +37,9 @@ public class Exercise7 implements WineService {
 
   @Override
   public List<Wine> findByName(final String name) {
-    Query query = cache.createQuery().addCriteria(new EqualTo("name", name)).includeValues().includeKeys();
-    final Results results = query.execute();
-    System.out.println("Ehcache 'findByName' query found " + results.size() + " results.");
+   // TODO : implement
 
-    final List<Result> all = results.all();
-    List<Wine> wineList = new ArrayList<Wine>();
-    for (Result result : all) {
-      wineList.add((Wine)result.getValue());
-    }
-
-    return wineList;
+    return null;
   }
 
   @Override
@@ -98,7 +69,7 @@ public class Exercise7 implements WineService {
 
   @Override
   public void clear() {
-    //To change body of implemented methods use File | Settings | File Templates.
+    cache.removeAll();
   }
 
   @Override
