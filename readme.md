@@ -35,7 +35,7 @@ Sinon je vais la chercher en base de données et je la place dans mon cache
 Une fois que vous etes confiant, lancer le serveur jetty avec mvn jetty:run
 Rendez-vous sur la page exercise1.html  .
 Vous y verrez 2 lignes pour comparer la latence entre un appel à la base de données et l'équivalent en cache.
-
+[http://localhost:8080/cache/exercise1.html](http://localhost:8080/cache/exercise1.html)
 
 ##Exercice 2 :  Read-Trough
 Cache sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
@@ -44,7 +44,7 @@ c'est le cache qui saura comment aller la chercher.
 Indice : SelfPopulatingCache pourra surement vous aider :)
 
 
-Rendez vous sur la page exercise2.html pour voir le résultat
+Rendez vous sur la page [http://localhost:8080/cache/exercise2.html](http://localhost:8080/cache/exercise2.html) pour voir le résultat
 
 ##Exercice 3 : Write-Through
 Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
@@ -53,7 +53,7 @@ L'écriture devra etre synchronisée.
  
 Indice : Le cacheWriter pourra surement vous aider :)
  
-Rendez vous sur la page exercise3.html pour voir le résultat
+Rendez vous sur la page [http://localhost:8080/cache/exercise3.html](http://localhost:8080/cache/exercise3.html) pour voir le résultat
 
 ##Exercice 4 : Write-Behind
 Cache as a sytem-of-record : l'application ne voit plus que le cache, c'est le garant des données.
@@ -61,7 +61,7 @@ La donnée sera écrite dans le cache et c'est le cache qui saura reporter la do
 L'écriture devra etre asynchone.
 
 Tips : C'est très proche du Write-Through
-Rendez vous sur la page exercise4.html pour voir le résultat
+Rendez vous sur la page [http://localhost:8080/cache/exercise4.html](http://localhost:8080/cache/exercise4.html) pour voir le résultat
 
 
 ##Exercice 5 : Bonus : RefreshAhead
@@ -83,12 +83,10 @@ Créer un cache ScheduleRefresh qui se met à jour toutes les 3 secondes après 
 
 Vous pourrez utiliser le meme cacheLoader que définit à l'exercice 5.
 La configuration se fera via l'objet ScheduledRefreshConfiguration.
- Pour info, si vous souhaitez une mise à jour qui s'effectue 3 secondes après le lancement du test l'expression CRON
- est la suivante : second + "/1 * * * * ?" avec  int second = (new GregorianCalendar().get(Calendar.SECOND) + 3) % 60;
-  Pour attacher la configuration au cache, vous passerez via l'objet  ScheduledRefreshCacheExtension.
+Pour info, si vous souhaitez une mise à jour qui s'effectue 3 secondes après le lancement du test l'expression CRON est la suivante : second + "/1 * * * * ?" avec  int second = (new GregorianCalendar().get(Calendar.SECOND) + 3) % 60;
+Pour attacher la configuration au cache, vous passerez via l'objet  ScheduledRefreshCacheExtension.
 
-  Comme pour l'exercice précedent, il vous faudra alors attacher votre cacheLoader à votre cache. Vous pouvez réutilisez le meme que précedemment.
-
+Comme pour l'exercice précedent, il vous faudra alors attacher votre cacheLoader à votre cache. Vous pouvez réutilisez le meme que précedemment.
 
 
 #Partie 2
@@ -120,7 +118,7 @@ Toutes les données seront placées dans le cache et celui-ci, meme en cas de cr
 Indice : Pour stocker les données, il faut les placer sur le disque. Pour ca, il vous faudra activer l'option Fast Restart
 et définir lors de la configuration du cachemanager le path où seront stockés les données
 
-Aller ensuite sur la page exercise8.html insere une nouvelle valeur dans le cache par seconde. Elle affiche le nombre d'enregistrements.
+Aller ensuite sur la page [http://localhost:8080/cache/exercise8.html](http://localhost:8080/cache/exercise8.html) insere une nouvelle valeur dans le cache par seconde. Elle affiche le nombre d'enregistrements.
 Tuer brutalement jetty (killall java par exemple).
 Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
@@ -171,33 +169,34 @@ Dans le TMC, vérifiez que le cache se remplit, et la heap est chargé avec les 
 Essayez de changer les valeurs de la offheap, de la heap et regardez le comportement dans le TMC
 
 ##Exercice 11 : Clustering - sur la meme machine
-             Télécharger le dernier kit sur le site de terracotta.
-             Lancer un serveur terracotta.
-             Modifier la classe WriteToCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle écrira 10 nouveaux enregistrements dans le cache.
-             Modifier la classe ReadFromCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle lira l'ensemble des enregistrements dans le cache.
-
-             Lancer la classe CacheReader qui va se connecter au L2 (2eme Client) et y lire les données.
+Télécharger le dernier kit sur le site de terracotta.
+Lancer un serveur terracotta.
+Modifier la classe WriteToCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle écrira 10 nouveaux enregistrements dans le cache.
+Modifier la classe ReadFromCache pour y ajouter la configuration qui va se connecter au L2 (1er Client). Exécuter ensuite la class, elle lira l'ensemble des enregistrements dans le cache.
 
 ##Exercice 12 : Clustering classique
-              Trouver un autre binome pour faire l'exercice.
-              1 binome lance un serveur.
-              Les 2 binomes s'y connectent, l'un pour écrire des données, l'autre pour les lire.
+Trouver un autre binome pour faire l'exercice.
+1 binome lance un serveur.
+Les 2 binomes s'y connectent, l'un pour écrire des données, l'autre pour les lire.
 
 ##Exercice 13 : Un cache hautement disponible - réplication
-              Trouver un autre binome pour faire l'exercice.
-              1 binome lance un serveur actif
-              1 binome lance un serveur passif
-              Les 2 binomes se connectent sur l'actif.
-              Ecrivez des données.
-              Arreter (brutalement ou non) le serveur actif.
-              Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
-               présentes.
+Trouver un autre binome pour faire l'exercice.
+1 binome lance un serveur actif
+1 binome lance un serveur passif
+Les 2 binomes se connectent sur l'actif.
+Ecrivez des données.
+Arreter (brutalement ou non) le serveur actif.
+Vérifiez qu'automatiquement, les clients utilisent désormais le passif et que les données sont toujours bien
+présentes.
+
 ##Exercice 14 : Un cache partionné
-             Trouver un autre binome pour faire l'exercice.
-             1 binome lance un serveur actif
-             1 binome lance un autre serveur actif
-             Ecrivez des données.
-             Regarder via la TMC ce qu'il se passe.
+Trouver un autre binome pour faire l'exercice.
+1 binome lance un serveur actif
+1 binome lance un autre serveur actif
+Ecrivez des données.
+Regarder via la TMC ce qu'il se passe.
+Essayer de crasher un des serveurs ? Qu'est ce qu'il se passe?
+Relancer le, avez vous perdu des données ?
 
 
 #Partie 4
