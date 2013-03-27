@@ -1,0 +1,11 @@
+TIP 1:
+  Configurer un cache en mode Searchable
+    http://ehcache.org/documentation/apis/search#making-a-cache-searchable
+
+TIP 2:
+  Créer une query
+    http://ehcache.org/documentation/apis/search#creating-a-query
+
+TIP 3:
+  La query va chercher les objets Wine selon l'attribut name, et doit inclure les clefs et valeurs
+  L'objet Results va contenir les résultats Result. On créera une List<Wine> à partir de ces objets Result.

@@ -9,10 +9,21 @@ Code from the backbone cellar application developped by Christone Coenraets - ht
     Maven
     Git
     git clone https://github.com/MathildeLemee/Hands_On_Ehcache.git
-    mvn clean install
-    mvn jetty:run
     Télécharger BigMemoryMax  + obtenir une license ici : http://www.terracotta.org/downloads/bigmemorymax?set=1
     
+##Lancer la base de données
+
+    mvn clean compile exec:java
+
+La base de données va être crée et rempli de données, ceci prendra quelques secondes à quelques minutes suivant votre machine/
+
+##Compiler et lancer l'application:
+
+    export MAVEN_OPTS="-XX:MaxDirectMemorySize=10G -Xmx2G -Xms300m"
+    mvn  jetty:run -Dmaven.test.skip=true
+L'application est disponible sur [http://localhost:8080/cache](http://localhost:8080/cache)
+
+
 #Partie 1
 
 ##Exercice 1 :  Cache Aside
@@ -83,6 +94,24 @@ La configuration se fera via l'objet ScheduledRefreshConfiguration.
 #Partie 2
 
 ##Exercice 7 : Search
+Cet exercice va vous permettre de tester la fonctionnalité Search au sein du cache. Vous pouvez créer des requêtes en java en utilisant un langage dédié (DSL).
+Plus d'informations ici:
+http://ehcache.org/documentation/apis/search
+
+Il faut arriver à faire passer le test Exercise7Test en rajoutant le code nécessaire dans l'Exercise7.
+
+La première étape est de créer la bonne configuration du cache.
+En effet, pour qu'un cache puisse accepter des Query, il faut qu'il soit 'Searchable'.
+
+La seconde étape va être de créer la Query correcte
+La query va chercher les objets Wine selon l'attribut name, et doit inclure les clefs et valeurs.
+
+La dernière étape est de parcourir les résultats et de renvoyer une List<Wine> contenant les vins dont le nom soit celui passé en paramètre d'entrée (name)
+
+Lorsque le test passe, on peut vérifier si la recherche s'exécute correctement et comparer les performances par rapport à la requête équivalente en SQL dans la base de données.
+
+http://localhost:8080/cache/exercise7.html
+
 
 ##Exercice 8 - Bonus : Cache ou datastore ? - FRS
 Plus aucun appel à la base de données.
@@ -97,10 +126,49 @@ Relancer l'application et vérifier que le nombre d'élements est resté stable.
 
 
 ##Exercice 9 - Bonus : ARC
+Pour explorer l'allocation automatique de ressources (Automatic Resource Control), nous allons définir des caches avec différentes configurations.
+Nous commençons par utiliser la console de monitoring (Terracotta Monitoring Console).
+Pour cela il faut tout d'abord démarrer la console de monitoring.
+Il faut aller dans le répertoire du kit BigMemory, et lancer la console:
+   cd bigmemory-go-4.0.0
+   management-console/bin/start-tmc.sh
+      ou
+   management-console/bin/start-tmc.bat
+
+Vous pouvez accéder à la console ici:
+   http://localhost:9889/tmc
+
+Le but de cet exercice est de se baser sur la configuration existante
+   Hands_On_Ehcache/src/main/resources/ehcache-ex9.xml
+
+En lançant le test Exercise9Test, vous verrez que la configuration est incomplète.
+
+Des informations sont disponibles ici:
+http://jsoftbiz.wordpress.com/2011/08/01/ehcache-2-5-goes-beta-explanation-included/
+http://ehcache.org/documentation/configuration/cache-size
+
+Une fois que le test passe, vous pouvez lancer l'exercice:
+    http://localhost:8080/cache/exercise9.html
+
+et vérifier que les cache sont visibles dans la console de monitoring (il y à trois caches : Wine1, Wine2, Wine3
+
+A partir de là, sur la page exercise9, les boutons vous permettent de remplir les différents caches et vous pouvez explorer le comportement des caches dans la console de monitoring en cliquant dessus.
+Lorsque vous remplissez un cache, il sera remplit jusqu'à sa limite, et il peut éventuellement vider les autres caches si il a besoin d'espace mémoire.
 
 #Partie 3
 
 ##Exercice 10 : BigMemory
+Nous allons tester l'utilisation de la mémoire offheap comparé à la mémoire heap.
+
+Premièrement, si vous n'avez pas fait l'exercice 9 et utilisé la console de monitoring TMC, suivez les étapes de l'installation du TMC.
+Une fois que vous accédez au TMC sur
+ http://localhost:9889/tmc
+ne faites pas la suite de l'exercice 9, et arrêter jetty, puis exécutez la classe Exercice10
+Attention à bien utiliser les options de la VM:
+   -verbose:gc -Xms500m -Xmx500m  -XX:NewRatio=3 -XX:MaxDirectMemorySize=10G
+
+Dans le TMC, vérifiez que le cache se remplit, et la heap est chargé avec les Elements, ainsi que la offheap.
+Essayez de changer les valeurs de la offheap, de la heap et regardez le comportement dans le TMC
 
 ##Exercice 11 : Clustering - sur la meme machine
              Télécharger le dernier kit sur le site de terracotta.
