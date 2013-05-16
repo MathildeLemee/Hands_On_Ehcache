@@ -4,7 +4,7 @@
          dynamicConfig="true"
          monitoring="on"
          name="arcManager"
-         maxBytesLocalHeap="10M">
+         maxBytesLocalHeap="64M">
 
   <managementRESTService enabled="true" bind="localhost:9888"/>
 
