@@ -3,14 +3,15 @@
          updateCheck="true"
          dynamicConfig="true"
          monitoring="on"
-      name="arcManager">
+         name="arcManager"
+         maxBytesLocalHeap="128M">
 
   <managementRESTService enabled="true" bind="localhost:9888"/>
 
   <diskStore path="bm"/>
 
   <cache name="offheap"
-         maxBytesLocalHeap="300m"
+         maxBytesLocalHeap="64m"
          maxBytesLocalOffHeap="1G"
       >
   </cache>

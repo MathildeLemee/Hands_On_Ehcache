@@ -3,7 +3,8 @@
          updateCheck="true"
          dynamicConfig="true"
          monitoring="on"
-      name="arcManager">
+         name="arcManager"
+         maxBytesLocalHeap="64M">
 
   <managementRESTService enabled="true" bind="localhost:9888"/>
 
